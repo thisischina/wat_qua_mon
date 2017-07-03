@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="   
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd  
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	
+	<!-- 配置事务管理器 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- 注解事务 -->
+	<!-- <tx:annotation-driven transaction-manager="txManager" /> -->
+	<!-- 配置事务通知属性 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<!-- 定义事务传播属性 -->
+		<tx:attributes>
+			<tx:method name="update*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="save*" propagation="REQUIRED"  isolation="REPEATABLE_READ" />
+			<tx:method name="insert*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="set*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="remove*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="delete*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="change*" propagation="REQUIRED"  isolation="REPEATABLE_READ" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 配置事务切面 -->
+	<aop:config>
+		<aop:pointcut id="serviceOperation"
+			expression="execution(* com.hd.ibus.service.impl.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+	</aop:config>
+	
+</beans>

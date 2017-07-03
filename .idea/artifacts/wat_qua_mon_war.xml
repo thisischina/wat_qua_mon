@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="wat_qua_mon:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="wat_qua_mon-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="wat_qua_mon:war exploded" />
+    </root>
+  </artifact>
+</component>

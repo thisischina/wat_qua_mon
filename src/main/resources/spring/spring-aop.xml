@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="   
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd  
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- 日志aop -->
+		<bean id="loginHelper" class="com.hd.ibus.util.aop.log.LogAop" />
+	<aop:config>
+            <aop:aspect id="loginH" ref="loginHelper" order="1">
+                <aop:pointcut id="loginUser" expression="(execution(* com.hd.*.service.IbusProjectService.save*(..)))||(execution(* com.hd.*.service.IbusGatewayService.save*(..)))||(execution(* com.hd.*.service.IbusGroupService.save*(..)))||(execution(* com.hd.*.service.IbusNodeService.save*(..)))||(execution(* com.hd.*.service.IbusUserService.save*(..)))||
+                (execution(* com.hd.*.service.*.update*(..))) || (execution(* com.hd.*.service.*.delete*(..)))|| (execution(* com.hd.*.service.*.check*(..)))||  (execution(* com.hd.*.service.*.insert*Info(..)))" />
+                <aop:before method="beforeSleep" pointcut-ref="loginUser" />
+                <aop:after-returning method="afterSleep" pointcut-ref="loginUser" />
+            </aop:aspect>
+           
+        </aop:config>
+</beans>
