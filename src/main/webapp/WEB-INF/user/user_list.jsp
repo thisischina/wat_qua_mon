@@ -96,10 +96,11 @@
         }
 
         var loadDataGird = function() {
+            var account = $("#name").val();
             $.ajax({
-                    url : "${basepath }/user/listall",
+                    url : "${basepath }/user/listbysomething",
                     type : "post",
-                    data : {},
+                    data : {account:account},
                     datatype : "json",
                     success : function(data) {
                         $("#tbody").html("");
@@ -125,7 +126,7 @@
                                     last : '末页',
                                     onPageClick : function(event, page) {
                                         $.ajax({
-                                                url : "${basepath }/user/findList",
+                                                url : "${basepath }/user/listbysomething",
                                                 type : "post",
                                                 data : "pageNow="
                                                 + page,
@@ -196,7 +197,7 @@
                 <input type="text" class="form-control"
                        id="address" placeholder="编号">
             </div>
-            <button type="button" onclick="selectNode()" class="btn btn-info"  style='background: #4F81BD;border: 1px solod #4F81BD' >查询</button>
+            <button type="button" onclick="loadDataGird()" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >查询</button>
         </form>
     </div>
 </div>

@@ -34,11 +34,8 @@ public class UserServiceImpl implements UserService {
 
         PageBean pageBean = new PageBean(pageNow, pageSize);
         pageHelp.setPageBean(pageBean);
-        User u=new User();
-        u.setAccount("admin");
-        pageHelp.setObject(u);
 
-        List<User> users = this.userMapper.listPage(pageHelp);
+         List<User> users = this.userMapper.listPage(pageHelp);
         Integer total = this.userMapper.findTotal(pageHelp);
 
         return new DataGridResultInfo(total, users);

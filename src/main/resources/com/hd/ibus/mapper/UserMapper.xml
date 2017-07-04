@@ -26,11 +26,12 @@
 
   <!--分页查询列表-->
   <select id="listPage" parameterType="com.hd.ibus.util.PageHelp" resultMap="BaseResultMap">
-
     SELECT
     <include refid="Base_Column_List" />
     from user
+    <if test="object!=null">
     WHERE account=#{object.account}
+    </if>
 
     <if test="pageBean!=null">
       limit ${pageBean.start},${pageBean.pageSize}

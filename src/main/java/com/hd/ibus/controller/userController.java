@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hd.ibus.pojo.User;
 import com.hd.ibus.service.UserService;
 import com.hd.ibus.util.PageHelp;
+import com.hd.ibus.util.PageStr;
+import com.hd.ibus.util.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +44,18 @@ public class userController {
 	}
 
 	@RequestMapping("listbysomething")
-	public @ResponseBody DataGridResultInfo getListBySomething(HttpServletRequest request, Integer pageNow,Integer pageSize,PageHelp pageHelp)
+	public @ResponseBody DataGridResultInfo getListBySomething(HttpServletRequest request, Integer pageNow,Integer pageSize,PageHelp pageHelp,Model model)
 			throws IOException {
 		System.out.println("№listbysome");
 
+		String account= PageStr.getParameterStr("account",request,model);
+		pageHelp = new PageHelp();
+		User user;
+		if(!account.equals("")){
+			user=new User();
+			user.setAccount(account);
+			pageHelp.setObject(user);
+		}
 
 		return userService.findList(pageHelp,pageNow,pageSize);
 	}
