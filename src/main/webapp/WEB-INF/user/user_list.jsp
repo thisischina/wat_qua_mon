@@ -61,7 +61,7 @@
             str=str+ (index + 1)
                 + "</td>"
                 + "<td>"
-                + (item.userName == null ? "" : item.userName)
+                + (item.account == null ? "" : item.account)
                 + "</td>"
                 + "<td>"
                 +roleName
@@ -181,12 +181,32 @@
         </form> -->
     </div>
 </div>
+
+<div class='row' style="margin: 0px">
+    <div class='col-md-12'>
+        <form class="form-inline" role="form"
+              style='float: right;margin-bottom:10px;margin-top: 5px;margin-left: 5px '>
+            <div class="form-group">
+                <label class="sr-only">Email
+                    address</label> <input type="text" class="form-control"
+                                           id="name" placeholder="名称">
+            </div>
+            <div class="form-group">
+                <label class="sr-only">Password</label>
+                <input type="text" class="form-control"
+                       id="address" placeholder="编号">
+            </div>
+            <button type="button" onclick="selectNode()" class="btn btn-info"  style='background: #4F81BD;border: 1px solod #4F81BD' >查询</button>
+        </form>
+    </div>
+</div>
+
 <div class='row' style="margin: 0px">
     <div class='col-md-12'>
         <table class="table table-bordered">
             <thead style='background:#A8BC7B;color:#fff'>
             <tr>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>账号</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>用户名</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>手机</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>邮箱</th>
@@ -204,8 +224,8 @@
         <div class="dataTables_info" id="dynamic-table_info"
              style="float: left;">
             <c:if test="${ sessionScope.user.role==1}">
-                <a class="btn btn-info" style='background: #4F81BD;border: 1px solod #4F81BD'
-                   href="${basepath }/User/directAddUser.action"> <span
+                <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
+                   href="${basepath}/User/directAddUser.action"> <span
                         class="button-content">添加</span> </a>
             </c:if>
         </div>

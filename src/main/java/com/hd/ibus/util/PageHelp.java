@@ -2,10 +2,12 @@ package com.hd.ibus.util;
 
 import com.hd.ibus.pojo.IbusUser;
 
+import java.io.Serializable;
+
 /**
  * 分页工具类.
  */
-public class PageHelp {
+public class PageHelp implements Serializable{
     private static final long serialVersionUID = -3817231542610983296L;
 
     private Object object;

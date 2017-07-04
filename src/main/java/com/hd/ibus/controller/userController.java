@@ -30,15 +30,23 @@ public class userController {
 	@RequestMapping("user_list")
 	public String user(HttpServletRequest request,Model model){
 		System.out.println("№user_list");
-
 		return "user/user_list";
 	}
 	
 	@RequestMapping("listall")
-	public @ResponseBody DataGridResultInfo findList(HttpServletRequest request,Model model)
+	public @ResponseBody DataGridResultInfo findList(HttpServletRequest request, Integer pageNow,Integer pageSize,PageHelp pageHelp)
 			throws IOException {
 		System.out.println("№listall");
-		return userService.getListAll();
+		return userService.findList(pageHelp,pageNow,pageSize);
 	}
-	
+
+	@RequestMapping("listbysomething")
+	public @ResponseBody DataGridResultInfo getListBySomething(HttpServletRequest request, Integer pageNow,Integer pageSize,PageHelp pageHelp)
+			throws IOException {
+		System.out.println("№listbysome");
+
+
+		return userService.findList(pageHelp,pageNow,pageSize);
+	}
+
 }

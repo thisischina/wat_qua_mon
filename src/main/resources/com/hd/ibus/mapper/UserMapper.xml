@@ -25,6 +25,25 @@
   </select>
 
   <!--分页查询列表-->
+  <select id="listPage" parameterType="com.hd.ibus.util.PageHelp" resultMap="BaseResultMap">
+
+    SELECT
+    <include refid="Base_Column_List" />
+    from user
+    WHERE account=#{object.account}
+
+    <if test="pageBean!=null">
+      limit ${pageBean.start},${pageBean.pageSize}
+    </if>
+  </select>
+
+  <!-- 查询列表的总记录数 -->
+  <select id="findTotal" parameterType="com.hd.ibus.util.PageHelp"
+          resultType="int">
+
+    select count(*) from user
+
+  </select>
 
   <!--<insert id="insert" parameterType="com.hd.ibus.pojo.User">-->
     <!--insert into user (id, account, password,-->

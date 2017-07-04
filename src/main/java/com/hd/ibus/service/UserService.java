@@ -10,5 +10,5 @@ import com.hd.ibus.util.PageHelp;
 public interface UserService {
     public DataGridResultInfo getListAll();
 
-    DataGridResultInfo findList(PageHelp help, Integer pageNow, Integer pageSize);
+    public DataGridResultInfo findList(PageHelp help, Integer pageNow, Integer pageSize);
 }
