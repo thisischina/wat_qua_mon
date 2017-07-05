@@ -36,6 +36,9 @@
 
     <jsp:include page="${basepath}/main/js.jsp"></jsp:include>
 
+    <script type="text/javascript"
+            src="${basepath }/style/custom/js/jquery.twbsPagination.min.js"></script>
+
     <script type="text/javascript">
         jQuery(document).ready(function() {
             role = "${sessionScope.user.role }";
@@ -44,13 +47,7 @@
         });
 
         var createTable = function(index, item) {
-            var roleName = "";
-            if(item.role==1){
-                roleName="管理员"
-            }
-            if(item.role==2){
-                roleName="用户"
-            }
+            var roleName =item.roleId;
 
             var str = "";
             if(index%2==0){
@@ -64,13 +61,13 @@
                 + (item.account == null ? "" : item.account)
                 + "</td>"
                 + "<td>"
-                +roleName
-                + "</td>"
-                + "<td>"
                 + (item.tel == null ? "" : item.tel)
                 + "</td>"
                 + "<td>"
                 + (item.email == null ? "" : item.email)
+                + "</td>"
+                + "<td>"
+                +roleName
                 + "</td>";
 
             if(role==1){
@@ -90,18 +87,17 @@
                 str=str+ "</tr>	";
             }
 
-
-            //alert(item.userid)
             $("#tbody").append(str);
         }
 
         var loadDataGird = function() {
+
             var account = $("#name").val();
             $.ajax({
-                    url : "${basepath }/user/listbysomething",
+                    url : "${basepath }/user/selectListPage",
                     type : "post",
                     data : {account:account},
-                    datatype : "json",
+                    dataType : "json",
                     success : function(data) {
                         $("#tbody").html("");
                         $('#pagination_div').html("");
@@ -112,76 +108,46 @@
                         $.each(data.list, function(index, item) { //遍历返回的json
                             createTable(index, item);
                         });
+
                         //分页插件
-                        $('#pagination_div')
-                            .html(
-                                "<ul id='pagination' class='pagination-sm' style='float:right'></ul>");
-                        $('#pagination').twbsPagination(
-                                {
-                                    totalPages : data.pageCount,
-                                    visiblePages : 5,
-                                    first : '首页',
-                                    prev : '上一页',
-                                    next : '下一页',
-                                    last : '末页',
-                                    onPageClick : function(event, page) {
-                                        $.ajax({
-                                                url : "${basepath }/user/listbysomething",
-                                                type : "post",
-                                                data : "pageNow="
-                                                + page,
-                                                datatype : "json",
-                                                success : function(
-                                                    data) {
-                                                    $("#tbody")
-                                                        .html(
-                                                            "");
-                                                    if (data == null
-                                                        || data.total == 0) {
-                                                        return;
-                                                    }
-                                                    $
-                                                        .each(
-                                                            data.list,
-                                                            function(
-                                                                index,
-                                                                item) {
-                                                                createTable(
-                                                                    index,
-                                                                    item);
-                                                            });
-                                                }
-                                            });
+                        $('#pagination_div').html(
+                            "<ul id='pagination' class='pagination-sm' style='float:right'></ul>");
+                        $('#pagination').twbsPagination({
+                            totalPages : data.pageCount,
+                            visiblePages : 5,
+                            first : '首页',
+                            prev : '上一页',
+                            next : '下一页',
+                            last : '末页',
+                            onPageClick : function(event, page) {
+                                var account = $("#name").val();
+                                var page=page;
+                                $.ajax({
+                                    url : "${basepath }/user/selectListPage",
+                                    type : "post",
+                                    data : {pageNow:page,account:account},
+                                    dataType : "json",
+                                    success : function(data) {
+                                        $("#tbody").html("");
+
+                                        if (data == null|| data.total == 0) {
+                                            return;
+                                        }
+                                        $.each(data.list,function(index,item) {
+                                            createTable(index,item);
+                                        });
                                     }
                                 });
+                            }
+                        });
                         //分页插件end
-
                     }
                 });
         }
     </script>
+
 </head>
 <body>
-
-
-<div class='row' style="margin: 0px">
-    <div class='col-md-12'  style='height: 15px'>
-        <!-- <form class="form-inline" role="form"
-            style='float: right;margin-bottom:10px '>
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail2">Email
-                    address</label> <input type="email" class="form-control"
-                    id="exampleInputEmail2" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputPassword2">Password</label>
-                <input type="password" class="form-control"
-                    id="exampleInputPassword2" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-        </form> -->
-    </div>
-</div>
 
 <div class='row' style="margin: 0px">
     <div class='col-md-12'>
@@ -190,12 +156,7 @@
             <div class="form-group">
                 <label class="sr-only">Email
                     address</label> <input type="text" class="form-control"
-                                           id="name" placeholder="名称">
-            </div>
-            <div class="form-group">
-                <label class="sr-only">Password</label>
-                <input type="text" class="form-control"
-                       id="address" placeholder="编号">
+                                           id="name" placeholder="账号">
             </div>
             <button type="button" onclick="loadDataGird()" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >查询</button>
         </form>
@@ -224,11 +185,9 @@
         </table>
         <div class="dataTables_info" id="dynamic-table_info"
              style="float: left;">
-            <c:if test="${ sessionScope.user.role==1}">
                 <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
-                   href="${basepath}/User/directAddUser.action"> <span
-                        class="button-content">添加</span> </a>
-            </c:if>
+                   href="${basepath}/user/toadd">
+                    <span class="button-content">添加</span> </a>
         </div>
         <div id="pagination_div" style='float: right;padding-right: 0px'>
 

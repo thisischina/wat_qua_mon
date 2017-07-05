@@ -1,14 +1,15 @@
-package cn.itcast.ssm.mapper2;
+package com.hd.ibus.mapper;
 
-import cn.itcast.ssm.po2.Role;
-import cn.itcast.ssm.po2.RoleExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.hd.ibus.pojo.Role;
+import com.hd.ibus.util.PageHelp;
 
 public interface RoleMapper {
-    int countByExample(RoleExample example);
-
-    int deleteByExample(RoleExample example);
+    /**
+     * 根据传入对象的属性参数查询对象
+     * @param help
+     * @return Role
+     */
+    Role getObjectByPageHelp(PageHelp help);
 
     int deleteByPrimaryKey(Integer roleId);
 
@@ -16,13 +17,7 @@ public interface RoleMapper {
 
     int insertSelective(Role record);
 
-    List<Role> selectByExample(RoleExample example);
-
     Role selectByPrimaryKey(Integer roleId);
-
-    int updateByExampleSelective(@Param("record") Role record, @Param("example") RoleExample example);
-
-    int updateByExample(@Param("record") Role record, @Param("example") RoleExample example);
 
     int updateByPrimaryKeySelective(Role record);
 

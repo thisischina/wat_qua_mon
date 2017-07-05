@@ -1,4 +1,4 @@
-package cn.itcast.ssm.po2;
+package com.hd.ibus.pojo;
 
 public class Role {
     private Integer roleId;

@@ -1,5 +1,10 @@
 package com.hd.ibus.pojo;
 
+import com.hd.ibus.service.RoleService;
+import com.hd.ibus.util.PageHelp;
+
+import javax.annotation.Resource;
+
 public class User {
     private Integer id;
 
@@ -90,4 +95,25 @@ public class User {
     public void setPower(String power) {
         this.power = power == null ? null : power.trim();
     }
+
+
+//    @Resource
+//    RoleService roleService;
+//    public String getRoleName(Integer roleId){
+//    PageHelp pageHelp;
+//    Role r;
+//    Role r1=null;
+//    if(roleId!=null){
+//        pageHelp=PageHelp.getInstance();
+//        r=new Role();
+//        pageHelp.setObject(r);
+//        r1=roleService.getObject(pageHelp);
+//    }
+//    if(r1==null){
+//        return "未设置";
+//    }else{
+//        return r1.getName();
+//    }
+//    }
+
 }

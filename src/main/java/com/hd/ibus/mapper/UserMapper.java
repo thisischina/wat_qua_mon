@@ -18,4 +18,6 @@ public interface UserMapper {
 
     List<User> listPage(PageHelp help);
 
+    void insert(User user);
+
 }

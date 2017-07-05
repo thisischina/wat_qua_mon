@@ -1,5 +1,6 @@
 package com.hd.ibus.service;
 
+import com.hd.ibus.pojo.User;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.util.PageHelp;
 
@@ -8,7 +9,9 @@ import com.hd.ibus.util.PageHelp;
  * 可调用的接口
  */
 public interface UserService {
-    public DataGridResultInfo getListAll();
+    DataGridResultInfo getListAll();
 
-    public DataGridResultInfo findList(PageHelp help, Integer pageNow, Integer pageSize);
+    DataGridResultInfo findList(PageHelp help, Integer pageNow, Integer pageSize);
+
+    void insert(User user);
 }

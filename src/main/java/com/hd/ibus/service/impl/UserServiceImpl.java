@@ -30,14 +30,23 @@ public class UserServiceImpl implements UserService {
     public DataGridResultInfo findList(PageHelp pageHelp, Integer pageNow, Integer pageSize) {
         pageNow = pageNow == null ? PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW) : pageNow;
         pageSize = pageSize == null ? PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) : pageSize;
-        pageHelp = pageHelp == null ? new PageHelp() : pageHelp;
+        pageHelp = PageHelp.getInstance();
 
         PageBean pageBean = new PageBean(pageNow, pageSize);
         pageHelp.setPageBean(pageBean);
 
-         List<User> users = this.userMapper.listPage(pageHelp);
-        Integer total = this.userMapper.findTotal(pageHelp);
+        List<User> users = userMapper.listPage(pageHelp);
+        Integer total = userMapper.findTotal(pageHelp);
 
         return new DataGridResultInfo(total, users);
+    }
+
+    /**
+     * 添加
+     * @param user
+     * @return
+     */
+    public void insert(User user){
+        userMapper.insert(user);
     }
 }

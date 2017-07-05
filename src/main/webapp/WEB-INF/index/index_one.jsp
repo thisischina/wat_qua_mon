@@ -111,9 +111,9 @@
                     function projectInfo(){
                         jQuery('.nal_li').removeClass('active');
                         jQuery('#li_project').addClass('active');
-                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>用户管理</a></li>";
+                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:projectInfo();'>用户管理</a></li>";
                         $("#ultt").html(htmlss);
-                        document.getElementById("iframe").src="${basepath }/user/user_list";
+                        document.getElementById("iframe").src="${basepath }/user/tolist";
                     }
 				</script>
 			</div>

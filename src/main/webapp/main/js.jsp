@@ -23,3 +23,5 @@
         src="${basepath }/assets/js/minified/aui-production.min.js"></script>
 <script type="text/javascript"
         src="${basepath }/style/custom/js/jquery.twbsPagination.min.js"></script>
+
+<script type="text/javascript" src="${basepath }/style/My97DatePicker/WdatePicker.js"></script>

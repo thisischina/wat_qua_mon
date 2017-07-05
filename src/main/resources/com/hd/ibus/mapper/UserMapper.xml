@@ -18,19 +18,13 @@
     id, account, password, name, tel, email, unit_id, role_id, power
   </sql>
 
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List" />
-    from user
-  </select>
-
   <!--分页查询列表-->
   <select id="listPage" parameterType="com.hd.ibus.util.PageHelp" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     from user
     <if test="object!=null">
-    WHERE account=#{object.account}
+    WHERE account LIKE concat(concat('%',#{object.account}),'%')
     </if>
 
     <if test="pageBean!=null">
@@ -41,17 +35,19 @@
   <!-- 查询列表的总记录数 -->
   <select id="findTotal" parameterType="com.hd.ibus.util.PageHelp"
           resultType="int">
-
     select count(*) from user
+    <if test="object!=null">
+      WHERE account LIKE concat(concat('%',#{object.account}),'%')
+    </if>
 
   </select>
 
-  <!--<insert id="insert" parameterType="com.hd.ibus.pojo.User">-->
-    <!--insert into user (id, account, password,-->
-    <!--name, tel, email, unit_id,-->
-    <!--role_id, power)-->
-    <!--values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},-->
-    <!--#{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER},-->
-    <!--#{roleId,jdbcType=INTEGER}, #{power,jdbcType=VARCHAR})-->
-  <!--</insert>-->
+  <insert id="insert" parameterType="com.hd.ibus.pojo.User">
+    insert into user (id, account, password,
+    name, tel, email, unit_id,
+    role_id, power)
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER},
+    #{roleId,jdbcType=INTEGER}, #{power,jdbcType=VARCHAR})
+  </insert>
 </mapper>
