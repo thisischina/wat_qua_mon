@@ -3,7 +3,9 @@ package com.hd.ibus.mapper;
 import com.hd.ibus.pojo.User;
 import java.util.List;
 import com.hd.ibus.util.shenw.PageHelp;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserMapper {
 
     /**

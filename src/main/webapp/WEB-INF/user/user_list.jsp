@@ -67,22 +67,20 @@
                 +roleName
                 + "</td>";
 
-            if(role==1){
+//            if(role==1){
                 str=str+ "<td>"
                     + "<div class=''>"
-                    + "<a class='btn btn-xs btn-info' href='../User/directUpdateUser.action?id="
-                    + item.id
-                    + "' style='height:20px;font-size:10px;margin-right:4px'>"
+                    + "<a class='btn btn-xs btn-info' href='javascript:update('+item.id+');' "
+                    + "style='height:20px;font-size:10px;margin-right:4px'>"
                     + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                     + "</a>"
-                    + "<a class='btn btn-xs btn-danger' href='javascript:void(0)' onclick='deleteUser("
-                    + item.id
-                    + ")' style='height:20px;font-size:10px;'>"
+                    + "<a class='btn btn-xs btn-danger' href='javascript:delete('+item.id+')' "
+                    + "style='height:20px;font-size:10px;'>"
                     + "<i class='ace-icon fa fa-trash-o bigger-120'></i> 删除"
                     + "</a>" + "</div>" + "</td>" + "</tr>	";
-            }else{
+//            }else{
                 str=str+ "</tr>	";
-            }
+//            }
 
             $("#tbody").append(str);
         }
@@ -170,7 +168,7 @@
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>手机</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>邮箱</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>角色</th>
-
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
                 <c:if test="${ sessionScope.user.role==1}">
                     <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
                 </c:if>

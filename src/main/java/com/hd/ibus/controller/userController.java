@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hd.ibus.result.DataGridResultInfo;
-
 @Controller
 @RequestMapping("user")
 public class userController {
@@ -104,8 +103,9 @@ public class userController {
 		return userService.getAccountCount(pageHelp);
 	}
 
+	@ResponseBody
 	@RequestMapping("adduser")
-	public String addUser(User u,HttpServletRequest request,Model model){
+	public int addUser(User u,HttpServletRequest request,Model model){
 		String account=PageStr.getParameterStr("account",request,model);
 		String password=PageStr.getParameterStr("password",request,model);
 		String name=PageStr.getParameterStr("name",request,model);
@@ -117,8 +117,7 @@ public class userController {
 		u.setName(name);
 		u.setTel(tel);
 		u.setEmail(email);
-userService.insertUser(u);
-		return "1";
+		return userService.insertUser(u);
 	}
 
 }

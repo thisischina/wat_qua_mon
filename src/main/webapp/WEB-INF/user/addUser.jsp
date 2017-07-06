@@ -48,8 +48,9 @@
 			return
 		}
         var first = account.substring(0,1);
-        if (!((first >= 'a' && first <= 'z') || (first >= 'A' && first <= 'Z')){
-		alert1("温馨提醒","用户名必须以字母开头");
+        if (!(first >= 'a' && first <= 'z') || (first >= 'A' && first <= 'Z'))
+		{
+		alert("用户名必须以字母开头");
 		return;
         }
 		//判断用户是否已存在
@@ -64,6 +65,7 @@
 				    alert("用户已存在");
 				    return;
 				}else{
+
 				    //添加用户
                     $.ajax({
                         url:"${basepath}/user/adduser",
@@ -76,7 +78,7 @@
                             if(data>0){
                                 alert("添加成功");
                                 changeTitle2();
-                                window.location.href='${basepath}/user/user_list';
+                                window.location.href='${basepath}/user/tolist';
 							}
                         }
                     });
