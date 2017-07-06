@@ -1,7 +1,7 @@
 package com.hd.ibus.mapper;
 
 import com.hd.ibus.pojo.Role;
-import com.hd.ibus.util.PageHelp;
+import com.hd.ibus.util.shenw.PageHelp;
 
 public interface RoleMapper {
     /**

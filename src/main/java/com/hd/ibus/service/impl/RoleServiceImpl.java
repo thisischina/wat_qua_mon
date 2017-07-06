@@ -4,7 +4,7 @@ import com.hd.ibus.mapper.RoleMapper;
 import com.hd.ibus.pojo.Role;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.service.RoleService;
-import com.hd.ibus.util.PageHelp;
+import com.hd.ibus.util.shenw.PageHelp;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 

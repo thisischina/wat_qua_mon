@@ -11,7 +11,7 @@
 <head>
     <jsp:include page="${basepath}/main/css.jsp"></jsp:include>
 
-    <title>Cloud Admin | Dashboard</title>
+    <title>用户列表</title>
 
     <style type="text/css">
         #pagination {
@@ -35,9 +35,6 @@
     </style>
 
     <jsp:include page="${basepath}/main/js.jsp"></jsp:include>
-
-    <script type="text/javascript"
-            src="${basepath }/style/custom/js/jquery.twbsPagination.min.js"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function() {
@@ -92,9 +89,9 @@
 
         var loadDataGird = function() {
 
-            var account = $("#name").val();
+            var account = $("#account").val();
             $.ajax({
-                    url : "${basepath }/user/selectListPage",
+                    url : "${basepath }/user/getlist",
                     type : "post",
                     data : {account:account},
                     dataType : "json",
@@ -120,10 +117,10 @@
                             next : '下一页',
                             last : '末页',
                             onPageClick : function(event, page) {
-                                var account = $("#name").val();
+                                var account = $("#account").val();
                                 var page=page;
                                 $.ajax({
-                                    url : "${basepath }/user/selectListPage",
+                                    url : "${basepath }/user/getlist",
                                     type : "post",
                                     data : {pageNow:page,account:account},
                                     dataType : "json",
@@ -156,7 +153,7 @@
             <div class="form-group">
                 <label class="sr-only">Email
                     address</label> <input type="text" class="form-control"
-                                           id="name" placeholder="账号">
+                                           id="account" placeholder="账号">
             </div>
             <button type="button" onclick="loadDataGird()" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >查询</button>
         </form>

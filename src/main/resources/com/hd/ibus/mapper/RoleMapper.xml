@@ -11,7 +11,7 @@
     role_id, name, power
   </sql>
 
-  <select id="getObjectByPageHelp" parameterType="com.hd.ibus.util.PageHelp"  resultMap="BaseResultMap">
+  <select id="getObjectByPageHelp" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from role

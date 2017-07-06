@@ -1,6 +1,6 @@
-package com.hd.ibus.util;
+package com.hd.ibus.util.shenw;
 
-import com.hd.ibus.pojo.IbusUser;
+import com.hd.ibus.util.PageBean;
 
 import java.io.Serializable;
 

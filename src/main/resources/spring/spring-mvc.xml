@@ -14,6 +14,7 @@
 	<mvc:annotation-driven conversion-service="conversionService" />
 	<mvc:resources location="/assets/" mapping="/assets/**"/>
 	<mvc:resources location="/style/" mapping="/style/**"/>
+	<mvc:resources location="/main/" mapping="/main/**"/>
 
 	<!-- 自定义参数绑定 -->
 	<bean id="conversionService"

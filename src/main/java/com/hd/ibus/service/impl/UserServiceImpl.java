@@ -6,8 +6,10 @@ import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.service.UserService;
 import com.hd.ibus.util.Config;
 import com.hd.ibus.util.PageBean;
-import com.hd.ibus.util.PageHelp;
+import com.hd.ibus.util.shenw.AES;
+import com.hd.ibus.util.shenw.PageHelp;
 import com.hd.ibus.util.PropertiesUtils;
+import com.hd.ibus.util.shenw.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,12 +23,6 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    public DataGridResultInfo getListAll(){
-        List<User> list=userMapper.selectAll();
-
-        return new DataGridResultInfo(1, list);
-    };
-
     public DataGridResultInfo findList(PageHelp pageHelp, Integer pageNow, Integer pageSize) {
         pageNow = pageNow == null ? PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW) : pageNow;
         pageSize = pageSize == null ? PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) : pageSize;
@@ -35,10 +31,17 @@ public class UserServiceImpl implements UserService {
         PageBean pageBean = new PageBean(pageNow, pageSize);
         pageHelp.setPageBean(pageBean);
 
-        List<User> users = userMapper.listPage(pageHelp);
+        List<User> users = userMapper.select(pageHelp);
         Integer total = userMapper.findTotal(pageHelp);
 
         return new DataGridResultInfo(total, users);
+    }
+
+    public  DataGridResultInfo getAccountCount(PageHelp help){
+        int count=userMapper.paramCount(help);
+        System.out.println("查询用户存在个数:"+count);
+
+        return new DataGridResultInfo(count, null);
     }
 
     /**
@@ -46,7 +49,16 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return
      */
-    public void insert(User user){
+    public int insertUser(User user){
+        System.out.println("密前:"+user.getPassword());
+        String account=user.getAccount();
+        String password=user.getPassword();
+
+        String passwordJM=AES.encryptGetStr(password,account);
+        System.out.println("密后:"+passwordJM);
+        user.setPassword(passwordJM);
         userMapper.insert(user);
+
+        return Value.IntegerNumOne;
     }
 }

@@ -107,7 +107,7 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 				<br><br><br>
 				<div>
 					<div class="form-group form-row">
-						<label class="" for="exampleInputEmail2" style='color:#fff'>账号：</label> 
+						<label class="" style='color:#fff'>账号：</label>
 					</div>
 					<div class="form-group form-row">
 						<input type="text" class="form-control"

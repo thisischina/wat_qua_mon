@@ -1,4 +1,3 @@
-<!-- AUI Framework -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -29,6 +28,14 @@
             var height = document.body.clientHeight //BODY对象高度
             jQuery('#iframe').height(height-120);
         }
+
+        function projectInfo(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:projectInfo();'>用户管理</a></li>";
+            $("#ultt").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/user/tolist";
+		}
 	</script>
 </head>
 <body style='overflow: hidden;'>
@@ -107,15 +114,6 @@
 				</ul>
 				<!-- /SIDEBAR MENU -->
 
-				<script>
-                    function projectInfo(){
-                        jQuery('.nal_li').removeClass('active');
-                        jQuery('#li_project').addClass('active');
-                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:projectInfo();'>用户管理</a></li>";
-                        $("#ultt").html(htmlss);
-                        document.getElementById("iframe").src="${basepath }/user/tolist";
-                    }
-				</script>
 			</div>
 		</div>
 		<!-- /SIDEBAR -->

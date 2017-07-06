@@ -5,6 +5,7 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <jsp:include page="${basepath}/main/css.jsp"></jsp:include>
 <title>新增</title>
@@ -35,29 +36,50 @@
 	}
 	
 	function saveUser(){
-		var userName=$('#userName').val();
+		var account=$('#account').val();
 		var password=$('#password').val();
-		var email=$('#email').val();
+        var name=$('#name').val();
 		var tel=$('#tel').val();
-		var role=$('#role').val();
-		if(userName==""||password==""){
+        var email=$('#email').val();
+        var unit_id=$('#unit_id').val();
+		var role_id=$('#role').val();
+		if(account==""||password==""){
 			alert("用户名或密码不能为空。");
 			return
 		}
+        var first = account.substring(0,1);
+        if (!((first >= 'a' && first <= 'z') || (first >= 'A' && first <= 'Z')){
+		alert1("温馨提醒","用户名必须以字母开头");
+		return;
+        }
 		//判断用户是否已存在
 		$.ajax({
-			url:"${basepath}/user/add",
+			url:"${basepath}/user/confirmexist",
 			type:"post",
-			data:{account:userName,password:password},
+			data:{account:account},
 			dataType:"json",
 			async:false,
 			success: function (data) {
-                if(data.state==1){
-                    alert("添加成功");
-//                    changeTitle2();
-                    window.location.href="${basepath }/user/tolist";
-                }else{
-                    alert("添加失败");
+				if(data.total>0){
+				    alert("用户已存在");
+				    return;
+				}else{
+				    //添加用户
+                    $.ajax({
+                        url:"${basepath}/user/adduser",
+                        type:"post",
+                        data:{account:account,password:password,name:name,tel:tel,
+                            email:email,unitId:unit_id,roleId:role_id},
+                        dataType:"json",
+                        async:false,
+                        success: function (data) {
+                            if(data>0){
+                                alert("添加成功");
+                                changeTitle2();
+                                window.location.href='${basepath}/user/user_list';
+							}
+                        }
+                    });
                 }
 			}
 		}); 
@@ -70,7 +92,8 @@
 
 <div id="page-content">
 	<h3>添加用户</h3>
-<div class="divider"></div>
+	<div class="divider"></div>
+
 		<div class="">
 			<div class="example-code clearfix">
 
@@ -80,7 +103,7 @@
 							<label> 用户名: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <input placeholder=""  id="userName" type="text"> 
+						 <input placeholder="以字母开头" id="account" type="text">
 						</div>
 						<div class="form-input col-md-1">
 						*
@@ -94,7 +117,7 @@
 							<label> 密码: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <input name="password" id="password" type="password" value=""> 
+						 <input id="password" type="password">
 						</div>
 						<div class="form-input col-md-1">
 						*
@@ -102,33 +125,59 @@
 					</div>
 					<div class="form-row">
 						<div class="form-label col-md-2">
+							<label> 姓名: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<input id="name" type="text">
+						</div>
+						<div class="form-input col-md-1">
+							*
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 电话: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<input id="tel" type="text">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 邮箱: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<input id="email" type="text">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 所属单位: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<select id='unit_id'>
+								<option value='1'>单位一</option>
+								<option value='2'>单位二</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
 							<label> 角色: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <select name='role' id='role'>
+						 <select id='role'>
 						 	<option value='1'>管理员</option>
 						 	<option value='2'>用户</option>
 						 </select>
 						 
 						</div>
 					</div>
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 邮箱: </label>
-						</div>
-						<div class="form-input col-md-5">
-						 <input placeholder="" name="email" id="email" type="text"> 
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 电话: </label>
-						</div>
-						<div class="form-input col-md-5">
-						 <input placeholder="" id="tel" name='tel' type="text">
-						</div>
-					</div>
-					
+
 					<div class="form-row">
 						<div class="form-label col-md-2">
 					

@@ -1,10 +1,5 @@
 package com.hd.ibus.pojo;
 
-import com.hd.ibus.service.RoleService;
-import com.hd.ibus.util.PageHelp;
-
-import javax.annotation.Resource;
-
 public class User {
     private Integer id;
 

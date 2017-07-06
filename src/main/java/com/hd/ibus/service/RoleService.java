@@ -2,7 +2,7 @@ package com.hd.ibus.service;
 
 import com.hd.ibus.pojo.Role;
 import com.hd.ibus.result.DataGridResultInfo;
-import com.hd.ibus.util.PageHelp;
+import com.hd.ibus.util.shenw.PageHelp;
 
 /**
  * Created by github:thisischina on 2017/6/30 0030.
