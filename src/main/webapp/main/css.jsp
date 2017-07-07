@@ -57,5 +57,3 @@
 
 <link rel="stylesheet" type="text/css"
       href="${basepath }/assets/themes/minified/agileui/animations.min.css">
-
-<!-- AgileUI JS -->

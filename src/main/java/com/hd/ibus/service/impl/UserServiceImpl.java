@@ -9,7 +9,6 @@ import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.shenw.AES;
 import com.hd.ibus.util.shenw.PageHelp;
 import com.hd.ibus.util.PropertiesUtils;
-import com.hd.ibus.util.shenw.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,7 +33,10 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.select(pageHelp);
         Integer total = userMapper.findTotal(pageHelp);
 
-        return new DataGridResultInfo(total, users);
+        DataGridResultInfo da=new DataGridResultInfo(total, users);
+
+        da.setPageNow(pageNow);
+        return da;
     }
 
     public  DataGridResultInfo getAccountCount(PageHelp help){
@@ -49,7 +51,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return
      */
-    public int insertUser(User user){
+    public void insertUser(User user){
         System.out.println("密前:"+user.getPassword());
         String account=user.getAccount();
         String password=user.getPassword();
@@ -59,6 +61,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordJM);
         userMapper.insert(user);
 
-        return Value.IntegerNumOne;
+    }
+
+    public User selectByKey(PageHelp help){
+        User u=userMapper.selectByKey(help);
+        return u;
     }
 }

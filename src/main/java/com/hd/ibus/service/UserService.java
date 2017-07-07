@@ -31,5 +31,11 @@ public interface UserService {
      * @param user
      * @return
      */
-    int insertUser(User user);
+    void insertUser(User user);
+
+    /**
+     * 按条件获取单个对象
+     * @param pageHelp
+     */
+    User selectByKey(PageHelp pageHelp);
 }

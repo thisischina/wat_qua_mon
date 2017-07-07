@@ -28,7 +28,9 @@ public class DataGridResultInfo {
 	 * 总页�?
 	 */
 	public int pageCount;
-	
+
+	public int pageNow;
+
 	public DataGridResultInfo() {
 		super();
 	}
@@ -70,7 +72,13 @@ public class DataGridResultInfo {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
-	
-	
+
+	public int getPageNow() {
+		return pageNow;
+	}
+
+	public void setPageNow(int pageNow) {
+		this.pageNow = pageNow;
+	}
 	
 }

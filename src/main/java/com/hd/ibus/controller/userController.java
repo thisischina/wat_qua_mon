@@ -1,21 +1,22 @@
 package com.hd.ibus.controller;
 
 import java.io.IOException;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.hd.ibus.pojo.User;
 import com.hd.ibus.service.UserService;
+import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.shenw.PageHelp;
 import com.hd.ibus.util.shenw.PageStr;
+import com.hd.ibus.util.shenw.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hd.ibus.result.DataGridResultInfo;
+
 @Controller
 @RequestMapping("user")
 public class userController {
@@ -23,8 +24,19 @@ public class userController {
 	private UserService userService;
 
 	@RequestMapping("tolist")
-	public String toUserList(HttpServletRequest request,Model model){
+	public String toUserList(HttpServletRequest request,Model model,PageHelp pageHelp){
 		System.out.println("№user_list");
+		//
+		if(pageHelp!=null&&pageHelp.getPageBean()!=null){
+			model.addAttribute(pageHelp);
+		}else{
+			pageHelp=PageHelp.getInstance();
+			PageBean pageBean=new PageBean();
+			pageBean.setPageNow(1);
+			pageHelp.setPageBean(pageBean);
+			model.addAttribute(pageHelp);
+		}
+
 		return "user/user_list";
 	}
 
@@ -32,6 +44,26 @@ public class userController {
 	public String toAddUser(HttpServletRequest request,Model model){
 		System.out.println("№user_list");
 		return "user/addUser";
+	}
+
+	@RequestMapping("toupdate")
+	public String toUpdate(HttpServletRequest request,Model model,Integer id,Integer pageNow){
+		System.out.println("№toupdate");
+		PageHelp pageHelp=PageHelp.getInstance();
+
+		User u=new User();
+		u.setId(id);
+		pageHelp.setObject(u);
+
+		//存储更新记录所在页数
+		pageHelp.getPageBean().setPageNow(pageNow);
+
+		User user=userService.selectByKey(pageHelp);
+
+		model.addAttribute(user);
+		model.addAttribute(pageHelp);
+
+		return "user/updateuser";
 	}
 
 	/**
@@ -47,7 +79,7 @@ public class userController {
 	@RequestMapping("getlist")
 	public @ResponseBody DataGridResultInfo getSelectListPage(HttpServletRequest request,HttpServletResponse response,Integer pageNow,Integer pageSize,PageHelp pageHelp,Model model)
 			throws IOException {
-		System.out.println("№:getlist");
+		System.out.println("№:getlist"+pageNow);
 
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -117,7 +149,9 @@ public class userController {
 		u.setName(name);
 		u.setTel(tel);
 		u.setEmail(email);
-		return userService.insertUser(u);
+		userService.insertUser(u);
+
+		return Value.IntNumOne;
 	}
 
 }

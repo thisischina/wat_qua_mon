@@ -1,4 +1,3 @@
-<!-- AUI Framework -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -43,8 +42,8 @@
             loadDataGird();
         });
 
-        var createTable = function(index, item) {
-            var roleName =item.roleId;
+        var createTable = function(index, item,pageNow) {
+            var roleName =item.name;
 
             var str = "";
             if(index%2==0){
@@ -70,11 +69,11 @@
 //            if(role==1){
                 str=str+ "<td>"
                     + "<div class=''>"
-                    + "<a class='btn btn-xs btn-info' href='javascript:update('+item.id+');' "
+                    + "<a class='btn btn-xs btn-info' href='${basepath}/user/toupdate?id="+item.id+"&pageNow="+pageNow+" ' "
                     + "style='height:20px;font-size:10px;margin-right:4px'>"
                     + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                     + "</a>"
-                    + "<a class='btn btn-xs btn-danger' href='javascript:delete('+item.id+')' "
+                    + "<a class='btn btn-xs btn-danger' href='javascript:delete("+item.id+")' "
                     + "style='height:20px;font-size:10px;'>"
                     + "<i class='ace-icon fa fa-trash-o bigger-120'></i> 删除"
                     + "</a>" + "</div>" + "</td>" + "</tr>	";
@@ -89,11 +88,12 @@
 
             var account = $("#account").val();
             $.ajax({
-                    url : "${basepath }/user/getlist",
+                    url : "${basepath }/user/getlist?pageNow="+${pageHelp.pageBean.pageNow},
                     type : "post",
                     data : {account:account},
                     dataType : "json",
                     success : function(data) {
+
                         $("#tbody").html("");
                         $('#pagination_div').html("");
 
@@ -101,7 +101,7 @@
                             return;
                         }
                         $.each(data.list, function(index, item) { //遍历返回的json
-                            createTable(index, item);
+                            createTable(index, item,data.pageNow);
                         });
 
                         //分页插件
@@ -116,7 +116,6 @@
                             last : '末页',
                             onPageClick : function(event, page) {
                                 var account = $("#account").val();
-                                var page=page;
                                 $.ajax({
                                     url : "${basepath }/user/getlist",
                                     type : "post",
@@ -129,7 +128,7 @@
                                             return;
                                         }
                                         $.each(data.list,function(index,item) {
-                                            createTable(index,item);
+                                            createTable(index,item,data.pageNow);
                                         });
                                     }
                                 });

@@ -49,6 +49,15 @@
     </if>
   </select>
 
+  <select id="selectByKey" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from user
+    <if test="object!=null">
+      WHERE id = #{object.id}
+    </if>
+  </select>
+
   <insert id="insert" parameterType="com.hd.ibus.pojo.User">
     insert into user (id, account, password,
     name, tel, email, unit_id,

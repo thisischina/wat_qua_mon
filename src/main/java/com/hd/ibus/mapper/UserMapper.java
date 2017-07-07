@@ -23,6 +23,13 @@ public interface UserMapper {
     List<User> select(PageHelp help);
 
     /**
+     * 根据条件查找获取单个对象
+     * @param help
+     * @return User
+     */
+    User selectByKey(PageHelp help);
+
+    /**
      * 按条件查询记录数
      * @param help
      * @return
