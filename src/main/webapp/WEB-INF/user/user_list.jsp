@@ -37,7 +37,6 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function() {
-            role = "${sessionScope.user.role }";
 
             loadDataGird();
         });
@@ -57,26 +56,33 @@
                 + (item.account == null ? "" : item.account)
                 + "</td>"
                 + "<td>"
+                + (item.name == null ? "" : item.name)
+                + "</td>"
+                + "<td>"
                 + (item.tel == null ? "" : item.tel)
                 + "</td>"
                 + "<td>"
                 + (item.email == null ? "" : item.email)
                 + "</td>"
                 + "<td>"
+                + (item.unitId == null ? "" : item.unitId)
+                + "</td>"
+                + "<td>"
                 +roleName
                 + "</td>";
 
 //            if(role==1){
-                str=str+ "<td>"
-                    + "<div class=''>"
-                    + "<a class='btn btn-xs btn-info' href='${basepath}/user/toupdate?id="+item.id+"&pageNow="+pageNow+" ' "
-                    + "style='height:20px;font-size:10px;margin-right:4px'>"
-                    + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
-                    + "</a>"
-                    + "<a class='btn btn-xs btn-danger' href='javascript:delete("+item.id+")' "
-                    + "style='height:20px;font-size:10px;'>"
-                    + "<i class='ace-icon fa fa-trash-o bigger-120'></i> 删除"
-                    + "</a>" + "</div>" + "</td>" + "</tr>	";
+            str=str+ "<td>"
+                + "<div class=''>"
+                + "<a class='btn btn-xs btn-info' href='../user/toupdate?id="+item.id
+                + "' style='height:20px;font-size:10px;margin-right:4px'>"
+                + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
+                + "</a>"
+                + "<a class='btn btn-xs btn-danger' href='javascript:void(0)' onclick='deleteObject("
+                + item.id
+                + ")' style='height:20px;font-size:10px;'>"
+                + "<i class='ace-icon fa fa-trash-o bigger-120'></i> 删除"
+                + "</a>" + "</div>" + "</td>" + "</tr>	";
 //            }else{
                 str=str+ "</tr>	";
 //            }
@@ -85,7 +91,6 @@
         }
 
         var loadDataGird = function() {
-
             var account = $("#account").val();
             $.ajax({
                     url : "${basepath }/user/getlist?pageNow="+${pageHelp.pageBean.pageNow},
@@ -140,6 +145,21 @@
         }
     </script>
 
+    <script type="text/javascript">
+        function deleteObject(id){
+            var id=id;
+            $.ajax({
+                url : "${basepath }/user/delete",
+                type : "post",
+                data : {id:id},
+                dataType : "json",
+                success : function(data) {
+                    alert("删除成功");
+                    window,location.href='${basepath}/user/tolist';
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -164,8 +184,10 @@
             <tr>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>用户名</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>真实姓名</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>手机</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>邮箱</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>单位</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>角色</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
                 <c:if test="${ sessionScope.user.role==1}">

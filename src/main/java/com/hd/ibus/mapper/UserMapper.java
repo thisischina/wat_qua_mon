@@ -43,5 +43,11 @@ public interface UserMapper {
      */
     void insert(User user);
 
-    int delete();
+    /**
+     * 更新
+     * @param user
+     */
+    void update(User user);
+
+    int delete(Integer id);
 }

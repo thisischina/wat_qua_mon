@@ -1,13 +1,13 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <%
 	pageContext.setAttribute("basepath", request.getContextPath());
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-
 <head>
-<title>新增</title>
+<title>用户信息</title>
 
 <!-- Favicons -->
 
@@ -57,121 +57,80 @@
 	jQuery(document).ready(function(){
 		changeTitle();
 	});
-	
+
 	function changeTitle(){
-		$('#ultt', parent.document).html("");
-		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:UserInfo();'>用户信息</a></li>";
-		htmlss = htmlss + "<li>添加用户</li>"; 
+		var htmlss = $('#ultt', parent.document).html();
+		htmlss = htmlss + "<li>修改用户信息</li>"; 
 		$('#ultt', parent.document).html(htmlss);
 	}
 	
 	function changeTitle2(){
 		$('#ultt', parent.document).html("");
-		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:UserInfo();'>用户信息</a></li>";
+		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:projectInfo();'>用户信息</a></li>";
 		$('#ultt', parent.document).html(htmlss);
 	}
 	
-	function returnUser(){
-		changeTitle2();
-		window.location.href="${basepath }/User/user.action";
-	}
-	
-	function saveUser(){
-		var account=$('#account').val();
-		var password=$('#password').val();
-        var name=$('#name').val();
+	function update(){
+		var id=$('#id').val();
+		var  name=$('#name').val();
 		var tel=$('#tel').val();
-        var email=$('#email').val();
-        var unit_id=$('#unit_id').val();
-		var role_id=$('#role').val();
-		if(account==""||password==""){
-			alert("用户名或密码不能为空。");
+		var email=$('#email').val();
+		var unitId=$('#unitId').val();
+		var roleId=$('#roleId').val();
+        var power=$('#power').val();
+
+		if(tel==""){
+			alert("手机号不能为空。");
 			return
 		}
-        var first = account.substring(0,1);
-        if (!(first >= 'a' && first <= 'z') || (first >= 'A' && first <= 'Z'))
-		{
-		alert("用户名必须以字母开头");
-		return;
-        }
-		//判断用户是否已存在
-		$.ajax({
-			url:"${basepath}/user/confirmexist",
+		   $.ajax({
+			url:"${basepath }/user/update",
 			type:"post",
-			data:{account:account},
+			data:{id:id,name:name,tel:tel,email:email,unitId:unitId,roleId:roleId,power:power},
 			dataType:"json",
-			async:false,
 			success: function (data) {
-				if(data.total>0){
-				    alert("用户已存在");
-				    return;
+				if(data==1){
+					alert("修改成功");
+					changeTitle2();
+					window.location.href="${basepath }/user/tolist";
 				}else{
-
-				    //添加用户
-                    $.ajax({
-                        url:"${basepath}/user/adduser",
-                        type:"post",
-                        data:{account:account,password:password,name:name,tel:tel,
-                            email:email,unitId:unit_id,roleId:role_id},
-                        dataType:"json",
-                        async:false,
-                        success: function (data) {
-                            if(data>0){
-                                alert("添加成功");
-                                changeTitle2();
-                                window.location.href='${basepath}/user/tolist';
-							}
-                        }
-                    });
-                }
+					alert("添加失败");
+				}
 			}
-		}); 
+		});
+		
 	}
 
 </script>
 
 </head>
 <body>
-
 <div id="page-content">
-	<h3>添加用户</h3>
-	<div class="divider"></div>
-
+	<h3>修改项目信息</h3>
+<div class="divider"></div>
 		<div class="">
 			<div class="example-code clearfix">
-
+				<input type="hidden" id="id" name='id' value='${user.id }'>
 				<form action="" class="col-md-20 center-margin" method="get">
 					<div class="form-row">
 						<div class="form-label col-md-2">
 							<label> 用户名: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <input placeholder="以字母开头" id="account" type="text">
+						 <input type="text" value="${user.account}" readonly="readonly">
 						</div>
-						<div class="form-input col-md-1">
-						*
-						</div>
+
 						<div class="form-input col-md-2">
 						带*为必填项
 						</div>
 					</div>
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 密码: </label>
-						</div>
-						<div class="form-input col-md-5">
-						 <input id="password" type="password">
-						</div>
-						<div class="form-input col-md-1">
-						*
-						</div>
-					</div>
+
 					<div class="form-row">
 						<div class="form-label col-md-2">
 							<label> 姓名: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="name" type="text">
+							<input value='${user.name }' id="name" type="text">
 						</div>
 						<div class="form-input col-md-1">
 							*
@@ -183,7 +142,10 @@
 							<label> 电话: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="tel" type="text">
+							<input value='${user.tel }' id="tel" type="text">
+						</div>
+						<div class="form-input col-md-1">
+							*
 						</div>
 					</div>
 
@@ -192,18 +154,20 @@
 							<label> 邮箱: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="email" type="text">
+							<input id="email" type="text" value='${user.email}'>
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 所属单位: </label>
+							<label> 单位: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<select id='unit_id'>
-								<option value='1'>单位一</option>
+							<select id='unitId'>
+								<option value='1' selected>单位一</option>
 								<option value='2'>单位二</option>
+								<option value='3'>单位三</option>
+								<option value='4'>单位四</option>
 							</select>
 						</div>
 					</div>
@@ -213,11 +177,21 @@
 							<label> 角色: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <select id='role'>
-						 	<option value='1'>管理员</option>
-						 	<option value='2'>用户</option>
-						 </select>
-						 
+							<select id='roleId'>
+								<option value='1' selected>角色一</option>
+								<option value='2'>角色二</option>
+								<option value='3'>角色三</option>
+								<option value='4'>角色四</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 权限: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<input id="power" type="text" value='${user.power}'>
 						</div>
 					</div>
 
@@ -226,13 +200,14 @@
 					
 					</div>
 					<div class="form-label col-md-2">
-					<input class="btn medium primary-bg"  style="width:80px" value="提交" type="button" onclick="saveUser();"/>
+					<input class="btn medium primary-bg" style="width:80px" value="提交" type="button" onclick="update();"/>
 					
 					</div>
 					<div class="form-label col-md-2">
-					<input class="btn medium primary-bg" style="width:80px" value="返回" type="button" onclick="returnUser();"/>
+					<input class="btn medium primary-bg" style="width:80px" value="返回" type="button" onclick="window.location.href='${basepath}/user/tolist'"/>
 					</div>
 					</div>
+					
 				</form>
 
 			</div>

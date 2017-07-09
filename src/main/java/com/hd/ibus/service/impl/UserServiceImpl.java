@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
         return new DataGridResultInfo(count, null);
     }
 
+    public User selectByKey(PageHelp help){
+        User u=userMapper.selectByKey(help);
+        return u;
+    }
+
     /**
      * 添加
      * @param user
@@ -63,8 +68,19 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public User selectByKey(PageHelp help){
-        User u=userMapper.selectByKey(help);
-        return u;
+    /**
+     * 更新
+     * @param user
+     */
+    public void updateUser(User user){
+        userMapper.update(user);
+    }
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void deleteUser(Integer id){
+        userMapper.delete(id);
     }
 }

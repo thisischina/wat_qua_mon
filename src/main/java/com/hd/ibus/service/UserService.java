@@ -27,15 +27,19 @@ public interface UserService {
     DataGridResultInfo getAccountCount(PageHelp help);
 
     /**
+     * 按条件获取单个对象
+     * @param pageHelp
+     */
+    User selectByKey(PageHelp pageHelp);
+
+    /**
      * 添加
      * @param user
      * @return
      */
     void insertUser(User user);
 
-    /**
-     * 按条件获取单个对象
-     * @param pageHelp
-     */
-    User selectByKey(PageHelp pageHelp);
+    void updateUser(User user);
+
+    void deleteUser(Integer id);
 }
