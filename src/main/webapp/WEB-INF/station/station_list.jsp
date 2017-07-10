@@ -70,7 +70,7 @@
 //            if(role==1){
             str=str+ "<td>"
                 + "<div class=''>"
-                + "<a class='btn btn-xs btn-info' href='../station/toupdate?id="+item.id+"&name="+item.name+""
+                + "<a class='btn btn-xs btn-info' href='../station/toupdate?id="+item.id
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                 + "</a>"
@@ -96,7 +96,6 @@
             }
 
             var name = $("#name").val();
-debugger
             $.ajax({
                     url : url,
                     type : "post",
@@ -174,7 +173,7 @@ debugger
         <form class="form-inline" role="form"
               style='float: right;margin-bottom:10px;margin-top: 5px;margin-left: 5px '>
             <div class="form-group">
-              <input type="text" class="form-control" id="name" value="${pageHelp.object.name}" placeholder="站名">
+              <input type="text" class="form-control" id="name" value="${pageHelp.selectStr}" placeholder="站名">
             </div>
             <button type="button" onclick="loadDataGird(1)" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >查询</button>
         </form>

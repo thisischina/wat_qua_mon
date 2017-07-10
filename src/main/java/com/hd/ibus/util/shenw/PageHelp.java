@@ -24,6 +24,8 @@ public class PageHelp implements Serializable{
 
     private PageBean pageBean;
 
+    private String selectStr;
+
     public Object getObject() {
         return object;
     }
@@ -38,5 +40,13 @@ public class PageHelp implements Serializable{
 
     public void setPageBean(PageBean pageBean) {
         this.pageBean = pageBean;
+    }
+
+    public String getSelectStr() {
+        return selectStr;
+    }
+
+    public void setSelectStr(String selectStr) {
+        this.selectStr = selectStr;
     }
 }

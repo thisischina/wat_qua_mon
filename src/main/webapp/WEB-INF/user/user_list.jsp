@@ -176,7 +176,7 @@
         <form class="form-inline" role="form"
               style='float: right;margin-bottom:10px;margin-top: 5px;margin-left: 5px '>
             <div class="form-group">
-                <input type="text" class="form-control" id="account" placeholder="账号">
+                <input type="text" class="form-control" id="account" value="${pageHelp.selectStr}" placeholder="账号">
             </div>
             <button type="button" onclick="loadDataGird()" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >查询</button>
         </form>

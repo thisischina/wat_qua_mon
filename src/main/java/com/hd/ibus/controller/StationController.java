@@ -38,7 +38,7 @@ public class StationController {
 	public String toStationList(HttpServletRequest request,Model model,Integer pageNow){
 		System.out.println("№tolist");
 
-		if(pageNow==0){
+		if(pageNow!=null&&pageNow==0){
 			//初始化
 			pageNow = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW);
 			Integer pageSize = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) ;
@@ -49,6 +49,8 @@ public class StationController {
 			pageBean.setPageSize(pageSize);
 			pageHelp.setPageBean(pageBean);
 
+			//清除搜索条件
+			pageHelp.setSelectStr(null);
 			model.addAttribute(pageHelp);
 		}else{
 			model.addAttribute(pageHelp);
@@ -136,17 +138,18 @@ public class StationController {
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
 
-		String name= PageStr.getParameterStr("name",request,model);
+		String selectStr= PageStr.getParameterStr("name",request,model);
 
 		/**
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
 		Station station=new Station();
-		if(!name.equals("")){
-			station.setName(name);
+		if(!selectStr.equals("")){
+			station.setName(selectStr);
 
 			pageHelp.setObject(station);
+			pageHelp.setSelectStr(selectStr);
 			model.addAttribute(pageHelp);
 		}else {
 			pageHelp.setObject(null);

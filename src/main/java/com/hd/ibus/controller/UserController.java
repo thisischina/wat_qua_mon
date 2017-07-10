@@ -36,7 +36,7 @@ public class UserController {
 	public String toUserList(HttpServletRequest request,Model model,Integer pageNow){
 		System.out.println("№user_list");
 
-		if(pageNow==0){
+		if(pageNow!=null&&pageNow==0){
 			//初始化
 			pageNow = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW);
 			Integer pageSize = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) ;
@@ -46,6 +46,9 @@ public class UserController {
 			pageBean.setPageNow(pageNow);
 			pageBean.setPageSize(pageSize);
 			pageHelp.setPageBean(pageBean);
+
+			//清除搜索条件
+			pageHelp.setSelectStr(null);
 			model.addAttribute(pageHelp);
 		}else{
 			model.addAttribute(pageHelp);
@@ -138,18 +141,19 @@ public class UserController {
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
 
-		String account= PageStr.getParameterStr("account",request,model);
+		String selectStr= PageStr.getParameterStr("account",request,model);
 
 		/**
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
 		User station=new User();
-		if(!account.equals("")){
-			station.setAccount(account);
+		if(!selectStr.equals("")){
+			station.setAccount(selectStr);
 
 			pageHelp.setObject(station);
-			model.addAttribute(station);
+			pageHelp.setSelectStr(selectStr);
+			model.addAttribute(pageHelp);
 		}else {
 			pageHelp.setObject(null);
 		}
