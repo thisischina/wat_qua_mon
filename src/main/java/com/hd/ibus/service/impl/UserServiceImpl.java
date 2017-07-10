@@ -4,11 +4,9 @@ import com.hd.ibus.mapper.UserMapper;
 import com.hd.ibus.pojo.User;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.service.UserService;
-import com.hd.ibus.util.Config;
 import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.shenw.AES;
 import com.hd.ibus.util.shenw.PageHelp;
-import com.hd.ibus.util.PropertiesUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,12 +20,13 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    public DataGridResultInfo findList(PageHelp pageHelp, Integer pageNow, Integer pageSize) {
-        pageNow = pageNow == null ? PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW) : pageNow;
-        pageSize = pageSize == null ? PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) : pageSize;
-        pageHelp = PageHelp.getInstance();
+    public DataGridResultInfo findList(PageHelp pageHelp, Integer pageNow) {
+        PageBean pageBean=pageHelp.getPageBean();
+        int pageSize=pageBean.getPageSize();
 
-        PageBean pageBean = new PageBean(pageNow, pageSize);
+        //从新计算查询起始行
+        pageBean.getStartRow(pageNow,pageSize);
+
         pageHelp.setPageBean(pageBean);
 
         List<User> users = userMapper.select(pageHelp);

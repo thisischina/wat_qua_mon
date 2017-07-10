@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.hd.ibus.pojo.User;
 import com.hd.ibus.service.UserService;
+import com.hd.ibus.util.Config;
 import com.hd.ibus.util.PageBean;
+import com.hd.ibus.util.PropertiesUtils;
 import com.hd.ibus.util.shenw.PageHelp;
 import com.hd.ibus.util.shenw.PageStr;
 import com.hd.ibus.util.shenw.Value;
@@ -14,27 +16,38 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.hd.ibus.result.DataGridResultInfo;
+
+/**
+ * Created by GitHub:thisischina on 2017年7月10日10:25:23.
+ * Controller
+ * 用户
+ */
 
 @Controller
 @RequestMapping("user")
-public class userController {
+public class UserController {
 	@Resource
 	private UserService userService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
 	@RequestMapping("tolist")
-	public String toUserList(HttpServletRequest request,Model model){
+	public String toUserList(HttpServletRequest request,Model model,Integer pageNow){
 		System.out.println("№user_list");
 
-		if(pageHelp.getPageBean()!=null){
+		if(pageNow==0){
+			//初始化
+			pageNow = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW);
+			Integer pageSize = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) ;
+
+			PageBean pageBean=new PageBean();
+
+			pageBean.setPageNow(pageNow);
+			pageBean.setPageSize(pageSize);
+			pageHelp.setPageBean(pageBean);
 			model.addAttribute(pageHelp);
 		}else{
-			PageBean pageBean=new PageBean();
-			pageBean.setPageNow(1);
-			pageHelp.setPageBean(pageBean);
 			model.addAttribute(pageHelp);
 		}
 
@@ -44,7 +57,7 @@ public class userController {
 	@RequestMapping("toadd")
 	public String toAddUser(HttpServletRequest request,Model model){
 		System.out.println("№user_list");
-		return "user/addUser";
+		return "user/user_add";
 	}
 
 	@RequestMapping("toupdate")
@@ -61,7 +74,7 @@ public class userController {
 		model.addAttribute(user);
 		model.addAttribute(pageHelp);
 
-		return "user/updateuser";
+		return "user/user_update";
 	}
 
 	@RequestMapping("update")
@@ -131,17 +144,16 @@ public class userController {
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		User user;
+		User station=new User();
 		if(!account.equals("")){
-			user=new User();
+			station.setAccount(account);
 
-			user.setAccount(account);
-			pageHelp.setObject(user);
+			pageHelp.setObject(station);
+			model.addAttribute(station);
 		}else {
 			pageHelp.setObject(null);
 		}
-
-		return userService.findList(pageHelp,pageNow,pageSize);
+		return userService.findList(pageHelp,pageNow);
 	}
 
 	/**
@@ -174,19 +186,35 @@ public class userController {
 
 	@ResponseBody
 	@RequestMapping("adduser")
-	public int addUser(User u,HttpServletRequest request,Model model){
+	public int addUser(User user,HttpServletRequest request,Model model){
 		String account=PageStr.getParameterStr("account",request,model);
 		String password=PageStr.getParameterStr("password",request,model);
 		String name=PageStr.getParameterStr("name",request,model);
 		String tel=PageStr.getParameterStr("tel",request,model);
 		String email=PageStr.getParameterStr("email",request,model);
+		String unitId=PageStr.getParameterStr("unitId",request,model);
+		String roleId=PageStr.getParameterStr("roleId",request,model);
+		String power=PageStr.getParameterStr("power",request,model);
 
-		u.setAccount(account);
-		u.setPassword(password);
-		u.setName(name);
-		u.setTel(tel);
-		u.setEmail(email);
-		userService.insertUser(u);
+		if(!account.equals("")){
+			user.setAccount(account);
+		}if(!password.equals("")){
+			user.setPassword(password);
+		}if(!name.equals("")){
+			user.setName(name);
+		}if(!tel.equals("")){
+			user.setTel(tel);
+		}if(!email.equals("")){
+			user.setEmail(email);
+		}if(!unitId.equals("")){
+			user.setUnitId(Integer.parseInt(unitId));
+		}if(!roleId.equals("")){
+			user.setRoleId(Integer.parseInt(roleId));
+		}if(!power.equals("")){
+			user.setPower(power);
+		}
+
+		userService.insertUser(user);
 
 		return Value.IntNumOne;
 	}

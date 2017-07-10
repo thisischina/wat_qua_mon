@@ -29,13 +29,23 @@
             jQuery('#iframe').height(height-120);
         }
 
-        function projectInfo(){
+        function user(){
             jQuery('.nal_li').removeClass('active');
             jQuery('#li_project').addClass('active');
-            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:projectInfo();'>用户管理</a></li>";
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:user();'>用户管理</a></li>";
             $("#ultt").html(htmlss);
-            document.getElementById("iframe").src="${basepath }/user/tolist";
+            document.getElementById("iframe").src="${basepath }/user/tolist?pageNow=0";
 		}
+
+        function station(){
+            $("#ultt").html("");
+
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:station();'>监测站管理</a></li>";
+            $("#ultt").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/station/tolist?pageNow=0";
+        }
 	</script>
 </head>
 <body style='overflow: hidden;'>
@@ -52,7 +62,7 @@
 				<!-- SIDEBAR MENU -->
 				<ul style='margin-top: 28px'>
 					<li class="nal_li active">
-						<a href="javascript:projectInfo();">
+						<a href="javascript:user();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">用户管理</span>
 							<span class="selected"></span>
 						</a>
@@ -88,7 +98,7 @@
 						</a>
 					</li>
 					<li class="nal_li">
-						<a href="javascript:">
+						<a href="javascript:station();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">监测站管理</span>
 							<span class="selected"></span>
 						</a>

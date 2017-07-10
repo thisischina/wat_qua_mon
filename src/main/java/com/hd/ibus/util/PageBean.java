@@ -32,6 +32,13 @@ public class PageBean implements Serializable{
 		this.start = (pageNow - 1) * pageSize;
 	}
 
+	public void getStartRow(int pageNow, int pageSize) {
+		this.pageNow = pageNow;
+		this.pageSize = pageSize;
+
+		this.start = (pageNow - 1) * pageSize;
+	}
+
 	public int getPageNow() {
 		return pageNow;
 	}
@@ -51,4 +58,9 @@ public class PageBean implements Serializable{
 	public int getStart() {
 		return start;
 	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
 }

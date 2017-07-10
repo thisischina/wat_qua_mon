@@ -73,7 +73,7 @@
 	
 	function returnUser(){
 		changeTitle2();
-		window.location.href="${basepath }/User/user.action";
+        window.location.href='${basepath}/user/tolist';
 	}
 	
 	function saveUser(){
@@ -83,7 +83,9 @@
 		var tel=$('#tel').val();
         var email=$('#email').val();
         var unit_id=$('#unit_id').val();
-		var role_id=$('#role').val();
+		var role_id=$('#role_id').val();
+        var power=$('#power').val();
+
 		if(account==""||password==""){
 			alert("用户名或密码不能为空。");
 			return
@@ -112,7 +114,7 @@
                         url:"${basepath}/user/adduser",
                         type:"post",
                         data:{account:account,password:password,name:name,tel:tel,
-                            email:email,unitId:unit_id,roleId:role_id},
+                            email:email,unit_id:unit_id,role_id:role_id,power:power},
                         dataType:"json",
                         async:false,
                         success: function (data) {
@@ -213,11 +215,20 @@
 							<label> 角色: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <select id='role'>
+						 <select id='role_id'>
 						 	<option value='1'>管理员</option>
 						 	<option value='2'>用户</option>
 						 </select>
 						 
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 权限: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<input id="power" type="text">
 						</div>
 					</div>
 

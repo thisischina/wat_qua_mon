@@ -1,4 +1,8 @@
-package cn.itcast.ssm.po2;
+package com.hd.ibus.pojo;
+
+/**
+ * 监测站表
+ */
 
 public class Station {
     private Integer id;

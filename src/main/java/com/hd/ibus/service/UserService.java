@@ -14,10 +14,9 @@ public interface UserService {
      * 列表
      * @param help
      * @param pageNow
-     * @param pageSize
      * @return
      */
-    DataGridResultInfo findList(PageHelp help, Integer pageNow, Integer pageSize);
+    DataGridResultInfo findList(PageHelp help, Integer pageNow);
 
     /**
      * 获取同一账号的数量

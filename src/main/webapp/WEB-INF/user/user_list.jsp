@@ -37,8 +37,8 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function() {
-
-            loadDataGird();
+            var selectType=0;//表示未点击查询按钮
+            loadDataGird(selectType);
         });
 
         var createTable = function(index, item,pageNow) {
@@ -90,10 +90,18 @@
             $("#tbody").append(str);
         }
 
-        var loadDataGird = function() {
+        var loadDataGird = function(selectType) {
+            var url="";
+            if(selectType==1){
+//                表示点击查询按钮,初始化当前页为1
+                url="${basepath }/user/getlist?pageNow=1";
+            }else{
+                url="${basepath }/user/getlist?pageNow="+${pageHelp.pageBean.pageNow};
+            }
+
             var account = $("#account").val();
             $.ajax({
-                    url : "${basepath }/user/getlist?pageNow="+${pageHelp.pageBean.pageNow},
+                    url : url,
                     type : "post",
                     data : {account:account},
                     dataType : "json",
@@ -168,9 +176,7 @@
         <form class="form-inline" role="form"
               style='float: right;margin-bottom:10px;margin-top: 5px;margin-left: 5px '>
             <div class="form-group">
-                <label class="sr-only">Email
-                    address</label> <input type="text" class="form-control"
-                                           id="account" placeholder="账号">
+                <input type="text" class="form-control" id="account" placeholder="账号">
             </div>
             <button type="button" onclick="loadDataGird()" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >查询</button>
         </form>
@@ -190,9 +196,6 @@
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>单位</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>角色</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
-                <c:if test="${ sessionScope.user.role==1}">
-                    <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
-                </c:if>
             </tr>
             </thead>
             <tbody id="tbody">
