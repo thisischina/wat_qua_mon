@@ -1,5 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hd.ibus.mapper.UnitMapper" >
+    <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.Unit" >
+        <id column="unit_id" property="unitId" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        unit_id, name
+    </sql>
+
+    <!--分页查询列表-->
+    <select id="select" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        from unit
+        <if test="object!=null">
+            WHERE name LIKE concat(concat('%',#{object.name}),'%')
+        </if>
+
+        <if test="pageBean!=null">
+            limit ${pageBean.start},${pageBean.pageSize}
+        </if>
+    </select>
+
+    <!-- 查询列表的总记录数 -->
+    <select id="findTotal" parameterType="com.hd.ibus.util.shenw.PageHelp"
+            resultType="int">
+        select count(*) from unit
+        <if test="object!=null">
+            WHERE name LIKE concat(concat('%',#{object.name}),'%')
+        </if>
+    </select>
+
+    <select id="paramCount" parameterType="com.hd.ibus.util.shenw.PageHelp"
+            resultType="int">
+        select count(*) from unit
+        <if test="object!=null">
+            WHERE name =#{object.name}
+        </if>
+    </select>
+
+    <select id="selectByKey" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        from unit
+        <if test="object!=null">
+            WHERE unit_id = #{object.unitId}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.hd.ibus.pojo.Unit">
+        insert into unit (unit_id, name
+        )
+        values (#{unitId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.hd.ibus.pojo.Unit">
+        update unit
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from unit
+        where unit_id = #{unitId,jdbcType=INTEGER}
+    </delete>
+
 
 </mapper>

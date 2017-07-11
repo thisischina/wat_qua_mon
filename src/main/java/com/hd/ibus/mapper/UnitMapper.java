@@ -2,29 +2,49 @@ package com.hd.ibus.mapper;
 
 import java.util.List;
 import com.hd.ibus.pojo.Unit;
-import com.hd.ibus.pojo.UnitExample;
-import org.apache.ibatis.annotations.Param;
+import com.hd.ibus.util.shenw.PageHelp;
 
 public interface UnitMapper {
-    int countByExample(UnitExample example);
+    /**
+     * 查询
+     * @param help
+     * @return int
+     */
+    int findTotal(PageHelp help);
 
-    int deleteByExample(UnitExample example);
+    /**
+     * 查询
+     * @param help
+     * @return list
+     */
+    List<Unit> select(PageHelp help);
 
-    int deleteByPrimaryKey(Integer unitId);
+    /**
+     * 根据条件查找获取单个对象
+     * @param help
+     * @return Unit
+     */
+    Unit selectByKey(PageHelp help);
 
-    int insert(Unit record);
+    /**
+     * 按条件查询记录数
+     * @param help
+     * @return
+     */
+    int paramCount(PageHelp help);
 
-    int insertSelective(Unit record);
+    /**
+     * 添加
+     * @param unit
+     * @return int
+     */
+    void insert(Unit unit);
 
-    List<Unit> selectByExample(UnitExample example);
+    /**
+     * 更新
+     * @param unit
+     */
+    void update(Unit unit);
 
-    Unit selectByPrimaryKey(Integer unitId);
-
-    int updateByExampleSelective(@Param("record") Unit record, @Param("example") UnitExample example);
-
-    int updateByExample(@Param("record") Unit record, @Param("example") UnitExample example);
-
-    int updateByPrimaryKeySelective(Unit record);
-
-    int updateByPrimaryKey(Unit record);
+    int delete(Integer id);
 }

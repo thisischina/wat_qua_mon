@@ -1,6 +1,10 @@
-package cn.itcast.ssm.po2;
+package com.hd.ibus.pojo;
 
 import java.util.Date;
+
+/**
+ * 设备表
+ */
 
 public class Equipment {
     private Integer id;
@@ -22,6 +26,8 @@ public class Equipment {
     private Date installTime;
 
     private Integer stationId;
+
+    private Integer state;
 
     public Integer getId() {
         return id;
@@ -101,5 +107,13 @@ public class Equipment {
 
     public void setStationId(Integer stationId) {
         this.stationId = stationId;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

@@ -110,7 +110,7 @@
 <div class="divider"></div>
 		<div class="">
 			<div class="example-code clearfix">
-				<input type="hidden" id="id" name='id' value='${user.id }'>
+				<input type="hidden" id="id" value='${user.id }'>
 				<form action="" class="col-md-20 center-margin" method="get">
 					<div class="form-row">
 						<div class="form-label col-md-2">

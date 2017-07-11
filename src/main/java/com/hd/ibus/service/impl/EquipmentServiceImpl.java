@@ -1,22 +1,23 @@
 package com.hd.ibus.service.impl;
 
-import com.hd.ibus.mapper.RoleMapper;
-import com.hd.ibus.pojo.Role;
+import com.hd.ibus.mapper.EquipmentMapper;
+import com.hd.ibus.pojo.Equipment;
 import com.hd.ibus.result.DataGridResultInfo;
-import com.hd.ibus.service.RoleService;
+import com.hd.ibus.service.EquipmentService;
 import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.shenw.PageHelp;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by github:thisischina on 2017/6/30 0030.
+ * Created by github:thisischina .
  */
 @Service
-public class RoleServiceImpl implements RoleService {
+public class EquipmentServiceImpl implements EquipmentService {
     @Resource
-    private RoleMapper roleMapper;
+    private EquipmentMapper equipmentMapper;
 
     private PageHelp pageHelp=PageHelp.getInstance();
 
@@ -29,50 +30,50 @@ public class RoleServiceImpl implements RoleService {
 
         pageHelp.setPageBean(pageBean);
 
-        List<Role> Roles = roleMapper.select(pageHelp);
-        Integer total = roleMapper.findTotal(pageHelp);
+        List<Equipment> Equipments = equipmentMapper.select(pageHelp);
+        Integer total = equipmentMapper.findTotal(pageHelp);
 
-        DataGridResultInfo da=new DataGridResultInfo(total, Roles);
+        DataGridResultInfo da=new DataGridResultInfo(total, Equipments);
 
         da.setPageNow(pageNow);
         return da;
     }
 
     public  DataGridResultInfo getNameCount(PageHelp help){
-        int count=roleMapper.paramCount(help);
+        int count=equipmentMapper.paramCount(help);
         System.out.println("查询用户存在个数:"+count);
 
         return new DataGridResultInfo(count, null);
     }
 
-    public Role selectByKey(PageHelp help){
-        Role u=roleMapper.selectByKey(help);
+    public Equipment selectByKey(PageHelp help){
+        Equipment u=equipmentMapper.selectByKey(help);
         return u;
     }
 
     /**
      * 添加
-     * @param Role
+     * @param Equipment
      * @return
      */
-    public void insertRole(Role Role){
-        roleMapper.insert(Role);
+    public void insertEquipment(Equipment Equipment){
+        equipmentMapper.insert(Equipment);
 
     }
 
     /**
      * 更新
-     * @param Role
+     * @param Equipment
      */
-    public void updateRole(Role Role){
-        roleMapper.update(Role);
+    public void updateEquipment(Equipment Equipment){
+        equipmentMapper.update(Equipment);
     }
 
     /**
      * 删除
      * @param id
      */
-    public void deleteRole(Integer id){
-        roleMapper.delete(id);
+    public void deleteEquipment(Integer id){
+        equipmentMapper.delete(id);
     }
 }

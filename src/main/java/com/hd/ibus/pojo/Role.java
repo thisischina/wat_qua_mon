@@ -1,5 +1,9 @@
 package com.hd.ibus.pojo;
 
+/**
+ * 角色表
+ */
+
 public class Role {
     private Integer roleId;
 

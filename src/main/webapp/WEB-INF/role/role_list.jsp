@@ -10,7 +10,7 @@
 <head>
     <jsp:include page="${basepath}/main/css.jsp"></jsp:include>
 
-    <title>检测站点列表</title>
+    <title>角色列表</title>
 
     <style type="text/css">
         #pagination {
@@ -55,30 +55,18 @@
                 + (item.name == null ? "" : item.name)
                 + "</td>"
                 + "<td>"
-                + (item.number == null ? "" : item.number)
-                + "</td>"
-                + "<td>"
-                + (item.address == null ? "" : item.address)
-                + "</td>"
-                + "<td>"
-                + (item.type == null ? "" : item.type)
-                + "</td>"
-                + "<td>"
-                + (item.coordinate == null ? "" : item.coordinate)
-                + "</td>"
-                + "<td>"
-                + (item.unitId == null ? "" : item.unitId)
+                + (item.power == null ? "" : item.power)
                 + "</td>"
 
 //            if(role==1){
             str=str+ "<td>"
                 + "<div class=''>"
-                + "<a class='btn btn-xs btn-info' href='../station/toupdate?id="+item.id
+                + "<a class='btn btn-xs btn-info' href='../role/toupdate?id="+item.roleId
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                 + "</a>"
                 + "<a class='btn btn-xs btn-danger' href='javascript:void(0)' onclick='deleteObject("
-                + item.id
+                + item.roleId
                 + ")' style='height:20px;font-size:10px;'>"
                 + "<i class='ace-icon fa fa-trash-o bigger-120'></i> 删除"
                 + "</a>" + "</div>" + "</td>" + "</tr>	";
@@ -93,9 +81,9 @@
             var url="";
             if(selectType==1){
 //                表示点击查询按钮,初始化当前页为1
-                url="${basepath }/station/getlist?pageNow=1";
+                url="${basepath }/role/getlist?pageNow=1";
             }else{
-                url="${basepath }/station/getlist?pageNow="+${pageHelp.pageBean.pageNow};
+                url="${basepath }/role/getlist?pageNow="+${pageHelp.pageBean.pageNow};
             }
 
             var name = $("#name").val();
@@ -129,7 +117,7 @@
                             onPageClick : function(event, page) {
                                 var name = $("#name").val();
                                 $.ajax({
-                                    url : "${basepath }/station/getlist",
+                                    url : "${basepath }/role/getlist",
                                     type : "post",
                                     data : {pageNow:page,name:name},
                                     dataType : "json",
@@ -156,13 +144,13 @@
         function deleteObject(id){
             var id=id;
             $.ajax({
-                url : "${basepath }/station/delete",
+                url : "${basepath }/role/delete",
                 type : "post",
                 data : {id:id},
                 dataType : "json",
                 success : function(data) {
                     alert("删除成功");
-                    window,location.href='${basepath}/station/tolist';
+                    window,location.href='${basepath}/role/tolist';
                 }
             });
         }
@@ -176,7 +164,7 @@
         <form class="form-inline" role="form"
               style='float: right;margin-bottom:10px;margin-top: 5px;margin-left: 5px '>
             <div class="form-group">
-              <input type="text" class="form-control" id="name" value="${pageHelp.selectStr}" placeholder="站名">
+              <input type="text" class="form-control" id="name" value="${pageHelp.selectStr}" placeholder="角色名">
             </div>
             <button type="button" onclick="loadDataGird(1)" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >查询</button>
         </form>
@@ -189,12 +177,8 @@
             <thead style='background:#A8BC7B;color:#fff'>
             <tr>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>名称</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>编号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>位置</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>类型</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>坐标</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>单位</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>角色名称</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>权限</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
             </tr>
             </thead>
@@ -205,7 +189,7 @@
         <div class="dataTables_info" id="dynamic-table_info"
              style="float: left;">
                 <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
-                   href="${basepath}/station/toadd">
+                   href="${basepath}/role/toadd">
                     <span class="button-content">添加</span> </a>
         </div>
         <div id="pagination_div" style='float: right;padding-right: 0px'>

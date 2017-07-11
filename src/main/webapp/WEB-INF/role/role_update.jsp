@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>监测站信息</title>
+<title>角色信息</title>
 
 <!-- Favicons -->
 
@@ -60,39 +60,35 @@
 
 	function changeTitle(){
 		var htmlss = $('#ultt', parent.document).html();
-		htmlss = htmlss + "<li>修改监测站信息</li>";
+		htmlss = htmlss + "<li>修改角色信息</li>";
 		$('#ultt', parent.document).html(htmlss);
 	}
 	
 	function changeTitle2(){
 		$('#ultt', parent.document).html("");
-		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:projectInfo();'>监测站信息</a></li>";
+		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:projectInfo();'>角色信息</a></li>";
 		$('#ultt', parent.document).html(htmlss);
 	}
 	
 	function update(){
 		var id=$('#id').val();
         var name=$('#name').val();
-        var address=$('#address').val();
-        var type=$('#type').val();
-        var coordinate=$('#coordinate').val();
-        var unitId=$('#unitId').val();
+        var power=$('#power').val();
 
 		if(name==""){
-			alert("监测站名称不能为空。");
+			alert("角色名称不能为空。");
 			return
 		}
 		   $.ajax({
-			url:"${basepath }/station/update",
+			url:"${basepath }/role/update",
 			type:"post",
-			data:{id:id,name:name,address:address,type:type,coordinate:coordinate,
-                unitId:unitId},
+			data:{id:id,name:name,power:power},
 			dataType:"json",
 			success: function (data) {
 				if(data==1){
 					alert("修改成功");
 					changeTitle2();
-					window.location.href="${basepath }/station/tolist";
+					window.location.href="${basepath }/role/tolist";
 				}else{
 					alert("添加失败");
 				}
@@ -106,18 +102,18 @@
 </head>
 <body>
 <div id="page-content">
-	<h3>修改项目信息</h3>
+	<h3>修改角色信息</h3>
 <div class="divider"></div>
 		<div class="">
 			<div class="example-code clearfix">
-				<input type="hidden" id="id" value='${station.id }'>
+				<input type="hidden" id="id" value='${role.roleId }'>
 				<form action="" class="col-md-20 center-margin" method="get">
 					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 检测站名: </label>
+							<label> 角色名: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <input type="text" value="${station.name}" readonly="readonly">
+						 <input type="text" value="${role.name}" readonly="readonly">
 						</div>
 
 						<div class="form-input col-md-2">
@@ -127,10 +123,10 @@
 
 					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 位置名称: </label>
+							<label> 权限: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input value='${station.address }' id="address" type="text">
+							<input value='${role.power }' id="power" type="text">
 						</div>
 						<div class="form-input col-md-1">
 							*
@@ -139,50 +135,17 @@
 
 					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 所属类型: </label>
 						</div>
-						<div class="form-input col-md-5">
-							<select id='type'>
-								<option value='1'>类型一</option>
-								<option value='2'>类型二</option>
-							</select>
-						</div>
-					</div>
 
-					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 坐标: </label>
+							<input class="btn medium primary-bg" style="width:80px" value="提交" type="button" onclick="update();"/>
 						</div>
-						<div class="form-input col-md-5">
-							<input id="coordinate" type="text" value='${station.coordinate}'>
-						</div>
-					</div>
 
-					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 所属单位: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<select id='unitId'>
-								<option value='1'>单位一</option>
-								<option value='2'>单位二</option>
-							</select>
+							<input class="btn medium primary-bg" style="width:80px" value="返回" type="button" onclick="window.location.href='${basepath}/role/tolist'"/>
 						</div>
 					</div>
-
-					<div class="form-row">
-						<div class="form-label col-md-2">
-					</div>
-
-					<div class="form-label col-md-2">
-					<input class="btn medium primary-bg" style="width:80px" value="提交" type="button" onclick="update();"/>
-					</div>
-
-					<div class="form-label col-md-2">
-					<input class="btn medium primary-bg" style="width:80px" value="返回" type="button" onclick="window.location.href='${basepath}/station/tolist'"/>
-					</div>
-
-					</div>
+					
 				</form>
 
 			</div>

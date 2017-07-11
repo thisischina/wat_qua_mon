@@ -8,4 +8,7 @@ public class Value {
     public static final int IntNumOne=1;
 
     public static final int IntNumTwo=2;
+
+//    分地区设置站点编号
+    public static final String STATION="Zd";
 }

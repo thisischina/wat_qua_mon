@@ -1,8 +1,8 @@
 package com.hd.ibus.controller;
 
-import com.hd.ibus.pojo.Station;
+import com.hd.ibus.pojo.Unit;
 import com.hd.ibus.result.DataGridResultInfo;
-import com.hd.ibus.service.StationService;
+import com.hd.ibus.service.UnitService;
 import com.hd.ibus.util.Config;
 import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.PropertiesUtils;
@@ -20,21 +20,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by GitHub:thisischina on 2017年7月10日10:25:23.
+ * Created by GitHub:thisischina .
  * Controller
- * 监测站
+ * 单位
  */
 
 @Controller
-@RequestMapping("station")
-public class StationController {
+@RequestMapping("unit")
+public class UnitController {
 	@Resource
-	private StationService stationService;
+	private UnitService unitService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
 	@RequestMapping("tolist")
-	public String toStationList(HttpServletRequest request,Model model,Integer pageNow){
+	public String toUnitList(HttpServletRequest request,Model model,Integer pageNow){
 		System.out.println("№tolist");
 
 		if(pageNow!=null&&pageNow==0){
@@ -55,30 +55,30 @@ public class StationController {
 			model.addAttribute(pageHelp);
 		}
 
-		return "station/station_list";
+		return "unit/unit_list";
 	}
 
 	@RequestMapping("toadd")
-	public String toAddStation(HttpServletRequest request,Model model){
+	public String toAddUnit(HttpServletRequest request,Model model){
 		System.out.println("№toadd");
-		return "station/station_add";
+		return "unit/unit_add";
 	}
 
 	@RequestMapping("toupdate")
 	public String toUpdate(HttpServletRequest request,Model model,Integer id){
 		System.out.println("№toupdate");
 
-		Station s=new Station();
-		s.setId(id);//存储更新记录所在页数
+		Unit s=new Unit();
+		s.setUnitId(id);//存储更新记录所在页数
 		pageHelp.setObject(s);
 
-		Station Station=stationService.selectByKey(pageHelp);
-		pageHelp.setObject(Station);
+		Unit unit=unitService.selectByKey(pageHelp);
+		pageHelp.setObject(unit);
 
-		model.addAttribute(Station);
+		model.addAttribute(unit);
 		model.addAttribute(pageHelp);
 
-		return "station/station_update";
+		return "unit/unit_update";
 	}
 
 	@RequestMapping("update")
@@ -92,29 +92,17 @@ public class StationController {
 
 		String id= PageStr.getParameterStr("id",request);
 		String name= PageStr.getParameterStr("name",request);
-		String address= PageStr.getParameterStr("address",request);
-		String type= PageStr.getParameterStr("type",request);
-		String coordinate= PageStr.getParameterStr("coordinate",request);
-		String unitId= PageStr.getParameterStr("unitId",request);
 
 		/**
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		Station station=new Station();
-		station.setId(Integer.parseInt(id));
+		Unit unit=new Unit();
+		unit.setUnitId(Integer.parseInt(id));
 		if(!name.equals("")){
-			station.setName(name);
-		}if(!address.equals("")){
-			station.setAddress(address);
-		}if(!type.equals("")){
-			station.setType(Integer.parseInt(type));
-		}if(!coordinate.equals("")){
-			station.setCoordinate(coordinate);
-		}if(!unitId.equals("")){
-			station.setUnitId(Integer.parseInt(unitId));
+			unit.setName(name);
 		}
-		stationService.updateStation(station);
+		unitService.updateUnit(unit);
 
 		model.addAttribute(pageHelp);
 
@@ -143,17 +131,17 @@ public class StationController {
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		Station station=new Station();
+		Unit unit=new Unit();
 		if(!selectStr.equals("")){
-			station.setName(selectStr);
+			unit.setName(selectStr);
 
-			pageHelp.setObject(station);
+			pageHelp.setObject(unit);
 			pageHelp.setSelectStr(selectStr);
 			model.addAttribute(pageHelp);
 		}else {
 			pageHelp.setObject(null);
 	}
-		return stationService.findList(pageHelp,pageNow);
+		return unitService.findList(pageHelp,pageNow);
 	}
 
 	/**
@@ -172,44 +160,29 @@ public class StationController {
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		Station Station;
+		Unit unit;
 		if(!name.equals("")){
-			Station=new Station();
-			Station.setName(name);
-			pageHelp.setObject(Station);
+			unit=new Unit();
+			unit.setName(name);
+			pageHelp.setObject(unit);
 		}else {
 			pageHelp.setObject(null);
 		}
 
-		return stationService.getNameCount(pageHelp);
+		return unitService.getNameCount(pageHelp);
 	}
 
 	@ResponseBody
-	@RequestMapping("addstation")
-	public int addStation(HttpServletRequest request,Model model){
+	@RequestMapping("addunit")
+	public int addUnit(HttpServletRequest request,Model model){
 		String name= PageStr.getParameterStr("name",request);
-		String address= PageStr.getParameterStr("address",request);
-		String type= PageStr.getParameterStr("type",request);
-		String coordinate= PageStr.getParameterStr("coordinate",request);
-		String unitId= PageStr.getParameterStr("unitId",request);
 
-		Station station=new Station();
+		Unit unit=new Unit();
 		if(!name.equals("")){
-			station.setName(name);
-		}if(!address.equals("")){
-			station.setAddress(address);
-		}if(!type.equals("")){
-			station.setType(Integer.parseInt(type));
-		}if(!coordinate.equals("")){
-			station.setCoordinate(coordinate);
-		}if(!unitId.equals("")){
-			station.setUnitId(Integer.parseInt(unitId));
+			unit.setName(name);
 		}
 
-		String number=Value.STATION;
-		station.setNumber(number);
-
-		stationService.insertStation(station);
+		unitService.insertUnit(unit);
 
 		return Value.IntNumOne;
 	}
@@ -217,8 +190,8 @@ public class StationController {
 
 	@ResponseBody
 	@RequestMapping("delete")
-	public int deleteStation(HttpServletRequest request,Integer id){
-		stationService.deleteStation(id);
+	public int deleteUnit(HttpServletRequest request,Integer id){
+		unitService.deleteUnit(id);
 
 		return Value.IntNumOne;
 	}

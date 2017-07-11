@@ -1,30 +1,51 @@
-package cn.itcast.ssm.mapper2;
+package com.hd.ibus.mapper;
 
-import cn.itcast.ssm.po2.Equipment;
-import cn.itcast.ssm.po2.EquipmentExample;
+import com.hd.ibus.pojo.Equipment;
+import com.hd.ibus.util.shenw.PageHelp;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface EquipmentMapper {
-    int countByExample(EquipmentExample example);
+    /**
+     * 查询
+     * @param help
+     * @return int
+     */
+    int findTotal(PageHelp help);
 
-    int deleteByExample(EquipmentExample example);
+    /**
+     * 查询
+     * @param help
+     * @return list
+     */
+    List<Equipment> select(PageHelp help);
 
-    int deleteByPrimaryKey(Integer id);
+    /**
+     * 根据条件查找获取单个对象
+     * @param help
+     * @return Equipment
+     */
+    Equipment selectByKey(PageHelp help);
 
-    int insert(Equipment record);
+    /**
+     * 按条件查询记录数
+     * @param help
+     * @return
+     */
+    int paramCount(PageHelp help);
 
-    int insertSelective(Equipment record);
+    /**
+     * 添加
+     * @param equipment
+     * @return int
+     */
+    void insert(Equipment equipment);
 
-    List<Equipment> selectByExample(EquipmentExample example);
+    /**
+     * 更新
+     * @param equipment
+     */
+    void update(Equipment equipment);
 
-    Equipment selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") Equipment record, @Param("example") EquipmentExample example);
-
-    int updateByExample(@Param("record") Equipment record, @Param("example") EquipmentExample example);
-
-    int updateByPrimaryKeySelective(Equipment record);
-
-    int updateByPrimaryKey(Equipment record);
+    int delete(Integer id);
 }

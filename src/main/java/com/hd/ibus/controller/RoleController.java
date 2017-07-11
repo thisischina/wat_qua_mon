@@ -1,8 +1,8 @@
 package com.hd.ibus.controller;
 
-import com.hd.ibus.pojo.Station;
+import com.hd.ibus.pojo.Role;
 import com.hd.ibus.result.DataGridResultInfo;
-import com.hd.ibus.service.StationService;
+import com.hd.ibus.service.RoleService;
 import com.hd.ibus.util.Config;
 import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.PropertiesUtils;
@@ -20,21 +20,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by GitHub:thisischina on 2017年7月10日10:25:23.
+ * Created by GitHub:thisischina .
  * Controller
- * 监测站
+ * 角色
  */
 
 @Controller
-@RequestMapping("station")
-public class StationController {
+@RequestMapping("role")
+public class RoleController {
 	@Resource
-	private StationService stationService;
+	private RoleService roleService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
 	@RequestMapping("tolist")
-	public String toStationList(HttpServletRequest request,Model model,Integer pageNow){
+	public String toRoleList(HttpServletRequest request,Model model,Integer pageNow){
 		System.out.println("№tolist");
 
 		if(pageNow!=null&&pageNow==0){
@@ -55,30 +55,30 @@ public class StationController {
 			model.addAttribute(pageHelp);
 		}
 
-		return "station/station_list";
+		return "role/role_list";
 	}
 
 	@RequestMapping("toadd")
-	public String toAddStation(HttpServletRequest request,Model model){
-		System.out.println("№toadd");
-		return "station/station_add";
+	public String toAddRole(HttpServletRequest request,Model model){
+		System.out.println("№role_list");
+		return "role/role_add";
 	}
 
 	@RequestMapping("toupdate")
 	public String toUpdate(HttpServletRequest request,Model model,Integer id){
 		System.out.println("№toupdate");
 
-		Station s=new Station();
-		s.setId(id);//存储更新记录所在页数
+		Role s=new Role();
+		s.setRoleId(id);//存储更新记录所在页数
 		pageHelp.setObject(s);
 
-		Station Station=stationService.selectByKey(pageHelp);
-		pageHelp.setObject(Station);
+		Role role=roleService.selectByKey(pageHelp);
+		pageHelp.setObject(role);
 
-		model.addAttribute(Station);
+		model.addAttribute(role);
 		model.addAttribute(pageHelp);
 
-		return "station/station_update";
+		return "role/role_update";
 	}
 
 	@RequestMapping("update")
@@ -92,29 +92,20 @@ public class StationController {
 
 		String id= PageStr.getParameterStr("id",request);
 		String name= PageStr.getParameterStr("name",request);
-		String address= PageStr.getParameterStr("address",request);
-		String type= PageStr.getParameterStr("type",request);
-		String coordinate= PageStr.getParameterStr("coordinate",request);
-		String unitId= PageStr.getParameterStr("unitId",request);
-
+		String power= PageStr.getParameterStr("power",request);
 		/**
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		Station station=new Station();
-		station.setId(Integer.parseInt(id));
+		Role role=new Role();
+		role.setRoleId(Integer.parseInt(id));
 		if(!name.equals("")){
-			station.setName(name);
-		}if(!address.equals("")){
-			station.setAddress(address);
-		}if(!type.equals("")){
-			station.setType(Integer.parseInt(type));
-		}if(!coordinate.equals("")){
-			station.setCoordinate(coordinate);
-		}if(!unitId.equals("")){
-			station.setUnitId(Integer.parseInt(unitId));
+			role.setName(name);
 		}
-		stationService.updateStation(station);
+		if(!power.equals("")){
+			role.setPower(power);
+		}
+		roleService.updateRole(role);
 
 		model.addAttribute(pageHelp);
 
@@ -143,17 +134,17 @@ public class StationController {
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		Station station=new Station();
+		Role role=new Role();
 		if(!selectStr.equals("")){
-			station.setName(selectStr);
+			role.setName(selectStr);
 
-			pageHelp.setObject(station);
+			pageHelp.setObject(role);
 			pageHelp.setSelectStr(selectStr);
 			model.addAttribute(pageHelp);
 		}else {
 			pageHelp.setObject(null);
 	}
-		return stationService.findList(pageHelp,pageNow);
+		return roleService.findList(pageHelp,pageNow);
 	}
 
 	/**
@@ -172,44 +163,31 @@ public class StationController {
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		Station Station;
+		Role role;
 		if(!name.equals("")){
-			Station=new Station();
-			Station.setName(name);
-			pageHelp.setObject(Station);
+			role=new Role();
+			role.setName(name);
+			pageHelp.setObject(role);
 		}else {
 			pageHelp.setObject(null);
 		}
 
-		return stationService.getNameCount(pageHelp);
+		return roleService.getNameCount(pageHelp);
 	}
 
 	@ResponseBody
-	@RequestMapping("addstation")
-	public int addStation(HttpServletRequest request,Model model){
+	@RequestMapping("addrole")
+	public int addRole(HttpServletRequest request,Model model){
 		String name= PageStr.getParameterStr("name",request);
-		String address= PageStr.getParameterStr("address",request);
-		String type= PageStr.getParameterStr("type",request);
-		String coordinate= PageStr.getParameterStr("coordinate",request);
-		String unitId= PageStr.getParameterStr("unitId",request);
+		String power= PageStr.getParameterStr("power",request);
 
-		Station station=new Station();
+		Role role=new Role();
 		if(!name.equals("")){
-			station.setName(name);
-		}if(!address.equals("")){
-			station.setAddress(address);
-		}if(!type.equals("")){
-			station.setType(Integer.parseInt(type));
-		}if(!coordinate.equals("")){
-			station.setCoordinate(coordinate);
-		}if(!unitId.equals("")){
-			station.setUnitId(Integer.parseInt(unitId));
+			role.setName(name);
+		}if(!power.equals("")){
+			role.setPower(power);
 		}
-
-		String number=Value.STATION;
-		station.setNumber(number);
-
-		stationService.insertStation(station);
+		roleService.insertRole(role);
 
 		return Value.IntNumOne;
 	}
@@ -217,8 +195,8 @@ public class StationController {
 
 	@ResponseBody
 	@RequestMapping("delete")
-	public int deleteStation(HttpServletRequest request,Integer id){
-		stationService.deleteStation(id);
+	public int deleteRole(HttpServletRequest request,Integer id){
+		roleService.deleteRole(id);
 
 		return Value.IntNumOne;
 	}

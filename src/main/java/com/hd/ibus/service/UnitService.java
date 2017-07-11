@@ -1,21 +1,23 @@
 package com.hd.ibus.service;
 
-import com.hd.ibus.pojo.Station;
+import com.hd.ibus.pojo.Unit;
+import com.hd.ibus.pojo.User;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.util.shenw.PageHelp;
 
 /**
- * Created by github:thisischina .
- * 接口:监测站
+ * Created by github:thisischina 0030.
+ * 可调用的接口
  */
-public interface StationService {
+public interface UnitService {
 
     /**
      * 列表
      * @param help
+     * @param pageNow
      * @return
      */
-    DataGridResultInfo findList(PageHelp help,Integer pageNow);
+    DataGridResultInfo findList(PageHelp help, Integer pageNow);
 
     /**
      * 获取同一账号的数量
@@ -28,16 +30,16 @@ public interface StationService {
      * 按条件获取单个对象
      * @param pageHelp
      */
-    Station selectByKey(PageHelp pageHelp);
+    Unit selectByKey(PageHelp pageHelp);
 
     /**
      * 添加
-     * @param station
+     * @param unit
      * @return
      */
-    void insertStation(Station station);
+    void insertUnit(Unit unit);
 
-    void updateStation(Station station);
+    void updateUnit(Unit unit);
 
-    void deleteStation(Integer id);
+    void deleteUnit(Integer id);
 }

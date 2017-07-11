@@ -1,5 +1,7 @@
 package com.hd.ibus.pojo;
 
+//单位表
+
 public class Unit {
     private Integer unitId;
 

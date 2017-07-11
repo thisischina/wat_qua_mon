@@ -89,13 +89,13 @@ public class UserController {
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
 
-		String id= PageStr.getParameterStr("id",request,model);
-		String name= PageStr.getParameterStr("name",request,model);
-		String tel= PageStr.getParameterStr("tel",request,model);
-		String email= PageStr.getParameterStr("email",request,model);
-		String unitId= PageStr.getParameterStr("unitId",request,model);
-		String roleId= PageStr.getParameterStr("roleId",request,model);
-		String power= PageStr.getParameterStr("power",request,model);
+		String id= PageStr.getParameterStr("id",request);
+		String name= PageStr.getParameterStr("name",request);
+		String tel= PageStr.getParameterStr("tel",request);
+		String email= PageStr.getParameterStr("email",request);
+		String unitId= PageStr.getParameterStr("unitId",request);
+		String roleId= PageStr.getParameterStr("roleId",request);
+		String power= PageStr.getParameterStr("power",request);
 
 		/**
 		 * 查询条件为空设置对象为空
@@ -141,7 +141,7 @@ public class UserController {
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
 
-		String selectStr= PageStr.getParameterStr("account",request,model);
+		String selectStr= PageStr.getParameterStr("account",request);
 
 		/**
 		 * 查询条件为空设置对象为空
@@ -170,7 +170,7 @@ public class UserController {
 	@RequestMapping("confirmexist")
 	public @ResponseBody DataGridResultInfo confirmExist(HttpServletRequest request,Model model)
 			throws IOException {
-		String account= PageStr.getParameterStr("account",request,model);
+		String account= PageStr.getParameterStr("account",request);
 
 		/**
 		 * 查询条件为空设置对象为空
@@ -190,16 +190,17 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping("adduser")
-	public int addUser(User user,HttpServletRequest request,Model model){
-		String account=PageStr.getParameterStr("account",request,model);
-		String password=PageStr.getParameterStr("password",request,model);
-		String name=PageStr.getParameterStr("name",request,model);
-		String tel=PageStr.getParameterStr("tel",request,model);
-		String email=PageStr.getParameterStr("email",request,model);
-		String unitId=PageStr.getParameterStr("unitId",request,model);
-		String roleId=PageStr.getParameterStr("roleId",request,model);
-		String power=PageStr.getParameterStr("power",request,model);
+	public int addUser(HttpServletRequest request,Model model){
+		String account=PageStr.getParameterStr("account",request);
+		String password=PageStr.getParameterStr("password",request);
+		String name=PageStr.getParameterStr("name",request);
+		String tel=PageStr.getParameterStr("tel",request);
+		String email=PageStr.getParameterStr("email",request);
+		String unitId=PageStr.getParameterStr("unitId",request);
+		String roleId=PageStr.getParameterStr("roleId",request);
+		String power=PageStr.getParameterStr("power",request);
 
+		User user=new User();
 		if(!account.equals("")){
 			user.setAccount(account);
 		}if(!password.equals("")){
@@ -226,9 +227,8 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping("delete")
-	public int deleteUser(HttpServletRequest request,Model model){
-		String id=PageStr.getParameterStr("id",request,model);
-		userService.deleteUser(Integer.parseInt(id));
+	public int deleteUser(HttpServletRequest request,Model model,Integer id){
+		userService.deleteUser(id);
 
 		return Value.IntNumOne;
 	}

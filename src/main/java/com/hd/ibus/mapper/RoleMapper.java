@@ -3,23 +3,49 @@ package com.hd.ibus.mapper;
 import com.hd.ibus.pojo.Role;
 import com.hd.ibus.util.shenw.PageHelp;
 
+import java.util.List;
+
 public interface RoleMapper {
     /**
-     * 根据传入对象的属性参数查询对象
+     * 查询
+     * @param help
+     * @return int
+     */
+    int findTotal(PageHelp help);
+
+    /**
+     * 查询
+     * @param help
+     * @return list
+     */
+    List<Role> select(PageHelp help);
+
+    /**
+     * 根据条件查找获取单个对象
      * @param help
      * @return Role
      */
-    Role getObjectByPageHelp(PageHelp help);
+    Role selectByKey(PageHelp help);
 
-    int deleteByPrimaryKey(Integer roleId);
+    /**
+     * 按条件查询记录数
+     * @param help
+     * @return
+     */
+    int paramCount(PageHelp help);
 
-    int insert(Role record);
+    /**
+     * 添加
+     * @param role
+     * @return int
+     */
+    void insert(Role role);
 
-    int insertSelective(Role record);
+    /**
+     * 更新
+     * @param role
+     */
+    void update(Role role);
 
-    Role selectByPrimaryKey(Integer roleId);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
+    int delete(Integer id);
 }

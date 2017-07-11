@@ -57,63 +57,69 @@
 	jQuery(document).ready(function(){
 		changeTitle();
 	});
-	
+
 	function changeTitle(){
 		$('#ultt', parent.document).html("");
-		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:'>监测站信息</a></li>";
-		htmlss = htmlss + "<li>添加检测站点</li>";
+		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:'>设备信息</a></li>";
+		htmlss = htmlss + "<li>添加设备</li>";
 		$('#ultt', parent.document).html(htmlss);
 	}
 	
 	function changeTitle2(){
 		$('#ultt', parent.document).html("");
-		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:'>监测站信息</a></li>";
+		var htmlss = "<li id='title1'><i class='fa fa-home'></i>系统管理</li><li id='title2'><a href='javascript:'>设备信息</a></li>";
 		$('#ultt', parent.document).html(htmlss);
 	}
 	
 	function returnPage(){
 		changeTitle2();
-        window.location.href='${basepath}/station/tolist';
+        window.location.href='${basepath}/equipment/tolist';
 	}
 	
 	function saveObject(){
 		var name=$('#name').val();
-		var address=$('#address').val();
-		var type=$('#type').val();
-        var coordinate=$('#coordinate').val();
-        var unitId=$('#unitId').val();
+		var number=$('#number').val();
+		var typeId=$('#typeId').val();
+        var lifetime=$('#lifetime').val();
+        var max=$('#max').val();
+        var min=$('#min').val();
+        var samplingFrequency=$('#samplingFrequency').val();
+        var installTime=$('#installTime').val();
+        var stationId=$('#stationId').val();
+        var state=$('#state').val();
 
 		if(name==""){
-			alert("站点名称不能为空。");
+			alert("设备名称不能为空。");
 			return
 		}
 
 		//判断用户是否已存在
 		$.ajax({
-			url:"${basepath}/station/confirmexist",
+			url:"${basepath}/equipment/confirmexist",
 			type:"post",
 			data:{name:name},
 			dataType:"json",
 			async:false,
 			success: function (data) {
 				if(data.total>0){
-				    alert("站点已存在");
+				    alert("设备名已存在");
 				    return;
 				}else{
 
 				    //添加用户
                     $.ajax({
-                        url:"${basepath}/station/addstation",
+                        url:"${basepath}/equipment/addstation",
                         type:"post",
-                        data:{name:name,address:address,type:type,coordinate:coordinate,
-                            unitId:unitId},
+                        data:{name:name,number:number,typeId:typeId,lifetime:lifetime,
+                            max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime
+                            stationId:stationId,state:state},
                         dataType:"json",
                         async:false,
                         success: function (data) {
                             if(data>0){
                                 alert("添加成功");
                                 changeTitle2();
-                                window.location.href='${basepath}/station/tolist';
+                                window.location.href='${basepath}/equipment/tolist';
 							}
                         }
                     });
@@ -128,7 +134,7 @@
 <body>
 
 <div id="page-content">
-	<h3>添加检测站点</h3>
+	<h3>添加设备</h3>
 	<div class="divider"></div>
 
 		<div class="">
@@ -137,7 +143,7 @@
 				<form action="" class="col-md-20 center-margin" method="get">
 					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 监测站名: </label>
+							<label> 设备名: </label>
 						</div>
 						<div class="form-input col-md-5">
 						 <input id="name" type="text">
@@ -149,12 +155,13 @@
 						带*为必填项
 						</div>
 					</div>
+
 					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 位置名称: </label>
+							<label> 编号: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <input id="address" type="text">
+						 <input id="number" type="text">
 						</div>
 						<div class="form-input col-md-1">
 						*
@@ -166,7 +173,7 @@
 							<label> 所属类型: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<select id='type'>
+							<select id='typeId'>
 								<option value='1'>类型一</option>
 								<option value='2'>类型二</option>
 							</select>
@@ -175,21 +182,56 @@
 
 					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 坐标: </label>
+							<label> 寿命: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="coordinate" type="text">
+							<input id="lifetime" type="text">
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="form-label col-md-2">
-							<label> 所属单位: </label>
+							<label> 阈值上限: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<select id='unitId'>
-								<option value='1'>单位一</option>
-								<option value='2'>单位二</option>
+							<input id="max" type="text">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 阈值下限: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<input id="min" type="text">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 采集频率: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<input id="samplingFrequency" type="text">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 安装日期: </label>
+						</div>
+						<input id="startDate" class="Wdate form-control" value='${startdate }'
+							   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true,onpicked:function() {javascript:changeTime();}})" style='height:30px;width: 165px'/>
+					</div>
+
+					<div class="form-row">
+						<div class="form-label col-md-2">
+							<label> 所属监测站: </label>
+						</div>
+						<div class="form-input col-md-5">
+							<select id='stationId'>
+								<option value='1'>一</option>
+								<option value='2'>二</option>
 							</select>
 						</div>
 					</div>

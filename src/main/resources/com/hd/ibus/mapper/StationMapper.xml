@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hd.ibus.mapper.StationMapper" >
-  <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.Station" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
-    <result column="unit_id" property="unitId" jdbcType="INTEGER" />
+  <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.Station">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
+    <result column="unit_id" jdbcType="INTEGER" property="unitId" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, address, type, coordinate, unit_id
+   id, number, name, address, type, coordinate, unit_id
   </sql>
 
   <!--分页查询列表-->
@@ -54,30 +55,33 @@
   </select>
 
   <insert id="insert" parameterType="com.hd.ibus.pojo.Station">
-    insert into station (id, name, address,
-      type, coordinate, unit_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
-      #{type,jdbcType=INTEGER}, #{coordinate,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER}
-      )
+    insert into station (id, number, name,
+    address, type, coordinate,
+    unit_id)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+    #{address,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{coordinate,jdbcType=VARCHAR},
+    #{unitId,jdbcType=INTEGER})
   </insert>
 
   <update id="update" parameterType="com.hd.ibus.pojo.Station">
     update station
     <set >
-      <if test="name != null" >
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="coordinate != null" >
+      <if test="coordinate != null">
         coordinate = #{coordinate,jdbcType=VARCHAR},
       </if>
-      <if test="unitId != null" >
+      <if test="unitId != null">
         unit_id = #{unitId,jdbcType=INTEGER},
       </if>
     </set>

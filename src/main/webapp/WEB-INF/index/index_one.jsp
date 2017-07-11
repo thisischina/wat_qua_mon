@@ -33,18 +33,40 @@
             jQuery('.nal_li').removeClass('active');
             jQuery('#li_project').addClass('active');
             var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:user();'>用户管理</a></li>";
-            $("#ultt").html(htmlss);
+            $("#ul-x").html(htmlss);
             document.getElementById("iframe").src="${basepath }/user/tolist?pageNow=0";
 		}
 
         function station(){
-            $("#ultt").html("");
-
             jQuery('.nal_li').removeClass('active');
             jQuery('#li_project').addClass('active');
-            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:station();'>监测站管理</a></li>";
-            $("#ultt").html(htmlss);
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>监测站管理</a></li>";
+            $("#ul-x").html(htmlss);
             document.getElementById("iframe").src="${basepath }/station/tolist?pageNow=0";
+        }
+
+        function role(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>角色管理</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/role/tolist?pageNow=0";
+        }
+
+        function unit(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>单位管理</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/unit/tolist?pageNow=0";
+        }
+
+        function equipment(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>设备管理</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/equipment/tolist?pageNow=0";
         }
 	</script>
 </head>
@@ -68,7 +90,7 @@
 						</a>
 					</li>
 					<li class="nal_li">
-						<a href="javascript:">
+						<a href="javascript:role();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">角色管理</span>
 							<span class="selected"></span>
 						</a>
@@ -80,7 +102,7 @@
 						</a>
 					</li>
 					<li class="nal_li">
-					<a href="javascript:">
+					<a href="javascript:unit();">
 						<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">部门管理</span>
 						<span class="selected"></span>
 					</a>
@@ -104,7 +126,7 @@
 						</a>
 					</li>
 					<li class="nal_li">
-						<a href="javascript:">
+						<a href="javascript:equipment();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">设备管理</span>
 							<span class="selected"></span>
 						</a>
@@ -137,11 +159,6 @@
 								<div class="page-header" style='min-height: 40px;margin:0 -15px 0px'>
 									<!-- BREADCRUMBS -->
 									<ul class="breadcrumb" id="ul-x" style='margin-top: 10px'>
-										<li>
-											<i class="fa fa-home"></i>
-											<a href="javascript:void(0)">系统管理</a>
-										</li>
-										<li><span id="sp">用户管理</span></li>
 									</ul>
 									<!-- /BREADCRUMBS -->
 								</div>

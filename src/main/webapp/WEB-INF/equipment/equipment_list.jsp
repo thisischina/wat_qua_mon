@@ -58,22 +58,34 @@
                 + (item.number == null ? "" : item.number)
                 + "</td>"
                 + "<td>"
-                + (item.address == null ? "" : item.address)
+                + (item.typeId == null ? "" : item.typeId)
                 + "</td>"
                 + "<td>"
-                + (item.type == null ? "" : item.type)
+                + (item.lifetime == null ? "" : item.lifetime)
                 + "</td>"
                 + "<td>"
-                + (item.coordinate == null ? "" : item.coordinate)
+                + (item.max == null ? "" : item.max)
                 + "</td>"
                 + "<td>"
-                + (item.unitId == null ? "" : item.unitId)
+                + (item.min == null ? "" : item.min)
+                + "</td>"
+                + "<td>"
+                + (item.samplingFrequency == null ? "" : item.samplingFrequency)
+                + "</td>"
+                + "<td>"
+                + (item.installTime == null ? "" : item.installTime)
+                + "</td>"
+                + "<td>"
+                + (item.stationId == null ? "" : item.stationId)
+                + "</td>"
+                + "<td>"
+                + (item.state == null ? "" : item.state)
                 + "</td>"
 
 //            if(role==1){
             str=str+ "<td>"
                 + "<div class=''>"
-                + "<a class='btn btn-xs btn-info' href='../station/toupdate?id="+item.id
+                + "<a class='btn btn-xs btn-info' href='../equipment/toupdate?id="+item.id
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                 + "</a>"
@@ -93,9 +105,9 @@
             var url="";
             if(selectType==1){
 //                表示点击查询按钮,初始化当前页为1
-                url="${basepath }/station/getlist?pageNow=1";
+                url="${basepath }/equipment/getlist?pageNow=1";
             }else{
-                url="${basepath }/station/getlist?pageNow="+${pageHelp.pageBean.pageNow};
+                url="${basepath }/equipment/getlist?pageNow="+${pageHelp.pageBean.pageNow};
             }
 
             var name = $("#name").val();
@@ -129,7 +141,7 @@
                             onPageClick : function(event, page) {
                                 var name = $("#name").val();
                                 $.ajax({
-                                    url : "${basepath }/station/getlist",
+                                    url : "${basepath }/equipment/getlist",
                                     type : "post",
                                     data : {pageNow:page,name:name},
                                     dataType : "json",
@@ -156,13 +168,13 @@
         function deleteObject(id){
             var id=id;
             $.ajax({
-                url : "${basepath }/station/delete",
+                url : "${basepath }/equipment/delete",
                 type : "post",
                 data : {id:id},
                 dataType : "json",
                 success : function(data) {
                     alert("删除成功");
-                    window,location.href='${basepath}/station/tolist';
+                    window,location.href='${basepath}/equipment/tolist';
                 }
             });
         }
@@ -191,10 +203,14 @@
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>名称</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>编号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>位置</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>类型</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>坐标</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>单位</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>寿命</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>阈值上限</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>阈值下限</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>采集频率</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>安装日期</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>所属监测站</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>状态</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
             </tr>
             </thead>
@@ -205,7 +221,7 @@
         <div class="dataTables_info" id="dynamic-table_info"
              style="float: left;">
                 <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
-                   href="${basepath}/station/toadd">
+                   href="${basepath}/equipment/toadd">
                     <span class="button-content">添加</span> </a>
         </div>
         <div id="pagination_div" style='float: right;padding-right: 0px'>

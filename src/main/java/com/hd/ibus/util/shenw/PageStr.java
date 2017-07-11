@@ -10,21 +10,16 @@ import javax.servlet.http.HttpServletRequest;
  * 处理页面传过来的参数，如name值
  */
 public class PageStr {
-    public static String getParameterStr(String string,HttpServletRequest request,Model model) throws NullPointerException{
+
+    public static String getParameterStr(String string,HttpServletRequest request) throws NullPointerException{
         String str="";
         if(request.getParameter(string)!=null){
             str=request.getParameter(string);
-        }else{
-            return "";
+            if(string.trim().equals("")){
+                return "";
+            }
         }
-
-        if(str.trim().equals("")){
-            model.addAttribute("isnull","");
-            model.addAttribute("isnullmessage","输入的账号或密码不能含有空字符");
-            return "";
-        }else {
-            return str.trim();
-        }
+        return str;
     }
 
 }
