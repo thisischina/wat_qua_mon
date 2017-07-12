@@ -186,9 +186,6 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-		
-		
-		
 		<!-- 上传组件包 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -254,10 +251,5 @@
 		    <artifactId>activemq-xmpp</artifactId>
 		    <version>5.7.0</version>
 		</dependency> 
-
-		
 	</dependencies>
-
-
-
 </project>

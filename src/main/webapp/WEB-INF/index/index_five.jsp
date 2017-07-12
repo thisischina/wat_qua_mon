@@ -97,7 +97,7 @@
 						<!-- /PAGE HEADER -->
 						<!-- DASHBOARD CONTENT -->
 						<div class="row">
-							<iframe id='iframe' src="http://www.servasoft.com/solution.html" width="100%" style='overflow-y :auto;border: 0px'>
+							<iframe id='iframe' src="../../main/homepage.html" width="100%" style='overflow-y :auto;border: 0px'>
 							</iframe>
 						</div>
 					   <!-- /DASHBOARD CONTENT -->

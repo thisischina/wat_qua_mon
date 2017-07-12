@@ -1,12 +1,13 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="wat_qua_mon:war exploded">
-    <output-path>$PROJECT_DIR$/target/wat_qua_mon-0.0.1-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts/wat_qua_mon_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="wat_qua_mon" />
         </element>
         <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/taobao-sdk-java-auto_1455552377940-20160607.jar" />
           <element id="library" level="project" name="Maven: junit:junit:4.11" />
           <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.2.4.RELEASE" />
@@ -30,7 +31,6 @@
           <element id="library" level="project" name="Maven: asm:asm:1.5.3" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.3.0" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.2.2" />
-          <element id="library" level="project" name="Maven: javax:javaee-api:7.0" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.0" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.30" />
@@ -94,9 +94,6 @@
           <element id="library" level="project" name="Maven: org.codehaus.woodstox:stax2-api:3.0.2" />
           <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-activation_1.1_spec:1.0.2" />
         </element>
-      </element>
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/wat_qua_mon-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="wat_qua_mon/web/Web" />
     </root>

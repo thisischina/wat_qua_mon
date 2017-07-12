@@ -14,7 +14,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     </settings> -->
 	<typeAliases>
 		<package name="com.hd.ibus.pojo"/>
-		
 	</typeAliases>
 
 </configuration>
