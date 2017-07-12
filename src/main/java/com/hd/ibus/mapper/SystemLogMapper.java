@@ -1,7 +1,7 @@
-package cn.itcast.ssm.mapper2;
+package com.hd.ibus.mapper;
 
-import cn.itcast.ssm.po2.SystemLog;
-import cn.itcast.ssm.po2.SystemLogExample;
+import com.hd.ibus.pojo.SystemLog;
+import com.hd.ibus.pojo.SystemLogExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

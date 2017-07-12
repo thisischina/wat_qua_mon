@@ -1,4 +1,4 @@
-package cn.itcast.ssm.po2;
+package com.hd.ibus.pojo;
 
 import java.util.Date;
 
