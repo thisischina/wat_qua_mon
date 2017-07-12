@@ -16,12 +16,14 @@ MachMap.prototype.initMap = function (containerID) {
     var map = new BMap.Map("map_container");            // 创建地图实例
     var point = new BMap.Point(116.418261, 39.921984);  // 创建中心点坐标
     //创建覆盖物
-    var pt = new BMap.Point(116.417, 39.909);
+    var pt = new BMap.Point(116.418261, 39.921984);
     var myIcon = new BMap.Icon("../assets/images/sewage.png", new BMap.Size(50,50));
     var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建覆盖物
     var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-    marker.addEventListener("click", function(){     //覆盖物的信息窗口
-        this.openInfoWindow(infoWindow);
+    marker.addEventListener("click", function(){    //添加左键单击事件
+        map.setCenter(pt);                          //地图中心点变为监测点
+        map.setZoom(20);                            //地图缩放等级更改为20，比例尺最小。
+        this.openInfoWindow(infoWindow);            //打开覆盖物的信息窗口
         //图片加载完毕重绘infowindow
         document.getElementById('imgDemo').onload = function (){
             infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
@@ -42,7 +44,7 @@ MachMap.prototype.initMap = function (containerID) {
     }else{       
         map.addOverlay(heatmapOverlay);
         heatmapOverlay.setDataSet({data:points,max:100});
-        closeHeatmap();
+        openHeatmap();
     }
     return map;
 }
