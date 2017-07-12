@@ -1,30 +1,45 @@
-package cn.itcast.ssm.mapper2;
+package com.hd.ibus.mapper;
 
-import cn.itcast.ssm.po2.News;
-import cn.itcast.ssm.po2.NewsExample;
+import com.hd.ibus.pojo.News;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import com.hd.ibus.util.shenw.PageHelp;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface NewsMapper {
-    int countByExample(NewsExample example);
+    /**
+     * 查询
+     * @param help
+     * @return int
+     */
+    int findTotal(PageHelp help);
 
-    int deleteByExample(NewsExample example);
+    /**
+     * 查询
+     * @param help
+     * @return list
+     */
+    List<News> select(PageHelp help);
 
-    int deleteByPrimaryKey(Integer id);
+    /**
+     * 根据条件查找获取单个对象
+     * @param help
+     * @return News
+     */
+    News selectByKey(PageHelp help);
 
-    int insert(News record);
+    /**
+     * 按条件查询记录数
+     * @param help
+     * @return
+     */
+    int paramCount(PageHelp help);
 
-    int insertSelective(News record);
-
-    List<News> selectByExample(NewsExample example);
-
-    News selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") News record, @Param("example") NewsExample example);
-
-    int updateByExample(@Param("record") News record, @Param("example") NewsExample example);
-
-    int updateByPrimaryKeySelective(News record);
-
-    int updateByPrimaryKey(News record);
+    /**
+     * 添加
+     * @param news
+     * @return int
+     */
+    void insert(News news);
 }

@@ -70,8 +70,7 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 		window.parent.location='${basepath }/index.jsp';
 	}
 	jQuery(document).ready(function(){
-		
-		
+
 		var flag = '${param.flag}';
 		if(flag==-1){
 			alert("账号或密码错误！");
@@ -100,7 +99,7 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 	</div>
 	
 		<div class='col-md-12'>
-			<form class="form-inline" id='loginForm' role="form" method="post"  action='${basepath }/index/index_five' style='margin-top: 18%;margin-left: 57%;width: 260px '>
+			<form class="form-inline" id='loginForm' role="form" method="post"  action='${basepath }/user/login' style='margin-top: 18%;margin-left: 57%;width: 260px '>
 				<div class="form-group form-row" style=' font-family:"楷体"; font-size:30px; color: #fff;'>
 					水质监测系统
 				</div>
@@ -111,7 +110,7 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 					</div>
 					<div class="form-group form-row">
 						<input type="text" class="form-control"
-							 value="" name='userName' id='userName'>
+							 value="" name='account' id='userName'>
 					</div>
 				</div>
 				<br>

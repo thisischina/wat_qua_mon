@@ -2,9 +2,11 @@ package com.hd.ibus.mapper;
 
 import com.hd.ibus.pojo.Station;
 import com.hd.ibus.util.shenw.PageHelp;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface StationMapper {
     /**
      * 查询

@@ -1,4 +1,11 @@
 package com.hd.ibus.pojo;
+<<<<<<< Updated upstream
+=======
+
+/**
+ * 系统日志
+ */
+>>>>>>> Stashed changes
 
 import java.util.Date;
 

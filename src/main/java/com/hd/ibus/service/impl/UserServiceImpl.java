@@ -10,6 +10,8 @@ import com.hd.ibus.util.shenw.PageHelp;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -81,5 +83,25 @@ public class UserServiceImpl implements UserService {
      */
     public void deleteUser(Integer id){
         userMapper.delete(id);
+    }
+
+    public User login(PageHelp help){
+        User user=(User)help.getObject();
+        String account=user.getAccount();
+        String password=user.getPassword();
+
+        String passwordJM=AES.encryptGetStr(password,account);
+
+        user.setPassword(passwordJM);
+        help.setObject(user);
+
+        User u=userMapper.login(help);
+
+        if(u!=null){
+            return u;
+        }else{
+            return null;
+        }
+
     }
 }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.hd.ibus.pojo.User;
 import com.hd.ibus.service.UserService;
 import com.hd.ibus.util.Config;
@@ -12,6 +14,7 @@ import com.hd.ibus.util.PropertiesUtils;
 import com.hd.ibus.util.shenw.PageHelp;
 import com.hd.ibus.util.shenw.PageStr;
 import com.hd.ibus.util.shenw.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +37,7 @@ public class UserController {
 
 	@RequestMapping("tolist")
 	public String toUserList(HttpServletRequest request,Model model,Integer pageNow){
-		System.out.println("№user_list");
+		System.out.println("№tolist");
 
 		if(pageNow!=null&&pageNow==0){
 			//初始化
@@ -59,7 +62,7 @@ public class UserController {
 
 	@RequestMapping("toadd")
 	public String toAddUser(HttpServletRequest request,Model model){
-		System.out.println("№user_list");
+		System.out.println("№toadd");
 		return "user/user_add";
 	}
 
@@ -127,15 +130,13 @@ public class UserController {
 	 * 带可查询的分页列表
 	 * @param request
 	 * @param pageNow
-	 * @param pageSize
 	 * @param model
 	 * @return
 	 * @throws IOException
 	 */
 	@RequestMapping("getlist")
-	public @ResponseBody DataGridResultInfo getSelectListPage(HttpServletRequest request,HttpServletResponse response,Integer pageNow,Integer pageSize,Model model)
+	public @ResponseBody DataGridResultInfo getSelectListPage(HttpServletRequest request,HttpServletResponse response,Integer pageNow,Model model)
 			throws IOException {
-		System.out.println("№:getlist"+pageNow);
 
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -147,11 +148,11 @@ public class UserController {
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		User station=new User();
+		User user=new User();
 		if(!selectStr.equals("")){
-			station.setAccount(selectStr);
+			user.setAccount(selectStr);
 
-			pageHelp.setObject(station);
+			pageHelp.setObject(user);
 			pageHelp.setSelectStr(selectStr);
 			model.addAttribute(pageHelp);
 		}else {
@@ -232,4 +233,41 @@ public class UserController {
 
 		return Value.IntNumOne;
 	}
+
+	/**
+	 * 登陆验证
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("login")
+	public String userLogin(HttpServletRequest request,Model model){
+		String account= PageStr.getParameterStr("account",request);
+		String password= PageStr.getParameterStr("password",request);
+		/**
+		 * 查询条件为空设置对象为空
+		 * 查询条件不为空，将参数设置到对象
+		 */
+		User user;
+		if(!account.equals("")&&!password.equals("")){
+			user=new User();
+			user.setAccount(account);
+			user.setPassword(password);
+			pageHelp.setObject(user);
+		}else {
+			pageHelp.setObject(null);
+		}
+		user=userService.login(pageHelp);
+
+		if(user!=null){
+			HttpSession session=request.getSession();
+			session.setAttribute("user",user);
+			return "redirect:/index/index_five";
+		}
+		else{
+			return "redirect:/index.jsp?flag=-1";
+		}
+	}
+
 }

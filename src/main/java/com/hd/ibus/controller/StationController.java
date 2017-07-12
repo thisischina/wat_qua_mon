@@ -72,10 +72,10 @@ public class StationController {
 		s.setId(id);//存储更新记录所在页数
 		pageHelp.setObject(s);
 
-		Station Station=stationService.selectByKey(pageHelp);
-		pageHelp.setObject(Station);
+		Station station=stationService.selectByKey(pageHelp);
+		pageHelp.setObject(station);
 
-		model.addAttribute(Station);
+		model.addAttribute(station);
 		model.addAttribute(pageHelp);
 
 		return "station/station_update";
@@ -172,11 +172,11 @@ public class StationController {
 		 * 查询条件为空设置对象为空
 		 * 查询条件不为空，将参数设置到对象
 		 */
-		Station Station;
+		Station station;
 		if(!name.equals("")){
-			Station=new Station();
-			Station.setName(name);
-			pageHelp.setObject(Station);
+			station=new Station();
+			station.setName(name);
+			pageHelp.setObject(station);
 		}else {
 			pageHelp.setObject(null);
 		}

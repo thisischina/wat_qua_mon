@@ -3,7 +3,9 @@ package com.hd.ibus.mapper;
 import java.util.List;
 import com.hd.ibus.pojo.Unit;
 import com.hd.ibus.util.shenw.PageHelp;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UnitMapper {
     /**
      * 查询

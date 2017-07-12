@@ -50,4 +50,11 @@ public interface UserMapper {
     void update(User user);
 
     int delete(Integer id);
+
+    /**
+     * 登陆
+     * @param help
+     * @return
+     */
+    User login(PageHelp help);
 }

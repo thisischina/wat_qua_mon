@@ -41,4 +41,11 @@ public interface UserService {
     void updateUser(User user);
 
     void deleteUser(Integer id);
+
+    /**
+     * 登陆
+     * @param help
+     * @return
+     */
+    User login(PageHelp help);
 }

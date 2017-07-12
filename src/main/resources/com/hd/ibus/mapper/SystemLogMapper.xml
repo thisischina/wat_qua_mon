@@ -8,81 +8,32 @@
     <result column="opration_time" property="oprationTime" jdbcType="TIMESTAMP" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List" >
     id, type, content, opration_time, user_id
   </sql>
+<<<<<<< Updated upstream
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hd.ibus.pojo.SystemLogExample" >
     select
     <if test="distinct" >
       distinct
     </if>
+=======
+
+  <select id="select" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
+    SELECT
+>>>>>>> Stashed changes
     <include refid="Base_Column_List" />
     from system_log
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+    <if test="object!=null">
+      WHERE content LIKE concat(concat('%',#{object.content}),'%')
     </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
+
+    <if test="pageBean!=null">
+      limit ${pageBean.start},${pageBean.pageSize}
     </if>
   </select>
+<<<<<<< Updated upstream
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -143,44 +94,34 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.hd.ibus.pojo.SystemLogExample" resultType="java.lang.Integer" >
+=======
+
+  <!-- 查询列表的总记录数 -->
+  <select id="findTotal" parameterType="com.hd.ibus.util.shenw.PageHelp"
+          resultType="int">
+>>>>>>> Stashed changes
     select count(*) from system_log
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+    <if test="object!=null">
+      WHERE content LIKE concat(concat('%',#{object.content}),'%')
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update system_log
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.type != null" >
-        type = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=VARCHAR},
-      </if>
-      <if test="record.oprationTime != null" >
-        opration_time = #{record.oprationTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
+
+  <select id="paramCount" parameterType="com.hd.ibus.util.shenw.PageHelp"
+          resultType="int">
+    select count(*) from system_log
+    <if test="object!=null">
+      WHERE id =#{object.id}
     </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update system_log
-    set id = #{record.id,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=INTEGER},
-      content = #{record.content,jdbcType=VARCHAR},
-      opration_time = #{record.oprationTime,jdbcType=TIMESTAMP},
-      user_id = #{record.userId,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
+  </select>
+
+  <select id="selectByKey" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from system_log
+    <if test="object!=null">
+      WHERE id = #{object.id}
     </if>
+<<<<<<< Updated upstream
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.hd.ibus.pojo.SystemLog" >
     update system_log
@@ -208,4 +149,8 @@
       user_id = #{userId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+=======
+  </select>
+
+>>>>>>> Stashed changes
 </mapper>

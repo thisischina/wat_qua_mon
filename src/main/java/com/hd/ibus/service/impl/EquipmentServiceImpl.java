@@ -53,20 +53,20 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     /**
      * 添加
-     * @param Equipment
+     * @param equipment
      * @return
      */
-    public void insertEquipment(Equipment Equipment){
-        equipmentMapper.insert(Equipment);
+    public void insertEquipment(Equipment equipment){
+        equipmentMapper.insert(equipment);
 
     }
 
     /**
      * 更新
-     * @param Equipment
+     * @param equipment
      */
-    public void updateEquipment(Equipment Equipment){
-        equipmentMapper.update(Equipment);
+    public void updateEquipment(Equipment equipment){
+        equipmentMapper.update(equipment);
     }
 
     /**

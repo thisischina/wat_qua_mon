@@ -103,4 +103,13 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+
+  <select id="login" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from user
+    <if test="object!=null">
+      WHERE account = #{object.account} AND password = #{object.password}
+    </if>
+  </select>
 </mapper>

@@ -108,7 +108,7 @@
 
 				    //添加用户
                     $.ajax({
-                        url:"${basepath}/equipment/addstation",
+                        url:"${basepath}/equipment/addequipment",
                         type:"post",
                         data:{name:name,number:number,typeId:typeId,lifetime:lifetime,
                             max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime

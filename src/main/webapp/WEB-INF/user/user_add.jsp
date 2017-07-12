@@ -234,15 +234,16 @@
 
 					<div class="form-row">
 						<div class="form-label col-md-2">
-					
 					</div>
+
 					<div class="form-label col-md-2">
 					<input class="btn medium primary-bg"  style="width:80px" value="提交" type="button" onclick="saveUser();"/>
-					
 					</div>
+
 					<div class="form-label col-md-2">
 					<input class="btn medium primary-bg" style="width:80px" value="返回" type="button" onclick="returnUser();"/>
 					</div>
+
 					</div>
 				</form>
 

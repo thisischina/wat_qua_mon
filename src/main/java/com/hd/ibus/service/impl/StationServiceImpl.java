@@ -53,20 +53,21 @@ public class StationServiceImpl implements StationService {
 
     /**
      * 添加
-     * @param Station
+     * @param station
      * @return
      */
-    public void insertStation(Station Station){
-        stationMapper.insert(Station);
+    public void insertStation(Station station){
+        stationMapper.insert(station);
 
     }
 
     /**
      * 更新
-     * @param Station
+     * @param station
      */
-    public void updateStation(Station Station){
-        stationMapper.update(Station);
+    public void updateStation(Station station){
+
+        stationMapper.update(station);
     }
 
     /**

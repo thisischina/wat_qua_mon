@@ -1,30 +1,54 @@
-package cn.itcast.ssm.mapper2;
+package com.hd.ibus.mapper;
 
-import cn.itcast.ssm.po2.Record;
-import cn.itcast.ssm.po2.RecordExample;
+import com.hd.ibus.pojo.Record;
+import com.hd.ibus.util.shenw.PageHelp;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+@Repository
 public interface RecordMapper {
-    int countByExample(RecordExample example);
 
-    int deleteByExample(RecordExample example);
+    /**
+     * 查询
+     * @param help
+     * @return int
+     */
+    int findTotal(PageHelp help);
 
-    int deleteByPrimaryKey(Integer id);
+    /**
+     * 查询
+     * @param help
+     * @return list
+     */
+    List<Record> select(PageHelp help);
 
-    int insert(Record record);
+    /**
+     * 根据条件查找获取单个对象
+     * @param help
+     * @return Record
+     */
+    Record selectByKey(PageHelp help);
 
-    int insertSelective(Record record);
+    /**
+     * 按条件查询记录数
+     * @param help
+     * @return
+     */
+    int paramCount(PageHelp help);
 
-    List<Record> selectByExample(RecordExample example);
+    /**
+     * 添加
+     * @param record
+     * @return int
+     */
+    void insert(Record record);
 
-    Record selectByPrimaryKey(Integer id);
+    /**
+     * 更新
+     * @param record
+     */
+    void update(Record record);
 
-    int updateByExampleSelective(@Param("record") Record record, @Param("example") RecordExample example);
-
-    int updateByExample(@Param("record") Record record, @Param("example") RecordExample example);
-
-    int updateByPrimaryKeySelective(Record record);
-
-    int updateByPrimaryKey(Record record);
+    int delete(Integer id);
 }

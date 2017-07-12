@@ -51,16 +51,23 @@
 							<span class="selected"></span>
 						</a>
 					</li>
+
+					<li class="nal_li">
+						<a href="javascript:record();">
+							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">维修记录</span>
+							<span class="selected"></span>
+						</a>
+					</li>
 				</ul>
 				<!-- /SIDEBAR MENU -->
 
 				<script>
-                    function projectInfo(){
+                    function record(){
                         jQuery('.nal_li').removeClass('active');
                         jQuery('#li_project').addClass('active');
-                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>用户管理</a></li>";
-                        $("#ultt").html(htmlss);
-                        document.getElementById("iframe").src="${basepath }/user/user_list";
+                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>维修记录</a></li>";
+                        $("#ul-x").html(htmlss);
+                        document.getElementById("iframe").src="${basepath }/systemlog/tolist?pageNow=0";
                     }
 				</script>
 			</div>
@@ -76,11 +83,6 @@
 								<div class="page-header" style='min-height: 40px;margin:0 -15px 0px'>
 									<!-- BREADCRUMBS -->
 									<ul class="breadcrumb" id="ul-x" style='margin-top: 10px'>
-										<li>
-											<i class="fa fa-home"></i>
-											<a href="javascript:void(0)">统计报表</a>
-										</li>
-										<li><span id="sp">历史检测数据</span></li>
 									</ul>
 									<!-- /BREADCRUMBS -->
 								</div>

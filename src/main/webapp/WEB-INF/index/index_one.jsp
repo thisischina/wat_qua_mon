@@ -68,6 +68,15 @@
             $("#ul-x").html(htmlss);
             document.getElementById("iframe").src="${basepath }/equipment/tolist?pageNow=0";
         }
+
+        function systemLog(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>系统日志</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/systemlog/tolist?pageNow=0";
+        }
+
 	</script>
 </head>
 <body style='overflow: hidden;'>
@@ -132,7 +141,7 @@
 						</a>
 					</li>
 					<li class="nal_li">
-						<a href="javascript:">
+						<a href="javascript:systemLog();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">系统日志</span>
 							<span class="selected"></span>
 						</a>

@@ -52,20 +52,20 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 添加
-     * @param Role
+     * @param role
      * @return
      */
-    public void insertRole(Role Role){
-        roleMapper.insert(Role);
+    public void insertRole(Role role){
+        roleMapper.insert(role);
 
     }
 
     /**
      * 更新
-     * @param Role
+     * @param role
      */
-    public void updateRole(Role Role){
-        roleMapper.update(Role);
+    public void updateRole(Role role){
+        roleMapper.update(role);
     }
 
     /**

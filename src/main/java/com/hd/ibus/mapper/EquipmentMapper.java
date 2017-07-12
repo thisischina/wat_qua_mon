@@ -2,9 +2,11 @@ package com.hd.ibus.mapper;
 
 import com.hd.ibus.pojo.Equipment;
 import com.hd.ibus.util.shenw.PageHelp;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface EquipmentMapper {
     /**
      * 查询

@@ -105,14 +105,14 @@
 <div class="divider"></div>
 		<div class="">
 			<div class="example-code clearfix">
-				<input type="hidden" id="id" value='${unit.unitId }'>
+				<input type="hidden" id="id" value='${unit.unitId}'>
 				<form action="" class="col-md-20 center-margin" method="get">
 					<div class="form-row">
 						<div class="form-label col-md-2">
 							<label> 单位名: </label>
 						</div>
 						<div class="form-input col-md-5">
-						 <input type="text" value="${unit.name}">
+						 <input type="text" id="name" value="${unit.name}">
 						</div>
 
 						<div class="form-input col-md-2">

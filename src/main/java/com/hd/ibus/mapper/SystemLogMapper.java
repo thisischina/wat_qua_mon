@@ -1,30 +1,43 @@
 package com.hd.ibus.mapper;
 
+<<<<<<< Updated upstream
 import com.hd.ibus.pojo.SystemLog;
 import com.hd.ibus.pojo.SystemLogExample;
+=======
+>>>>>>> Stashed changes
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.hd.ibus.pojo.SystemLog;
+import com.hd.ibus.util.shenw.PageHelp;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SystemLogMapper {
-    int countByExample(SystemLogExample example);
+    /**
+     * 查询
+     * @param help
+     * @return int
+     */
+    int findTotal(PageHelp help);
 
-    int deleteByExample(SystemLogExample example);
+    /**
+     * 查询
+     * @param help
+     * @return list
+     */
+    List<SystemLog> select(PageHelp help);
 
-    int deleteByPrimaryKey(Integer id);
+    /**
+     * 根据条件查找获取单个对象
+     * @param help
+     * @return SystemLog
+     */
+    SystemLog selectByKey(PageHelp help);
 
-    int insert(SystemLog record);
+    /**
+     * 按条件查询记录数
+     * @param help
+     * @return
+     */
+    int paramCount(PageHelp help);
 
-    int insertSelective(SystemLog record);
-
-    List<SystemLog> selectByExample(SystemLogExample example);
-
-    SystemLog selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") SystemLog record, @Param("example") SystemLogExample example);
-
-    int updateByExample(@Param("record") SystemLog record, @Param("example") SystemLogExample example);
-
-    int updateByPrimaryKeySelective(SystemLog record);
-
-    int updateByPrimaryKey(SystemLog record);
 }

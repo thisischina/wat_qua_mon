@@ -1,8 +1,12 @@
-package cn.itcast.ssm.po2;
+package com.hd.ibus.pojo;
 
 import java.util.Date;
+/**
+ * 维护记录表
+ */
 
 public class Record {
+
     private Integer id;
 
     private String content;
@@ -13,7 +17,7 @@ public class Record {
 
     private Integer stationId;
 
-    private Integer equipment;
+    private Integer equipmentId;
 
     public Integer getId() {
         return id;
@@ -55,11 +59,11 @@ public class Record {
         this.stationId = stationId;
     }
 
-    public Integer getEquipment() {
-        return equipment;
+    public Integer getEquipmentId() {
+        return equipmentId;
     }
 
-    public void setEquipment(Integer equipment) {
-        this.equipment = equipment;
+    public void setEquipmentId(Integer equipmentId) {
+        this.equipmentId = equipmentId;
     }
 }

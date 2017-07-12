@@ -43,9 +43,9 @@
                 <!-- END NOTIFICATION DROPDOWN -->
                 <!-- BEGIN USER LOGIN DROPDOWN -->
                 <li class="dropdown user" id="header-user" style="float: right">
-                    <c:if test="${sessionScope.user.userName !=null}">
-						<span>账号：${sessionScope.user.userName }	&nbsp;&nbsp;&nbsp;
-						<a href='${basepath }/' style='color:#fff;cursor: pointer;'> 注销</a>	</span>
+                    <c:if test="${sessionScope.user!=null}">
+						<span>账号：${sessionScope.user.name }	&nbsp;&nbsp;&nbsp;
+						<a href='${basepath }/index.jsp' style='color:#fff;cursor: pointer;'> 注销</a>	</span>
                     </c:if>
                 </li>
                 <!-- END USER LOGIN DROPDOWN -->
