@@ -10,13 +10,15 @@
 	
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	<!-- 日志aop -->
-		<bean id="loginHelper" class="com.hd.ibus.util.aop.log.LogAop" />
+	<bean id="operationLog" class="com.hd.ibus.util.aop.log.LogAop"/>
 	<aop:config>
-            <aop:aspect id="loginH" ref="loginHelper" order="1">
-                <aop:pointcut id="loginUser" expression="(execution(* com.hd.*.service.IbusProjectService.save*(..)))||(execution(* com.hd.*.service.IbusGatewayService.save*(..)))||(execution(* com.hd.*.service.IbusGroupService.save*(..)))||(execution(* com.hd.*.service.IbusNodeService.save*(..)))||(execution(* com.hd.*.service.IbusUserService.save*(..)))||
-                (execution(* com.hd.*.service.*.update*(..))) || (execution(* com.hd.*.service.*.delete*(..)))|| (execution(* com.hd.*.service.*.check*(..)))||  (execution(* com.hd.*.service.*.insert*Info(..)))" />
-                <aop:before method="beforeSleep" pointcut-ref="loginUser" />
-                <aop:after-returning method="afterSleep" pointcut-ref="loginUser" />
+		<aop:aspect id="operationAsp" ref="operationLog" order="1">
+			<aop:pointcut id="operation" expression="
+                  (execution(* com.hd.ibus.service.impl.UserServiceImpl.login(..)))
+                ||(execution(* com.hd.*.service.*.update*(..)))
+                ||(execution(* com.hd.*.service.*.delete*(..)))
+                ||(execution(* com.hd.*.service.*.insert*(..)))"/>
+			<aop:after-returning method="afterReturning" pointcut-ref="operation"/>
             </aop:aspect>
            
         </aop:config>

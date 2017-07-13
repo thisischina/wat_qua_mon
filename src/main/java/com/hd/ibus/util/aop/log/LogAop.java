@@ -7,48 +7,36 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.hd.ibus.pojo.User;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.hd.ibus.pojo.IbusOperation;
-import com.hd.ibus.pojo.IbusUser;
-import com.hd.ibus.pojo.vo.IbusGatewayVo;
-import com.hd.ibus.pojo.vo.IbusGroupVo;
-import com.hd.ibus.pojo.vo.IbusNodeVo;
-import com.hd.ibus.pojo.vo.IbusProjectVo;
-import com.hd.ibus.pojo.vo.IbusUserVo;
-import com.hd.ibus.service.IbusOperationService;
+import com.hd.ibus.pojo.Operation;
+import com.hd.ibus.service.OperationService;
 
 
 
 public class LogAop{
 	
 	@Resource
-	private IbusOperationService ibusOperationService;
+	private OperationService operationService;
 
-	public void beforeSleep(){
-		System.out.println("开始前");
-	}
-	
-	
-	public void afterSleep(JoinPoint joinPoint){
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();    
-        HttpSession session = request.getSession(); 
-		
-        for (int i = 0; i < joinPoint.getArgs().length; i++) {  
-            System.out.println("joinPoint:"+joinPoint.getArgs()[i]);  
-        }
-		// 获取方法名
+	public void afterReturning(JoinPoint joinPoint) {
+		System.out.println("===================================================================");
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpSession session = request.getSession();
+		String logContent = "";
+
 		String methodName = joinPoint.getSignature().getName();
-		String logContent = methodName + "-->"+ joinPoint.getTarget().getClass().getSimpleName();
-		System.out.println("=========================================="+methodName);
-		IbusOperation ope = new IbusOperation();
+		Operation ope = new Operation();
 		if(methodName.equals("checkAccount")){
 			ope.setOperationType("用户登录");
 			logContent = "用户登录："+joinPoint.getArgs()[0];
-			ope.setOperationName(logContent); 
-		}else if(methodName.equals("saveIbusUser")){ 
+			ope.setOperationName(logContent);
+		}
+		/*
+		else if(methodName.equals("saveIbusUser")){
 			ope.setOperationType("添加用户");
 			IbusUserVo ibusUserVo = (IbusUserVo) joinPoint.getArgs()[0];
 			logContent = "添加用户，用户名:"+ibusUserVo.getIbusUser().getUserName();
@@ -147,25 +135,23 @@ public class LogAop{
 			logContent = "删除报警记录，报警记录ID:"+joinPoint.getArgs()[0];
 			ope.setOperationName(logContent); 
  		}
-		
-		
+		*/
 		
 		Date date = new Date();
 		String logTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 		String result = "";
 		ope.setAcTime(date);
-		IbusUser user = (IbusUser) session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
+
 		if(user==null){
-			return;
+			ope.setUserId(null);
+		} else {
+			ope.setUserId(user.getId());
 		}
-		ope.setUserId(user.getId()); 
-		if(ope.getOperationType()==null){
-			
-		}else{
-			this.ibusOperationService.insertOperation(ope);
+
+		if (ope.getOperationType() != null) {
+			this.operationService.insertOperation(ope);
 		}
-		System.out.println("结束后");
-		System.out.println("result:"+result);
 	}
 
 }
