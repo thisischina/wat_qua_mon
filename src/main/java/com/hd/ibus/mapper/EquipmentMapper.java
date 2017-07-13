@@ -50,4 +50,8 @@ public interface EquipmentMapper {
     void update(Equipment equipment);
 
     int delete(Integer id);
+
+    //查询所有的设备信息luyan
+    List<Equipment> queryAll();
+
 }

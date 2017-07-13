@@ -113,5 +113,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+  <!-- luyan -->
+  <select id="queryAll" resultMap="BaseResultMap">
+    select * from equipment
+  </select>
+
 
 </mapper>

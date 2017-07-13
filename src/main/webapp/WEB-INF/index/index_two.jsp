@@ -13,6 +13,30 @@
 	<title>水质监测系统</title>
 
 	<jsp:include page="${basepath}/main/js.jsp"></jsp:include>
+	<script>
+		jQuery(document).ready(function() {
+			initBody();
+		});
+
+		//页面加载时设置frame高度
+		function initBody(){
+			var width = document.body.clientWidth //BODY对象宽度
+			if(width<1000){
+				jQuery('#logoTitle').css({width: "20%" });
+			}
+			var height = document.body.clientHeight //BODY对象高度
+			jQuery('#iframe').height(height-120);
+		}
+
+		function waterSys(){
+			jQuery('.nal_li').removeClass('active');
+			jQuery('#li_project').addClass('active');
+			var htmlss = "<li id='title1'><i class='fa fa-home'/>统计报表</li><li id='title2'><a href='javascript:waterSys();'>历史检测数据</a></li>";
+			$("#ultt").html(htmlss);
+			document.getElementById("iframe").src="${basepath }/waterSys/to_list";
+		}
+
+	</script>
 </head>
 <body style='overflow: hidden;'>
 	<!-- HEADER -->
@@ -28,7 +52,7 @@
 				<!-- SIDEBAR MENU -->
 				<ul style='margin-top: 28px'>
 					<li class="nal_li active">
-						<a href="javascript:">
+						<a href="javascript:waterSys();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">历史监测数据</span>
 							<span class="selected"></span>
 						</a>

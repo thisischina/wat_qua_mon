@@ -50,4 +50,8 @@ public interface StationMapper {
     void update(Station station);
 
     int delete(Integer id);
+
+    //查询所有的监测站luyan
+    List<Station> queryAll();
+
 }
