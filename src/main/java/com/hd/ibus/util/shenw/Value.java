@@ -11,4 +11,12 @@ public class Value {
 
 //    分地区设置站点编号
     public static final String STATION="Zd";
+
+
+    //    用户停启用状态
+    public static final int USER_STATE_OPEN=1;
+    public static final int USER_STATE_CLOSE=0;
+
+    //    用户权限设置参数
+    public static final String USER_POWER="admin";
 }

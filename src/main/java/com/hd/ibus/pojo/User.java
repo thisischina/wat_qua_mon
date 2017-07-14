@@ -1,5 +1,8 @@
 package com.hd.ibus.pojo;
 
+/**
+ * 用户表
+ */
 public class User {
     private Integer id;
 
@@ -18,6 +21,8 @@ public class User {
     private Integer roleId;
 
     private String power;
+
+    private Integer state;
 
     public Integer getId() {
         return id;
@@ -91,24 +96,12 @@ public class User {
         this.power = power == null ? null : power.trim();
     }
 
+    public Integer getState() {
+        return state;
+    }
 
-//    @Resource
-//    RoleService roleService;
-//    public String getRoleName(Integer roleId){
-//    PageHelp pageHelp;
-//    Role r;
-//    Role r1=null;
-//    if(roleId!=null){
-//        pageHelp=PageHelp.getInstance();
-//        r=new Role();
-//        pageHelp.setObject(r);
-//        r1=roleService.getObject(pageHelp);
-//    }
-//    if(r1==null){
-//        return "未设置";
-//    }else{
-//        return r1.getName();
-//    }
-//    }
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
 }

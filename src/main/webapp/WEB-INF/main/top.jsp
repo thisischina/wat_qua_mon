@@ -5,6 +5,13 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<script>
+    var usersession="${sessionScope.user}";
+    if(usersession==""){
+        window.location.href='${basepath}/index.jsp';
+    }
+</script>
+
 <header class="navbar clearfix" id="header" style='padding-top: 15px;  background: url("${basepath}/assets/images/banner.jpg") no-repeat center;background-size:cover;'>
     <div class="container">
         <div class="navbar-brand" style='width: 30%;min-width: 246px' id='logoTitle'>
@@ -45,7 +52,7 @@
                 <li class="dropdown user" id="header-user" style="float: right">
                     <c:if test="${sessionScope.user!=null}">
 						<span>账号：${sessionScope.user.name }	&nbsp;&nbsp;&nbsp;
-						<a href='${basepath }/index.jsp' style='color:#fff;cursor: pointer;'> 注销</a>	</span>
+						<a href='${basepath }/user/logout' style='color:#fff;cursor: pointer;'> 注销</a>	</span>
                     </c:if>
                 </li>
                 <!-- END USER LOGIN DROPDOWN -->

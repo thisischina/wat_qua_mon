@@ -220,6 +220,8 @@ public class UserController {
 			user.setPower(power);
 		}
 
+		//默认用户启用状态
+		user.setState(Value.USER_STATE_OPEN);
 		userService.insertUser(user);
 
 		return Value.IntNumOne;
@@ -261,6 +263,16 @@ public class UserController {
 		user=userService.login(pageHelp);
 
 		if(user!=null){
+//			判断账号停启用状态
+			try {
+				if(user.getState()==Value.USER_STATE_CLOSE){
+					return "redirect:/index.jsp?flag=-2";
+				}
+			}catch (Exception e){
+				e.printStackTrace();
+				return "redirect:/index.jsp?flag=-2";
+			}
+
 			HttpSession session=request.getSession();
 			session.setAttribute("user",user);
 			return "redirect:/index/index_five";
@@ -269,5 +281,20 @@ public class UserController {
 			return "redirect:/index.jsp?flag=-1";
 		}
 	}
+
+	/**
+	 * 注销
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request,Model model){
+		HttpSession session=request.getSession();
+		session.removeAttribute("user");
+		session.invalidate();
+		return "redirect:/index.jsp";
+	}
+
 
 }
