@@ -3,19 +3,20 @@
 <mapper namespace="com.hd.ibus.mapper.UserMapper">
 
   <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="account" jdbcType="VARCHAR" property="account" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="tel" jdbcType="VARCHAR" property="tel" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="unit_id" jdbcType="INTEGER" property="unitId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="power" jdbcType="VARCHAR" property="power" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="unit_id" property="unitId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="power" property="power" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, account, password, name, tel, email, unit_id, role_id, power
+    id, account, password, name, tel, email, unit_id, role_id, power, state
   </sql>
 
   <!--分页查询列表-->
@@ -60,11 +61,13 @@
 
   <insert id="insert" parameterType="com.hd.ibus.pojo.User">
     insert into user (id, account, password,
-    name, tel, email, unit_id,
-    role_id, power)
+      name, tel, email, unit_id,
+      role_id, power, state
+      )
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-    #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER},
-    #{roleId,jdbcType=INTEGER}, #{power,jdbcType=VARCHAR})
+      #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER},
+      #{roleId,jdbcType=INTEGER}, #{power,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
+      )
   </insert>
 
   <update id="update" parameterType="com.hd.ibus.pojo.User">
@@ -93,6 +96,9 @@
       </if>
       <if test="power != null">
         power = #{power,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state,
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
