@@ -82,8 +82,6 @@
     <if test="object!=null">
       WHERE id = #{object.id}
     </if>
-  </update>
-
   </select>
 
 </mapper>
