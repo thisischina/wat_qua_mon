@@ -263,6 +263,12 @@ public class UserController {
 		user=userService.login(pageHelp);
 
 		if(user!=null){
+
+			if(user.getState()==null){
+//				未设置状态默认停用
+				user.setState(Value.USER_STATE_CLOSE);
+			}
+
 //			判断账号停启用状态
 			try {
 				if(user.getState()==Value.USER_STATE_CLOSE){

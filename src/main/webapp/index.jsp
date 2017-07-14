@@ -69,12 +69,17 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 	if(window.parent!=window){
 		window.parent.location='${basepath }/index.jsp';
 	}
+
 	jQuery(document).ready(function(){
 
 		var flag = '${param.flag}';
-		if(flag==-1){
-			alert("账号或密码错误！");
-		}
+        if(flag==-2){
+            alert("该账户已停用,请联系系统管理员！");
+        }
+
+        if(flag==-1){
+            alert("账号或密码错误！");
+        }
 	});
 	
 	function login(){
@@ -128,7 +133,6 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<button type="reset"  style='background-color: #0267B7' class="btn btn-info">重置</button>
 				</div>
-				
 				
 			</form>
 		</div>
