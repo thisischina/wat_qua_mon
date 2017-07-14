@@ -8,18 +8,26 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 	
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
 	<!-- 日志aop -->
+	<!--||(execution(* com.hd.*.service.*.update*(..)))-->
+	<!--||(execution(* com.hd.*.service.*.delete*(..)))-->
 	<bean id="operationLog" class="com.hd.ibus.util.aop.log.LogAop"/>
 	<aop:config>
-		<aop:aspect id="operationAsp" ref="operationLog" order="1">
-			<aop:pointcut id="operation" expression="
+		<aop:pointcut id="operation" expression="
                   (execution(* com.hd.ibus.service.impl.UserServiceImpl.login(..)))
-                ||(execution(* com.hd.*.service.*.update*(..)))
-                ||(execution(* com.hd.*.service.*.delete*(..)))
-                ||(execution(* com.hd.*.service.*.insert*(..)))"/>
+                ||(execution(* com.hd.ibus.service.impl.S*.insert*(..)))
+				||(execution(* com.hd.ibus.service.impl.S*.update*(..)))
+				||(execution(* com.hd.ibus.service.impl.S*.delete*(..)))
+				||(execution(* com.hd.ibus.service.impl.R*.insert*(..)))
+				||(execution(* com.hd.ibus.service.impl.R*.update*(..)))
+				||(execution(* com.hd.ibus.service.impl.R*.delete*(..)))
+				||(execution(* com.hd.ibus.service.impl.U*.insert*(..)))
+				||(execution(* com.hd.ibus.service.impl.U*.update*(..)))
+				||(execution(* com.hd.ibus.service.impl.U*.delete*(..)))
+				"/>
+		<aop:aspect id="operationAsp" ref="operationLog" order="1">
 			<aop:after-returning method="afterReturning" pointcut-ref="operation"/>
-            </aop:aspect>
-           
-        </aop:config>
+		</aop:aspect>
+	</aop:config>
 </beans>

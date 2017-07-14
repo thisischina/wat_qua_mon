@@ -28,24 +28,27 @@ public class SystemLogServiceImpl implements SystemLogService {
 
         pageHelp.setPageBean(pageBean);
 
-        List<SystemLog> SystemLogs = systemLogMapper.select(pageHelp);
-        Integer total = systemLogMapper.findTotal(pageHelp);
+//        List<SystemLog> SystemLogs = systemLogMapper.select(pageHelp);
+//        Integer total = systemLogMapper.findTotal(pageHelp);
 
-        DataGridResultInfo da=new DataGridResultInfo(total, SystemLogs);
-
-        da.setPageNow(pageNow);
+//        DataGridResultInfo da=new DataGridResultInfo(total, SystemLogs);
+        DataGridResultInfo da=new DataGridResultInfo();
+//        da.setPageNow(pageNow);
         return da;
+
     }
 
     public  DataGridResultInfo getAccountCount(PageHelp help){
-        int count=systemLogMapper.paramCount(help);
-        System.out.println("查询用户存在个数:"+count);
+//        int count=systemLogMapper.paramCount(help);
+//        System.out.println("查询用户存在个数:"+count);
 
-        return new DataGridResultInfo(count, null);
+//        return new DataGridResultInfo(count, null);
+        return new DataGridResultInfo();
     }
 
     public SystemLog selectByKey(PageHelp help){
-        SystemLog u=systemLogMapper.selectByKey(help);
+//        SystemLog u=systemLogMapper.selectByKey(help);
+        SystemLog u= new SystemLog();
         return u;
     }
 

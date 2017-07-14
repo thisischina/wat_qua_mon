@@ -22,4 +22,9 @@ public class Unit {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' ;
+    }
 }

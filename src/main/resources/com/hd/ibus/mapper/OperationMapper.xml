@@ -4,15 +4,14 @@
     <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.Operation">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="operation_type" jdbcType="VARCHAR" property="operationType"/>
-        <result column="operation_name" jdbcType="VARCHAR" property="operationName"/>
-        <result column="ac_time" jdbcType="DATE" property="acTime"/>
+        <result column="type" jdbcType="VARCHAR" property="operationType"/>
+        <result column="content" jdbcType="VARCHAR" property="operationName"/>
+        <result column="opration_time" jdbcType="DATE" property="acTime"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.hd.ibus.pojo.Operation">
-        insert into operation_log(id,user_id, operation_type,operation_name, ac_time)
-        values (#{id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{operation_type,jdbcType=VARCHAR},
-        #{operation_name,jdbcType=VARCHAR}, #{ac_time,jdbcType=DATE})
+        insert into system_log(id,user_id, type,content, opration_time)
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{operationType,jdbcType=VARCHAR},
+        #{operationName,jdbcType=VARCHAR}, #{acTime,jdbcType=DATE})
     </insert>
-
 </mapper>

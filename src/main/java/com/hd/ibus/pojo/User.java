@@ -104,4 +104,15 @@ public class User {
         this.state = state;
     }
 
+    @Override
+    public String toString() {
+        return "account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                ", unitId=" + unitId +
+                ", roleId=" + roleId +
+                ", power='" + power + '\'';
+    }
 }
