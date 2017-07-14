@@ -12,12 +12,6 @@
   <sql id="Base_Column_List" >
     id, type, content, opration_time, user_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hd.ibus.pojo.SystemLogExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-  </select>
 
   <select id="select" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
     SELECT
@@ -31,25 +25,6 @@
       limit ${pageBean.start},${pageBean.pageSize}
     </if>
   </select>
-
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from system_log
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from system_log
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-
-  <delete id="deleteByExample" parameterType="com.hd.ibus.pojo.SystemLogExample" >
-    delete from system_log
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
 
   <insert id="insert" parameterType="com.hd.ibus.pojo.SystemLog" >
     insert into system_log (id, type, content, 
