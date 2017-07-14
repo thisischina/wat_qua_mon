@@ -29,6 +29,20 @@ public class Equipment {
 
     private Integer state;
 
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", typeId=" + typeId +
+                ", lifetime=" + lifetime +
+                ", max=" + max +
+                ", min=" + min +
+                ", samplingFrequency=" + samplingFrequency +
+                ", installTime=" + installTime +
+                ", stationId=" + stationId +
+                ", state=" + state;
+    }
+
     public Integer getId() {
         return id;
     }

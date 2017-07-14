@@ -62,4 +62,13 @@ public class News {
     public void setReceiveUserIds(String receiveUserIds) {
         this.receiveUserIds = receiveUserIds == null ? null : receiveUserIds.trim();
     }
+
+    @Override
+    public String toString() {
+        return "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", sendUserId=" + sendUserId +
+                ", sendTime=" + sendTime +
+                ", receiveUserIds='" + receiveUserIds + '\'';
+    }
 }

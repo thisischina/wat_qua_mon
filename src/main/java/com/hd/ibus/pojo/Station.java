@@ -74,4 +74,13 @@ public class Station {
     public void setUnitId(Integer unitId) {
         this.unitId = unitId;
     }
+
+    @Override
+    public String toString() {
+        return  "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", type=" + type +
+                ", coordinate='" + coordinate + '\'' +
+                ", unitId=" + unitId ;
+    }
 }

@@ -34,4 +34,10 @@ public class Role {
     public void setPower(String power) {
         this.power = power == null ? null : power.trim();
     }
+
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+                ", power='" + power + '\'' ;
+    }
 }
