@@ -103,27 +103,20 @@ td {
 	var createTable = function(index, item) {
 		var str = "<tr>"
 				+"<td>"+ (index + 1)+ "</td>"
-				+"<td>"+ item.nodeId+ "</td>"
-				+"<td id='"+(index+1)+"tp1' >"+ item.tp1+ "</td>"
-				+"<td id='"+(index+1)+"tp2' >"+ item.tp2+ "</td>"
-				+"<td id='"+(index+1)+"tp3' >"+ item.tp3+ "</td>"
-				+"<td id='"+(index+1)+"tp4' >"+ item.tp4+ "</td>"
-				+"<td id='"+(index+1)+"tp5' >"+ item.tp5+ "</td>"
-				+"<td id='"+(index+1)+"tp6' >"+ item.tp6+ "</td>"
-				+"<td id='"+(index+1)+"tp7' >"+ item.tp7+ "</td>"
-				+"<td id='"+(index+1)+"tp8' >"+ item.tp8+ "</td>"
-				+"<td id='"+(index+1)+"tp9' >"+ item.tp9+ "</td>"
-				+"<td id='"+(index+1)+"va' >"+ item.va+ "</td>"
-				+"<td id='"+(index+1)+"vb' >"+ item.vb+ "</td>"
-				+"<td id='"+(index+1)+"vc' >"+ item.vc+ "</td>"
-				+"<td id='"+(index+1)+"ia' >"+ item.ia+ "</td>"
-				+"<td id='"+(index+1)+"ib' >"+ item.ib+ "</td>"
-				+"<td id='"+(index+1)+"ic' >"+ item.ic+ "</td>"
+				+"<td>"+ item.id+ "</td>"
+				+"<td id='"+(index+1)+"tp1' >"+ item.number+ "</td>"
+				+"<td id='"+(index+1)+"tp2' >"+ item.data+ "</td>"
+				+"<td id='"+(index+1)+"tp3' >"+ item.number+ "</td>"
+				+"<td id='"+(index+1)+"tp4' >"+ item.number+ "</td>"
+				+"<td id='"+(index+1)+"tp5' >"+ item.number+ "</td>"
+				+"<td id='"+(index+1)+"tp6' >"+ item.number+ "</td>"
+				+"<td id='"+(index+1)+"tp7' >"+ item.number+ "</td>"
+				+"<td id='"+(index+1)+"tp8' >"+ item.number+ "</td>"
 				+"<td>"+formartDate(item.acTime)+ "</td>"+
 				"</tr>	";
-		
-		//alert(item.userid)
+
 		$("#tbody").append(str);
+
 		var warn = item.warn;
 		var arr = new Array();
 		arr = warn.split(",");
@@ -138,17 +131,17 @@ td {
 	
 	var loadDataGird = function() {
 		$.ajax({
-					url : "${basepath }/monitordata/tolist?pageNow=0",
+					url : "${basepath }/statistics/getmonitordata?pageNow=1",
 					type : "post",
 					data : {
 
 					},
 					datatype : "json",
 					success : function(data) {
-                        debugger
+
 						$("#tbody").html("");
 						$('#pagination_div').html("");
-
+                        debugger
 						if (data == null || data.total == 0) {
 							return;
 						}
@@ -211,35 +204,22 @@ td {
 		<form class="form-inline" role="form" style="float: right;margin-bottom:10px;margin-top: 5px;margin-left: 5px ">
 
 			<div class="form-group">
-				<strong>网关：</strong>
+				<strong>设备：</strong>
 			</div>
 			<div class="form-group">
 				<select onchange="loadFind()" id="gatewayId" class="form-control" style="height:30px;width: 140px">
 
-					<option value="1,9001">网关一</option>
+					<option value="1,9001">设备一</option>
 
-					<option value="2,9002">网关二</option>
+					<option value="2,9002">设备二</option>
 
-					<option value="4,9003">网关3</option>
+					<option value="4,9003">设备三</option>
 
 				</select>
 			</div>
 
 			<div class="form-group">
-				<strong>群组：</strong>
-			</div>
-			<div class="form-group">
-				<select onchange="loadFindNode()" id="groupSelect" class="form-control" style="height:30px;width: 140px"><option value="1">群组一</option><option value="2">群组二</option></select>
-			</div>
-
-			<div class="form-group">
-				<strong>节点：</strong>
-			</div>
-			<div class="form-group">
-				<select onchange="loadDataGird()" id="nodeSelect" class="form-control" style="height:30px;width: 140px"><option value="1">节点1</option><option value="2">节点3</option><option value="3">节点4</option><option value="5">??5</option><option value="9">??6</option><option value="7">??7</option></select>
-			</div>
-			<div class="form-group">
-				<strong>时间：</strong>
+				<strong>检测时间：</strong>
 			</div>
 			<div class="form-group">
 				<input id="startDate" class="Wdate form-control" value="2017-07-14 10:32:29" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true,onpicked:function() {javascript:changeTime();}})" style="height:30px;width: 165px">
@@ -249,11 +229,11 @@ td {
 			</div>
 			<!-- onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" -->
 			<div class="form-group">
-				<label class="sr-only" for="exampleInputPassword2"></label>
+				<label class="sr-only"></label>
 				<input id="endDate" class="Wdate form-control" value="2017-07-14 11:32:29" readonly="readonly" style="height:30px;width: 165px">
 			</div>
 
-			<button type="button" class="btn btn-info" style="background: #4F81BD;border: 1px solod #4F81BD" onclick="loadDataGird()">查询</button>
+			<button type="button" class="btn btn-info" style="background: #4F81BD;border: 1px solid #4F81BD" onclick="loadDataGird()">查询</button>
 		</form>
 	</div>
 </div>
@@ -263,28 +243,22 @@ td {
 			<thead style="background:#A8BC7B;color:#fff">
 			<tr>
 				<th rowspan="2" style="vertical-align: middle;background:RGB(79,129,189);color:#fff" class="text-center">序号</th>
-				<th rowspan="2" style="vertical-align: middle;background:RGB(79,129,189);color:#fff" class="text-center">节点编号</th>
-				<th colspan="9" class="text-center" style="background:RGB(79,129,189);color:#fff">温度（℃）</th>
-				<th colspan="3" class="text-center" style="background:RGB(79,129,189);color:#fff">电压（V）</th>
-				<th colspan="3" class="text-center" style="background:RGB(79,129,189);color:#fff">电流（A）</th>
+				<th rowspan="2" style="vertical-align: middle;background:RGB(79,129,189);color:#fff" class="text-center">编号代码</th>
+
+				<th colspan="2" class="text-center" style="background:RGB(79,129,189);color:#fff">水温(℃)</th>
+				<th rowspan="2" style="vertical-align: middle;background:RGB(79,129,189);color:#fff" class="text-center">PH</th>
+				<th rowspan="2" style="vertical-align: middle;background:RGB(79,129,189);color:#fff" class="text-center">溶解氧(O2)-mg/L</th>
+				<th rowspan="2" style="vertical-align: middle;background:RGB(79,129,189);color:#fff" class="text-center">电导(S)-μS/cm</th>
+				<th colspan="2" class="text-center" style="background:RGB(79,129,189);color:#fff">氨氮(A)-mg/L</th>
+				<th rowspan="2" style="vertical-align: middle;background:RGB(79,129,189);color:#fff" class="text-center">检测方式</th>
 				<th rowspan="2" style="vertical-align: middle;background:RGB(79,129,189);color:#fff" class="text-center">时间</th>
 			</tr>
 			<tr>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">左A</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">左B</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">左C</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">左N</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">右A</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">右B</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">右C</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">右N</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">环境</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">A相</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">B相</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">C相</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">A相</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">B相</th>
-				<th class="text-center" style="background:RGB(79,129,189);color:#fff">C相</th>
+				<th class="text-center" style="background:RGB(79,129,189);color:#fff">色度</th>
+				<th class="text-center" style="background:RGB(79,129,189);color:#fff">浓度</th>
+
+				<th class="text-center" style="background:RGB(79,129,189);color:#fff">游离氨（NH3）</th>
+				<th class="text-center" style="background:RGB(79,129,189);color:#fff">铵离子（NH4+）</th>
 			</tr>
 			</thead>
 			<tbody id="tbody"> </tbody>

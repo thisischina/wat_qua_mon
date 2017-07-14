@@ -50,6 +50,15 @@
             }else{
                 str =str+"<tr>" + "<td>";
             }
+
+            var imageSrc = "";
+            if(item.state == 1){
+                imageSrc = "${basepath}/assets/images/on.jpg";
+            }else if(item.state == 0){
+                imageSrc = "${basepath}/assets/images/off.jpg";
+            }
+
+
             str=str+ (index + 1)
                 + "</td>"
                 + "<td>"
@@ -68,8 +77,11 @@
                 + (item.unitId == null ? "" : item.unitId)
                 + "</td>"
                 + "<td>"
-                +roleName
-                + "</td>";
+                + (item.roleId == null ? "" : item.roleId)
+                + "</td>"
+                + "<td>"
+                + "<img id='state"+item.id+"' src='"+imageSrc+"' width='50px'>"
+                + "</td>"
 
 //            if(role==1){
             str=str+ "<td>"
@@ -196,6 +208,7 @@
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>邮箱</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>单位</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>角色</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>状态</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
             </tr>
             </thead>

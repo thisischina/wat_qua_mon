@@ -61,7 +61,7 @@ public class MonitorDataServiceImpl implements MonitorDataService {
 
     /**
      * 更新
-     * @param MonitorData
+     * @param monitorData
      */
     public void updateMonitorData(MonitorData monitorData){
         monitorDataMapper.update(monitorData);

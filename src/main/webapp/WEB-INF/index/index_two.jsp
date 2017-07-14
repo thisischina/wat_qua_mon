@@ -99,7 +99,7 @@
                         jQuery('#li_project').addClass('active');
                         var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>历史检测数据</a></li>";
                         $("#ul-x").html(htmlss);
-                        document.getElementById("iframe").src="${basepath }/statistics/monitor_data";
+                        document.getElementById("iframe").src="${basepath }/statistics/monitordata?pageNow=0";
                     }
 				</script>
 			</div>
