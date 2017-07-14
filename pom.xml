@@ -14,6 +14,8 @@
 		<!-- log4j日志文件管理包版本 -->
 		<slf4j.version>1.7.13</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
+	 	<!--Apache mina版本-->
+	 	<mina.version>2.0.16</mina.version>
 	</properties>
 
 	<dependencies>
@@ -250,6 +252,32 @@
 		    <groupId>org.apache.activemq</groupId>
 		    <artifactId>activemq-xmpp</artifactId>
 		    <version>5.7.0</version>
-		</dependency> 
+		</dependency>
+
+		<!-- 集成Mina服务（NIO Socket Server） -->
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-core</artifactId>
+			<version>${mina.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-filter-compression</artifactId>
+			<version>${mina.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-integration-beans</artifactId>
+			<version>${mina.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-integration-spring</artifactId>
+			<version>1.1.7</version>
+			<type>jar</type>
+		</dependency>
 	</dependencies>
 </project>
