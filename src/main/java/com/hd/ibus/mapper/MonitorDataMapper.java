@@ -1,30 +1,55 @@
-package cn.itcast.ssm.mapper2;
+package com.hd.ibus.mapper;
 
-import cn.itcast.ssm.po2.MonitorData;
-import cn.itcast.ssm.po2.MonitorDataExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.hd.ibus.pojo.MonitorData;
+import com.hd.ibus.util.shenw.PageHelp;
+import org.springframework.stereotype.Repository;
 
+/**
+ * Created by GitHub:thisischina .
+ */
+@Repository
 public interface MonitorDataMapper {
-    int countByExample(MonitorDataExample example);
+    /**
+     * 查询
+     * @param help
+     * @return int
+     */
+    int findTotal(PageHelp help);
 
-    int deleteByExample(MonitorDataExample example);
+    /**
+     * 查询
+     * @param help
+     * @return list
+     */
+    List<MonitorData> select(PageHelp help);
 
-    int deleteByPrimaryKey(Integer id);
+    /**
+     * 根据条件查找获取单个对象
+     * @param help
+     * @return MonitorData
+     */
+    MonitorData selectByKey(PageHelp help);
 
-    int insert(MonitorData record);
+    /**
+     * 按条件查询记录数
+     * @param help
+     * @return
+     */
+    int paramCount(PageHelp help);
 
-    int insertSelective(MonitorData record);
+    /**
+     * 添加
+     * @param monitorData
+     * @return int
+     */
+    void insert(MonitorData monitorData);
 
-    List<MonitorData> selectByExample(MonitorDataExample example);
+    /**
+     * 更新
+     * @param monitorData
+     */
+    void update(MonitorData monitorData);
 
-    MonitorData selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") MonitorData record, @Param("example") MonitorDataExample example);
-
-    int updateByExample(@Param("record") MonitorData record, @Param("example") MonitorDataExample example);
-
-    int updateByPrimaryKeySelective(MonitorData record);
-
-    int updateByPrimaryKey(MonitorData record);
+    int delete(Integer id);
 }

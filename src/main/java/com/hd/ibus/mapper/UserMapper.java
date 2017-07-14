@@ -5,6 +5,11 @@ import java.util.List;
 import com.hd.ibus.util.shenw.PageHelp;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Created by GitHub:thisischina .
+ * 用户
+ */
+
 @Repository
 public interface UserMapper {
 

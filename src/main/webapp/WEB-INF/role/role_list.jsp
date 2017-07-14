@@ -108,6 +108,7 @@
                         $('#pagination_div').html(
                             "<ul id='pagination' class='pagination-sm' style='float:right'></ul>");
                         $('#pagination').twbsPagination({
+                            startPage : data.pageNow,
                             totalPages : data.pageCount,
                             visiblePages : 5,
                             first : '首页',

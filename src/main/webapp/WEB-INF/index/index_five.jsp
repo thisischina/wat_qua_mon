@@ -49,15 +49,22 @@
 							<span class="selected"></span>
 						</a>
 					</li>
+
+					<li class="nal_li">
+						<a href="javascript:monitordata()">
+							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">检测数据列表</span>
+							<span class="selected"></span>
+						</a>
+					</li>
 				</ul>
 
 				<script>
-                    function projectInfo(){
+                    function monitordata(){
                         jQuery('.nal_li').removeClass('active');
                         jQuery('#li_project').addClass('active');
-                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>用户管理</a></li>";
-                        $("#ultt").html(htmlss);
-                        document.getElementById("iframe").src="${basepath }/user/user_list";
+                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>检测数据信息</a></li>";
+                        $("#ul-x").html(htmlss);
+                        document.getElementById("iframe").src="${basepath }/monitordata/tolist?pageNow=0";
                     }
 				</script>
 				<!-- /SIDEBAR MENU -->

@@ -25,7 +25,7 @@
     <include refid="Base_Column_List" />
     from user
     <if test="object!=null">
-    WHERE account LIKE concat(concat('%',#{object.account}),'%')
+      WHERE account LIKE concat(concat('%',#{object.account}),'%')
     </if>
 
     <if test="pageBean!=null">
@@ -61,13 +61,13 @@
 
   <insert id="insert" parameterType="com.hd.ibus.pojo.User">
     insert into user (id, account, password,
-      name, tel, email, unit_id,
-      role_id, power, state
-      )
+    name, tel, email, unit_id,
+    role_id, power, state
+    )
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER},
-      #{roleId,jdbcType=INTEGER}, #{power,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
-      )
+    #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER},
+    #{roleId,jdbcType=INTEGER}, #{power,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
+    )
   </insert>
 
   <update id="update" parameterType="com.hd.ibus.pojo.User">

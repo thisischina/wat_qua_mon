@@ -1,0 +1,81 @@
+package com.hd.ibus.controller;
+
+import com.hd.ibus.pojo.MonitorData;
+import com.hd.ibus.pojo.User;
+import com.hd.ibus.result.DataGridResultInfo;
+import com.hd.ibus.service.MonitorDataService;
+import com.hd.ibus.service.UserService;
+import com.hd.ibus.util.Config;
+import com.hd.ibus.util.PageBean;
+import com.hd.ibus.util.PropertiesUtils;
+import com.hd.ibus.util.shenw.PageHelp;
+import com.hd.ibus.util.shenw.PageStr;
+import com.hd.ibus.util.shenw.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
+/**
+ * Created by GitHub:thisischina .
+ * Controller
+ * 数据统计
+ */
+
+@Controller
+@RequestMapping("statistics")
+public class StatisticsController {
+	@Resource
+	private MonitorDataService monitorDataService;
+
+	private PageHelp pageHelp=PageHelp.getInstance();
+
+	@RequestMapping("monitor_data")
+	public String toUserList(HttpServletRequest request,Model model,Integer pageNow){
+		System.out.println("№statistics/monitor_data");
+
+		return "statistics/monitor_data";
+	}
+
+	/**
+	 * 带可查询的分页列表
+	 * @param request
+	 * @param pageNow
+	 * @param model
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("getmonitordata")
+	public @ResponseBody DataGridResultInfo getMonitorData(HttpServletRequest request,HttpServletResponse response,Integer pageNow,Model model)
+			throws IOException {
+
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+
+		String selectStr= PageStr.getParameterStr("number",request);
+
+		/**
+		 * 查询条件为空设置对象为空
+		 * 查询条件不为空，将参数设置到对象
+		 */
+		MonitorData monitordata=new MonitorData();
+		if(!selectStr.equals("")){
+			monitordata.setNumber(selectStr);
+
+			pageHelp.setObject(monitordata);
+			pageHelp.setSelectStr(selectStr);
+			model.addAttribute(pageHelp);
+		}else {
+			pageHelp.setObject(null);
+		}
+		return monitorDataService.findList(pageHelp,pageNow);
+	}
+
+}

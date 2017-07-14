@@ -52,7 +52,7 @@
 				<!-- SIDEBAR MENU -->
 				<ul style='margin-top: 28px'>
 					<li class="nal_li active">
-						<a href="javascript:waterSys();">
+						<a href="javascript:monitordata();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">历史监测数据</span>
 							<span class="selected"></span>
 						</a>
@@ -92,6 +92,14 @@
                         var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>维修记录</a></li>";
                         $("#ul-x").html(htmlss);
                         document.getElementById("iframe").src="${basepath }/systemlog/tolist?pageNow=0";
+                    }
+
+                    function monitordata(){
+                        jQuery('.nal_li').removeClass('active');
+                        jQuery('#li_project').addClass('active');
+                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>历史检测数据</a></li>";
+                        $("#ul-x").html(htmlss);
+                        document.getElementById("iframe").src="${basepath }/statistics/monitor_data";
                     }
 				</script>
 			</div>

@@ -1,6 +1,11 @@
-package cn.itcast.ssm.po2;
+package com.hd.ibus.pojo;
 
 import java.util.Date;
+
+/**
+ * Created by GitHub:thisischina .
+ * 检测数据表    monitor_data
+ */
 
 public class MonitorData {
     private Integer id;

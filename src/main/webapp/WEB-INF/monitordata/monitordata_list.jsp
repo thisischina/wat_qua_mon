@@ -10,7 +10,7 @@
 <head>
     <jsp:include page="${basepath}/main/css.jsp"></jsp:include>
 
-    <title>检测站点列表</title>
+    <title>检测数据列表</title>
 
     <style type="text/css">
         #pagination {
@@ -52,40 +52,25 @@
             str=str+ (index + 1)
                 + "</td>"
                 + "<td>"
-                + (item.name == null ? "" : item.name)
+                + (item.equipmentId == null ? "" : item.equipmentId)
                 + "</td>"
                 + "<td>"
                 + (item.number == null ? "" : item.number)
                 + "</td>"
                 + "<td>"
-                + (item.typeId == null ? "" : item.typeId)
+                + (item.data == null ? "" : item.data)
                 + "</td>"
                 + "<td>"
-                + (item.lifetime == null ? "" : item.lifetime)
+                + (item.monitorTime == null ? "" : item.monitorTime)
                 + "</td>"
                 + "<td>"
-                + (item.max == null ? "" : item.max)
-                + "</td>"
-                + "<td>"
-                + (item.min == null ? "" : item.min)
-                + "</td>"
-                + "<td>"
-                + (item.samplingFrequency == null ? "" : item.samplingFrequency)
-                + "</td>"
-                + "<td>"
-                + (item.installTime == null ? "" : item.installTime)
-                + "</td>"
-                + "<td>"
-                + (item.stationId == null ? "" : item.stationId)
-                + "</td>"
-                + "<td>"
-                + (item.state == null ? "" : item.state)
+                + (item.recordTime == null ? "" : item.recordTime)
                 + "</td>"
 
 //            if(role==1){
             str=str+ "<td>"
                 + "<div class=''>"
-                + "<a class='btn btn-xs btn-info' href='../equipment/toupdate?id="+item.id
+                + "<a class='btn btn-xs btn-info' href='../monitordata/toupdate?id="+item.id
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                 + "</a>"
@@ -105,16 +90,16 @@
             var url="";
             if(selectType==1){
 //                表示点击查询按钮,初始化当前页为1
-                url="${basepath }/equipment/getlist?pageNow=1";
+                url="${basepath }/monitordata/getlist?pageNow=1";
             }else{
-                url="${basepath }/equipment/getlist?pageNow="+${pageHelp.pageBean.pageNow};
+                url="${basepath }/monitordata/getlist?pageNow="+${pageHelp.pageBean.pageNow};
             }
 
-            var name = $("#name").val();
+            var number = $("#number").val();
             $.ajax({
                     url : url,
                     type : "post",
-                    data : {name:name},
+                    data : {number:number},
                     dataType : "json",
                     success : function(data) {
 
@@ -140,11 +125,11 @@
                             next : '下一页',
                             last : '末页',
                             onPageClick : function(event, page) {
-                                var name = $("#name").val();
+                                var number = $("#number").val();
                                 $.ajax({
-                                    url : "${basepath }/equipment/getlist",
+                                    url : "${basepath }/monitordata/getlist",
                                     type : "post",
-                                    data : {pageNow:page,name:name},
+                                    data : {pageNow:page,number:number},
                                     dataType : "json",
                                     success : function(data) {
                                         $("#tbody").html("");
@@ -169,13 +154,13 @@
         function deleteObject(id){
             var id=id;
             $.ajax({
-                url : "${basepath }/equipment/delete",
+                url : "${basepath }/monitordata/delete",
                 type : "post",
                 data : {id:id},
                 dataType : "json",
                 success : function(data) {
                     alert("删除成功");
-                    window,location.href='${basepath}/equipment/tolist';
+                    window,location.href='${basepath}/monitordata/tolist';
                 }
             });
         }
@@ -189,7 +174,7 @@
         <form class="form-inline" role="form"
               style='float: right;margin-bottom:10px;margin-top: 5px;margin-left: 5px '>
             <div class="form-group">
-              <input type="text" class="form-control" id="name" value="${pageHelp.selectStr}" placeholder="站名">
+              <input type="text" class="form-control" id="name" value="${pageHelp.selectStr}" placeholder="角色名">
             </div>
             <button type="button" onclick="loadDataGird(1)" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >查询</button>
         </form>
@@ -202,16 +187,11 @@
             <thead style='background:#A8BC7B;color:#fff'>
             <tr>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>名称</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>设备</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>编号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>类型</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>寿命</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>阈值上限</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>阈值下限</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>采集频率</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>安装日期</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>所属监测站</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>状态</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>监测值</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>监测时间</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>记录时间</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
             </tr>
             </thead>
@@ -222,7 +202,7 @@
         <div class="dataTables_info" id="dynamic-table_info"
              style="float: left;">
                 <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
-                   href="${basepath}/equipment/toadd">
+                   href="${basepath}/monitordata/toadd">
                     <span class="button-content">添加</span> </a>
         </div>
         <div id="pagination_div" style='float: right;padding-right: 0px'>
