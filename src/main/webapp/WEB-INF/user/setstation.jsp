@@ -50,7 +50,7 @@
                 str =str+"<tr>" + "<td>";
             }
             str=str
-                +"<input type='checkbox' name='checkboxs'>"
+                +"<input type='checkbox' name='checkboxs' onclick='itemscheck()'>"
                 +"</td>"
 
                 +"<td>"
@@ -150,24 +150,37 @@
     </script>
 
     <script>
-
-function selectAll() {
-    var checklist = document.getElementsByName ("checkboxs");
-    var allstate=document.getElementById("ckAll").checked;
-    if(allstate==true)
-    {
-        for(var i=0;i<checklist.length;i++)
-        {
-            checklist[i].checked = 1;
+//        全选反选
+        var checklist = document.getElementsByName ("checkboxs");
+        function selectAll() {
+            var allstate=document.getElementById("ckAll").checked;
+            if(allstate==true){
+                    for(var i=0;i<checklist.length;i++)
+                    {
+                        checklist[i].checked = 1;
+                    }
+                }else {
+                for (var j = 0; j < checklist.length; j++) {
+                    checklist[j].checked = 0;
+                }
+            }
         }
-    }else{
-        for(var j=0;j<checklist.length;j++)
-        {
-            checklist[j].checked = 0;
-        }
-    }
 
-}
+        function itemscheck() {
+            var falg = true;
+            for (var j = 0; j < checklist.length; j++) {
+                if (checklist[j].checked == 0){
+                    falg = false;
+                }
+            }
+
+            if(falg){
+                document.getElementById("ckAll").checked=1;
+            }else{
+                document.getElementById("ckAll").checked=0;
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -189,7 +202,7 @@ function selectAll() {
         <table class="table table-bordered">
             <thead style='background:#A8BC7B;color:#fff'>
             <tr>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'><input type="checkbox" onclick="selectAll()" id="ckAll"></th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'><input type='checkbox' onclick="selectAll()" id="ckAll"></th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>名称</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>编号</th>
