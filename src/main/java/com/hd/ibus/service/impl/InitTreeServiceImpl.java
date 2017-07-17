@@ -26,23 +26,32 @@ public class InitTreeServiceImpl implements InitTreeService{
     EquipmentMapper equipmentMapper;
 
     public List<TreeResultInfo> queryAll() {
-
         List<TreeResultInfo> list = new ArrayList<TreeResultInfo>();
-        TreeResultInfo treeResultInfo = new TreeResultInfo();
-
         List<Station> stations = stationMapper.queryAll();
         List<Equipment> equipments = equipmentMapper.queryAll();
         for (Station station:stations){
+            TreeResultInfo treeResultInfo = new TreeResultInfo();
             treeResultInfo.setId(station.getId());
             treeResultInfo.setName(station.getName());
+            List<Equipment> equipmentList = new ArrayList<Equipment>();//每个station生成一个新的equipment列表
+            treeResultInfo.setChildren(equipmentList);
             for (Equipment equipment : equipments){
                 if (station.getId().equals(equipment.getStationId())){
-                    treeResultInfo.getEquipmentList().add(equipment);
+                    treeResultInfo.getChildren().add(equipment);
                 }
             }
             list.add(treeResultInfo);
         }
-
         return list;
+    }
+
+    /**
+     * Created by Carlos
+     * 用于首页地图显示，
+     * 返回所有监测站信息
+     * */
+    public List<Station> getStationList(){
+        List<Station> stations = stationMapper.queryAll();
+        return stations;
     }
 }

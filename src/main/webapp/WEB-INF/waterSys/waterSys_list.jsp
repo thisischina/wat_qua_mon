@@ -64,7 +64,7 @@
                 simpleData: {//简单数据模式
                     enable:true,
                     idKey: "id",
-                    pIdKey: "pId",
+                    pIdKey: "stationId",
                     rootPId: ""
                 }
             },
@@ -97,21 +97,35 @@
         function initTree(zNodes) {
             $.fn.zTree.init($("#user_tree"), setting, zNodes);
         }
+
+
         
         function onCheck(e,treeId,treeNode){
-            var treeObj=$.fn.zTree.getZTreeObj("user_tree"),
-                    nodes=treeObj.getCheckedNodes(true),
-                    v="";
-            for(var i=0;i<nodes.length;i++){
-                v+=nodes[i].name + ",";
-                alert(nodes[i].id); //获取选中节点的值
-                console.log(nodes[i].id);
+//            var treeObj=$.fn.zTree.getZTreeObj("user_tree"),
+//                    nodes=treeObj.getCheckedNodes(true),
+//                    v="";
+//            for(var i=0;i<nodes.length;i++){
+//                v+=nodes[i].name + ",";
+//                alert(nodes[i].id); //获取选中节点的值
+//                console.log(nodes[i].id);
+//            }
+            var treeObj = $.fn.zTree.getZTreeObj("user_tree");
+            var sNodes = treeObj.getSelectedNodes();
+            if (sNodes.length > 0) {
+                var isParent = sNodes[0].isParent;
             }
         }
 
         //节点点击事件
         function zTreeOnClick(event, treeId, treeNode) {
-            if (treeNode.isParent){
+//            var treeObj = $.fn.zTree.getZTreeObj("user_tree");
+//            var sNodes = treeObj.getSelectedNodes();
+//            if (sNodes.length > 0) {
+//                return false;
+//            }else {
+//                alert(treeNode.id);
+//            }
+            if (treeNode.level == 0){
                 return false;//如果是父节点，则不发送请求
             }else{
                 alert(treeNode.id);
