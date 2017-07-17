@@ -28,6 +28,15 @@
             var height = document.body.clientHeight //BODY对象高度
             jQuery('#iframe').height(height-120);
         }
+
+		function waterSys(){
+			jQuery('.nal_li').removeClass('active');
+			jQuery('#li_project').addClass('active');
+			var htmlss = "<li id='title1'><i class='fa fa-home'/>统计报表</li><li id='title2'><a href='javascript:waterSys();'>历史检测数据</a></li>";
+			$("#ultt").html(htmlss);
+			document.getElementById("iframe").src="${basepath }/waterSys/to_list";
+		}
+
 	</script>
 </head>
 <body style='overflow: hidden;'>
@@ -56,6 +65,14 @@
 							<span class="selected"></span>
 						</a>
 					</li>
+
+					<li class="nal_li">
+						<a href="javascript:waterSys()">
+							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">监测设备列表</span>
+							<span class="selected"></span>
+						</a>
+					</li>
+
 				</ul>
 
 				<script>

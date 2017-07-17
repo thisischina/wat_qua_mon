@@ -11,7 +11,15 @@ public class TreeResultInfo {
 
     private Integer id;//监测站id
     private String name;//监测站名称
-    private List<Equipment> equipmentList;//检测设备信息
+    private List<Equipment> children;//检测设备信息
+
+    public List<Equipment> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Equipment> children) {
+        this.children = children;
+    }
 
     public Integer getId() {
         return id;
@@ -19,14 +27,6 @@ public class TreeResultInfo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public List<Equipment> getEquipmentList() {
-        return equipmentList;
-    }
-
-    public void setEquipmentList(List<Equipment> equipmentList) {
-        this.equipmentList = equipmentList;
     }
 
     public String getName() {

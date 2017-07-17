@@ -64,7 +64,7 @@
                 simpleData: {//简单数据模式
                     enable:true,
                     idKey: "id",
-                    pIdKey: "pId",
+                    pIdKey: "stationId",
                     rootPId: ""
                 }
             },
