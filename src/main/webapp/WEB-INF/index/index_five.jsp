@@ -32,8 +32,8 @@
 		function waterSys(){
 			jQuery('.nal_li').removeClass('active');
 			jQuery('#li_project').addClass('active');
-			var htmlss = "<li id='title1'><i class='fa fa-home'/>统计报表</li><li id='title2'><a href='javascript:waterSys();'>历史检测数据</a></li>";
-			$("#ultt").html(htmlss);
+			var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:waterSys();'>监测设备列表</a></li>";
+			$("#ul-x").html(htmlss);
 			document.getElementById("iframe").src="${basepath }/waterSys/to_list";
 		}
 
@@ -53,7 +53,7 @@
 				<!-- SIDEBAR MENU -->
 				<ul style='margin-top: 28px'>
 					<li class="nal_li active">
-						<a href="javascript:">
+						<a href="javascript:map()">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">实时站点检测</span>
 							<span class="selected"></span>
 						</a>
@@ -89,10 +89,18 @@
 				<script>
                     function projectInfo(){
                         jQuery('.nal_li').removeClass('active');
-                        jQuery('#li_project').addClass('active');
-                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>用户管理</a></li>";
+                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>检测数据信息</a></li>";
                         $("#ultt").html(htmlss);
                         document.getElementById("iframe").src="${basepath }/user/user_list";
+                    }
+				</script>
+
+				<script>
+                    function map(){
+                        jQuery('.nal_li').removeClass('active');
+                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>实时站点检测</a></li>";
+                        $("#ul-x").html(htmlss);
+                        document.getElementById("iframe").src="${basepath}/main/homepage.html";
                     }
 				</script>
 			</div>
@@ -121,7 +129,7 @@
 						<!-- /PAGE HEADER -->
 						<!-- DASHBOARD CONTENT -->
 						<div class="row">
-							<iframe id='iframe' src="../../main/homepage.html" width="100%" style='overflow-y :auto;border: 0px'>
+							<iframe id='iframe' src="${basepath}/main/homepage.html" width="100%" style='overflow-y :auto;border: 0px'>
 							</iframe>
 						</div>
 					   <!-- /DASHBOARD CONTENT -->

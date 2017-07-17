@@ -26,11 +26,7 @@ public class InitTreeServiceImpl implements InitTreeService{
     EquipmentMapper equipmentMapper;
 
     public List<TreeResultInfo> queryAll() {
-
         List<TreeResultInfo> list = new ArrayList<TreeResultInfo>();
-
-
-
         List<Station> stations = stationMapper.queryAll();
         List<Equipment> equipments = equipmentMapper.queryAll();
         for (Station station:stations){
@@ -46,7 +42,16 @@ public class InitTreeServiceImpl implements InitTreeService{
             }
             list.add(treeResultInfo);
         }
-
         return list;
+    }
+
+    /**
+     * Created by Carlos
+     * 用于首页地图显示，
+     * 返回所有监测站信息
+     * */
+    public List<Station> getStationList(){
+        List<Station> stations = stationMapper.queryAll();
+        return stations;
     }
 }

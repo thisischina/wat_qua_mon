@@ -47,9 +47,7 @@
 	             </bean>   
 	         </list>   
 	   </property>  
-	</bean>  
-	
-	
+	</bean>
 
 	<!-- 视图解析器 设置前缀和后缀 -->
 	<bean id="viewResolver"
