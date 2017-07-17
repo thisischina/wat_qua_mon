@@ -86,6 +86,10 @@
 //            if(role==1){
             str=str+ "<td>"
                 + "<div class=''>"
+                + "<a class='btn btn-xs btn-info' href='../user/tosetstation?id="+item.id
+                + "' style='height:20px;font-size:10px;margin-right:4px'>"
+                + "<i class='ace-icon fa fa-pencil bigger-120'></i>分配"
+                + "</a>"
                 + "<a class='btn btn-xs btn-info' href='../user/toupdate?id="+item.id
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"

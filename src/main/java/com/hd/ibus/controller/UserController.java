@@ -286,5 +286,50 @@ public class UserController {
 		return "redirect:/index.jsp";
 	}
 
+	/**
+	 * 用户分配站点页面
+	 * @return
+	 */
+	@RequestMapping("tosetstation")
+	public String toSetStation(HttpServletRequest request,Model model,Integer pageNow,Integer id){
+		pageHelp.getInit(model,pageNow);
+
+		System.out.println("№tosetstation");
+//		存储分配的对象
+		User u=new User();
+		u.setId(id);
+		pageHelp.setObject(u);
+
+		return "user/setstation";
+	}
+
+	/**
+	 * 用户分配站点
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("setstation")
+	public String setStation(HttpServletRequest request){
+		User user=(User)pageHelp.getObject();
+
+		String string[]=request.getParameterValues("stationId");
+		if(string==null){
+			return "";
+		}
+		StringBuffer s=new StringBuffer();
+
+		for (String str:string) {
+			if(string.length>1){
+				s.append(str+",");
+			}else{
+				s.append(str);
+			}
+		}
+
+		user.setPower(s.toString());
+
+		userService.updateUser(user);
+		return "";
+	}
 
 }
