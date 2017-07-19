@@ -9,7 +9,6 @@
 <html lang="en">
 <head>
     <jsp:include page="${basepath}/main/css.jsp"></jsp:include>
-
     <title>检测站点列表</title>
 
     <style type="text/css">
@@ -50,7 +49,7 @@
                 str =str+"<tr>" + "<td>";
             }
             str=str
-                +"<input type='checkbox' name='checkboxs' onclick='itemscheck()'>"
+                +"<input type='checkbox' name='checkboxs' id='"+item.id+"' value='"+item.name+"' onclick='itemscheck()'>"
                 +"</td>"
 
                 +"<td>"
@@ -123,6 +122,14 @@
                         next : '下一页',
                         last : '末页',
                         onPageClick : function(event, page) {
+//                            初始化checkbox
+                            document.getElementById("ckAll").checked=0;
+                            var power=$("#power").val();
+                            $("#power1").val(power);//存储站名
+
+                            var power2=$("#power2").val();
+                            $("#power3").val(power2);//存储id
+
                             var name = $("#name").val();
                             $.ajax({
                                 url : "${basepath }/station/getlist",
@@ -152,36 +159,70 @@
     <script>
 //        全选反选
         var checklist = document.getElementsByName ("checkboxs");
+        var strvalue;
+        var id;
         function selectAll() {
             var allstate=document.getElementById("ckAll").checked;
+            strvalue="";
+            id="";
+            if(power1!=null){
+                strvalue=$("#power1").val();
+            }
+            if(power3!=null){
+                id=$("#power3").val();
+            }
+
             if(allstate==true){
                     for(var i=0;i<checklist.length;i++)
                     {
                         checklist[i].checked = 1;
+                        strvalue+=checklist[i].value+",";
+                        id+=checklist[i].id+",";
                     }
+                $("#power").val(strvalue);
+                $("#power2").val(id);
                 }else {
                 for (var j = 0; j < checklist.length; j++) {
                     checklist[j].checked = 0;
                 }
+                $("#power").val($("#power1").val());
+                $("#power2").val($("#power3").val());
             }
+
         }
 
         function itemscheck() {
             var falg = true;
+            strvalue="";
+            id="";
+
+            if(power1!=null){
+                strvalue=$("#power1").val();
+            }
+            if(power3!=null){
+                id=$("#power3").val();
+            }
             for (var j = 0; j < checklist.length; j++) {
                 if (checklist[j].checked == 0){
                     falg = false;
+                }else{
+                    strvalue+=checklist[j].value+",";
+                    id+=checklist[j].id+",";
                 }
             }
 
+            $("#power").val(strvalue);
+            $("#power2").val(id);
             if(falg){
                 document.getElementById("ckAll").checked=1;
             }else{
                 document.getElementById("ckAll").checked=0;
             }
+
         }
 
     </script>
+
 </head>
 <body>
 
@@ -216,6 +257,15 @@
 
             </tbody>
         </table>
+
+        <div class="form-row">
+            <div class="form-input col-md-5">
+                <input id="power" type="text">
+                <input id="power1" type="hidden">
+                <input id="power2" type="hidden">
+                <input id="power3" type="hidden">
+            </div>
+        </div>
         <div class="dataTables_info" id="dynamic-table_info"
              style="float: left;">
             <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
