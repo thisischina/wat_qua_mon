@@ -57,3 +57,6 @@
 
 <link rel="stylesheet" type="text/css"
       href="${basepath }/assets/themes/minified/agileui/animations.min.css">
+
+<link rel="stylesheet" type="text/css"
+      href="${basepath }/style/popup/sweetalert2.min.css">

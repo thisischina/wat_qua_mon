@@ -86,6 +86,14 @@
         var loadDataGird = function(selectType) {
             var url="";
             if(selectType==1){
+//              初始化checkbox
+                document.getElementById("ckAll").checked=0;
+                var power=$("#power").val();
+                $("#power1").val(power);//存储站名
+
+                var power2=$("#power2").val();
+                $("#power3").val(power2);//存储id
+
 //                表示点击查询按钮,初始化当前页为1
                 url="${basepath }/station/getlist?pageNow=1";
             }else{

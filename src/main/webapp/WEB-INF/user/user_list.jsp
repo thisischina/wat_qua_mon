@@ -9,9 +9,7 @@
 <html lang="en">
 <head>
     <jsp:include page="${basepath}/main/css.jsp"></jsp:include>
-    <link href="${basepath}/style/popup/jquery.layer.min.css" rel="stylesheet">
-    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="${basepath}/style/popup/jquery.layer.min.js"></script>
+
     <title>用户列表</title>
 
     <style type="text/css">
@@ -174,7 +172,9 @@
 
     <script type="text/javascript">
         function deleteObject(id){
-            var id=id;
+        if(!confirm("确认删除吗")){
+            return;
+        }
             $.ajax({
                 url : "${basepath }/user/delete",
                 type : "post",
@@ -187,20 +187,11 @@
             });
         }
 
-        $('#show_iframe').on('click', function(){
-            $.layer.iframe({
-                title : 'My Blog',
-                url : 'http://www.f00sun.com',
-                width : '70%',
-                height : '80%'
-            });
-        });
     </script>
+
 </head>
 <body>
-<div style="padding: 150px; text-align: center;">
-    <p><button id="show_iframe">iframe</button></p>
-</div>
+
 <div class='row' style="margin: 0px">
     <div class='col-md-12'>
         <form class="form-inline" role="form"

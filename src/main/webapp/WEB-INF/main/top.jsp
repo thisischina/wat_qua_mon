@@ -5,13 +5,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<script>
-    var usersession="${sessionScope.user}";
-    if(usersession==""){
-        window.location.href='${basepath}/index.jsp';
-    }
-</script>
-
 <header class="navbar clearfix" id="header" style='padding-top: 15px;  background: url("${basepath}/assets/images/banner.jpg") no-repeat center;background-size:cover;'>
     <div class="container">
         <div class="navbar-brand" style='width: 30%;min-width: 246px' id='logoTitle'>
@@ -53,10 +46,48 @@
                     <c:if test="${sessionScope.user!=null}">
 						<span>账号：${sessionScope.user.name }	&nbsp;&nbsp;&nbsp;
 						<a href='${basepath }/user/logout' style='color:#fff;cursor: pointer;'> 注销</a>	</span>
+                        <a href='javascript:' onclick="setnewpasswoed()" style='color:#fff;cursor: pointer;'> 改密</a>
                     </c:if>
                 </li>
                 <!-- END USER LOGIN DROPDOWN -->
             </ul>
         </div>
     </div>
+
 </header>
+
+<script>
+    function setnewpasswoed() {
+        swal({
+                title: "修改密码",
+                html:
+                '<input id="password" type="password" placeholder="新密码" class="swal2-input">' +
+                '<input id="confirmpassword" type="password" placeholder="确认密码" class="swal2-input">',
+                showCloseButton: true,
+                allowOutsideClick: false,
+                preConfirm: function () {
+                    return new Promise(function (resolve,reject) {
+                        var password=$("#password").val();
+                        var confirmpassword=$("#confirmpassword").val();
+                        if (password==""||confirmpassword=="") {
+                            reject('密码不能为空')
+                        } if (password!=confirmpassword) {
+                            reject('两次输入的密码不一致')
+                        }
+                        resolve()
+                    })
+                }
+            }).then(function (isConfirm) {
+            if(isConfirm) {
+                swal(
+                    '修改成功!',
+                    '密码修改成功，请重新登录',
+                    'success'
+                )
+                    , function () {
+window.location.href='${basepath}/index.jsp'
+                }
+            }
+        });
+    }
+</script>

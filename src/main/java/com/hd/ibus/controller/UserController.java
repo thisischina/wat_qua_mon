@@ -173,9 +173,8 @@ public class UserController {
 		return userService.getAccountCount(pageHelp);
 	}
 
-	@ResponseBody
-	@RequestMapping("adduser")
-	public int addUser(HttpServletRequest request,Model model){
+	@RequestMapping("addobject")
+	public @ResponseBody int addUser(HttpServletRequest request){
 		String account=PageStr.getParameterStr("account",request);
 		String password=PageStr.getParameterStr("password",request);
 		String name=PageStr.getParameterStr("name",request);
@@ -214,7 +213,7 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping("delete")
-	public int deleteUser(HttpServletRequest request,Model model,Integer id){
+	public int deleteUser(Integer id){
 		userService.deleteUser(id);
 
 		return Value.IntNumOne;
@@ -223,12 +222,11 @@ public class UserController {
 	/**
 	 * 登陆验证
 	 * @param request
-	 * @param model
 	 * @return
 	 * @throws IOException
 	 */
 	@RequestMapping("login")
-	public String userLogin(HttpServletRequest request,Model model){
+	public String userLogin(HttpServletRequest request){
 		String account= PageStr.getParameterStr("account",request);
 		String password= PageStr.getParameterStr("password",request);
 		/**

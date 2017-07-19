@@ -26,7 +26,7 @@
                 jQuery('#logoTitle').css({width: "20%" });
             }
             var height = document.body.clientHeight //BODY对象高度
-            jQuery('#iframe').height(height-120);
+            jQuery('#iframe').height(height-200);
         }
 
         function user(){
