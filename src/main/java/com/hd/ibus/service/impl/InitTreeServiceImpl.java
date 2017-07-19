@@ -51,7 +51,7 @@ public class InitTreeServiceImpl implements InitTreeService{
      * 返回所有监测站信息
      * */
     public List<Station> getStationList(){
-        List<Station> stations = stationMapper.queryAll();
+        List<Station> stations = stationMapper.getStationList();
         return stations;
     }
 }

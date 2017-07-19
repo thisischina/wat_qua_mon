@@ -98,4 +98,8 @@
     select * from station
   </select>
 
+  <!-- Carlos -->
+  <select id="getSelectionList" resultMap="BaseResultMap">
+    select id,coordinate from station
+  </select>
 </mapper>
