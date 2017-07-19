@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hd.ibus.mapper.HeatMapDataMapper" >
+    <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.HeatmapPoint">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="lng" jdbcType="VARCHAR" property="lng" />
+        <result column="lat" jdbcType="VARCHAR" property="lat" />
+        <result column="count" jdbcType="VARCHAR" property="count" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        lng,lat,count
+    </sql>
+
+    <select id="getHeatMapPoints"  resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List" />
+        from heatmap_data
+    </select>
+</mapper>

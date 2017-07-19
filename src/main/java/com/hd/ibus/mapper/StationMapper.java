@@ -54,4 +54,9 @@ public interface StationMapper {
     //查询所有的监测站luyan
     List<Station> queryAll();
 
+    /**
+     * Created by Carlos
+     * 只获取监测站的id和coordinate
+     * */
+    List<Station> getStationList();
 }

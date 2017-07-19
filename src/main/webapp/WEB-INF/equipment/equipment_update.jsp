@@ -91,7 +91,7 @@
 			url:"${basepath }/equipment/update",
 			type:"post",
 			data:{id:id,name:name,number:number,typeId:typeId,lifetime:lifetime,
-                max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime
+                max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime,
                 stationId:stationId,state:state},
 			dataType:"json",
 			success: function (data) {
@@ -123,7 +123,7 @@
 							<label> 设备名: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="name" type="text">
+							<input value='${equipment.name}' id="name" type="text">
 						</div>
 						<div class="form-input col-md-1">
 							*
@@ -138,7 +138,7 @@
 							<label> 编号: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="number" type="text">
+							<input value='${equipment.number}' id="number" type="text">
 						</div>
 						<div class="form-input col-md-1">
 							*
@@ -162,7 +162,7 @@
 							<label> 寿命: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="lifetime" type="text">
+							<input value='${equipment.lifetime}' id="lifetime" type="text">
 						</div>
 					</div>
 
@@ -171,7 +171,7 @@
 							<label> 阈值上限: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="max" type="text">
+							<input value='${equipment.max}' id="max" type="text">
 						</div>
 					</div>
 
@@ -180,7 +180,7 @@
 							<label> 阈值下限: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="min" type="text">
+							<input value='${equipment.min}' id="min" type="text">
 						</div>
 					</div>
 
@@ -189,7 +189,7 @@
 							<label> 采集频率: </label>
 						</div>
 						<div class="form-input col-md-5">
-							<input id="samplingFrequency" type="text">
+							<input value='${equipment.samplingFrequency}' id="samplingFrequency" type="text">
 						</div>
 					</div>
 
