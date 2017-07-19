@@ -111,7 +111,7 @@
                         url:"${basepath}/equipment/addequipment",
                         type:"post",
                         data:{name:name,number:number,typeId:typeId,lifetime:lifetime,
-                            max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime
+                            max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime,
                             stationId:stationId,state:state},
                         dataType:"json",
                         async:false,
