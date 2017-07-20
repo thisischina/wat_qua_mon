@@ -7,7 +7,7 @@ $(function(){
 function Marker(){}
 Marker.init=function(map){
     //创建覆盖物
-    var pt = new BMap.Point(116.418261, 39.921984);
+    var pt = new BMap.Point(117.618261, 34.021984);
     var myIcon = new BMap.Icon("../assets/images/sewage.png", new BMap.Size(50,50));
     var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建覆盖物
     var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
@@ -66,8 +66,9 @@ MachMap.prototype.map;
 // 根据地图容器的ID,初始化地图
 MachMap.prototype.initMap = function (containerID) {
     var map = new BMap.Map("map_container");            // 创建地图实例
-    var point = new BMap.Point(116.418261, 39.921984);  // 创建中心点坐标   
+    var point = new BMap.Point(117.636257, 34.022178);  // 创建中心点坐标   
     map.centerAndZoom(point, 15);                       // 初始化地图，设置中心点坐标和地图级别
+    map.setMapType(BMAP_HYBRID_MAP);                //设置为卫星图
     map.enableScrollWheelZoom(true);                //鼠标滑动轮子可以滚动
     map.enableKeyboard(true);                       //启用键盘操作
     map.addControl(new BMap.MapTypeControl());      //添加地图类型控件

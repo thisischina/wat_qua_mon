@@ -1,6 +1,7 @@
 package com.hd.ibus.mapper;
 
 import com.hd.ibus.pojo.HeatmapPoint;
+import com.hd.ibus.pojo.Station;
 
 import java.util.List;
 

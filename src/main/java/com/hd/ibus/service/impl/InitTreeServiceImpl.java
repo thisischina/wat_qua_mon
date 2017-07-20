@@ -44,14 +44,4 @@ public class InitTreeServiceImpl implements InitTreeService{
         }
         return list;
     }
-
-    /**
-     * Created by Carlos
-     * 用于首页地图显示，
-     * 返回所有监测站信息
-     * */
-    public List<Station> getStationList(){
-        List<Station> stations = stationMapper.getStationList();
-        return stations;
-    }
 }

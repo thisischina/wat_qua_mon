@@ -13,6 +13,4 @@ public interface InitTreeService {
     //查询所有监测站和监测设备
     List<TreeResultInfo> queryAll();
 
-    //查询所有检测站信息
-    List<Station> getStationList();
 }

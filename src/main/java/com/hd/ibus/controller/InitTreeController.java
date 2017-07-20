@@ -37,23 +37,4 @@ public class InitTreeController {
 
         return initTreeService.queryAll();
     }
-
-    @RequestMapping("getStationList")
-    @ResponseBody
-    public String getStationList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("utf-8");
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data",initTreeService.getStationList());
-        String jsonString = jsonObject.toString();
-        return jsonString;
-    }
-
-    @RequestMapping("testAjax")
-    public String test(){
-        return "index/TestAjax";
-    }
 }
