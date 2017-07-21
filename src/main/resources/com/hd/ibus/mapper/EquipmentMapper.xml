@@ -117,6 +117,4 @@
   <select id="queryAll" resultMap="BaseResultMap">
     select * from equipment
   </select>
-
-
 </mapper>

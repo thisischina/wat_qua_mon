@@ -37,13 +37,17 @@ public class MapController {
     @RequestMapping("getStationList")
     @ResponseBody
     public String getStationList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("utf-8");
-
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data",heapmapService.getStationList());
+        String jsonString = jsonObject.toString();
+        return jsonString;
+    }
+
+    @RequestMapping("getEquipmentList")
+    @ResponseBody
+    public String getEquipmentList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data",heapmapService.getEquipmentList());
         String jsonString = jsonObject.toString();
         return jsonString;
     }
