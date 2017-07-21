@@ -20,7 +20,7 @@ Marker.init=function(map){
                 var lat = point[1];
                 //创建覆盖物
                 var pt = new BMap.Point(lng,lat);
-                var myIcon = new BMap.Icon("../assets/images/sewage.png", new BMap.Size(50,50));
+                var myIcon = new BMap.Icon("../images/sewage.png", new BMap.Size(50,50));
                 var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建覆盖物
                 var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
                 marker.addEventListener("click", function(){    //添加左键单击事件

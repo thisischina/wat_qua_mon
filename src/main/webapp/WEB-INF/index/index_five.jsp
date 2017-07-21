@@ -126,7 +126,7 @@
 						<!-- /PAGE HEADER -->
 						<!-- DASHBOARD CONTENT -->
 						<div class="row">
-							<iframe id='iframe' src="${basepath}/main/homepage.html" width="100%" style='overflow-y :auto;border: 0px'>
+							<iframe id='iframe' src="${basepath}/static/html/homepage.html" width="100%" style='overflow-y :auto;border: 0px'>
 							</iframe>
 						</div>
 					   <!-- /DASHBOARD CONTENT -->
