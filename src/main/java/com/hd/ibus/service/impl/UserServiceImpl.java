@@ -10,8 +10,6 @@ import com.hd.ibus.util.shenw.PageHelp;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -53,34 +51,38 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * account作为加密参数
+     * @param user
+     */
+    public void setNewPassword(User user){
+        String account=user.getAccount();
+        String password=user.getPassword();
+
+        String passwordJM=AES.encryptGetStr(password,account);
+        System.out.println("改密者id:"+user.getId()+"密前:"+user.getPassword()+"密后:"+passwordJM);
+        user.setPassword(passwordJM);
+    }
+
+    /**
      * 添加
      * @param user
      * @return
      */
     public void insertUser(User user){
-        System.out.println("密前:"+user.getPassword());
-        String account=user.getAccount();
-        String password=user.getPassword();
-
-        String passwordJM=AES.encryptGetStr(password,account);
-        System.out.println("密后:"+passwordJM);
-        user.setPassword(passwordJM);
+        setNewPassword(user);
         userMapper.insert(user);
-
     }
 
-    /**
-     * 更新
-     * @param user
-     */
     public void updateUser(User user){
         userMapper.update(user);
     }
 
-    /**
-     * 删除
-     * @param id
-     */
+
+    public void updateUserPassword(User user){
+        setNewPassword(user);
+        userMapper.update(user);
+    }
+
     public void deleteUser(Integer id){
         userMapper.delete(id);
     }

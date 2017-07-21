@@ -92,6 +92,7 @@
                     $("#namelabel").html("用户名不能为空");
                     $("#usernameexis").css("display","block");
                 }else {
+                    exis=0;
                     $("#usernameexis").css("display","none");
                     //判断用户是否已存在
                     $.ajax({

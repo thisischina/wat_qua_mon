@@ -36,38 +36,22 @@ public class EquipmentController {
 	private PageHelp pageHelp=PageHelp.getInstance();
 
 	@RequestMapping("tolist")
-	public String toEquipmentList(HttpServletRequest request,Model model,Integer pageNow){
+	public String toEquipmentList(Model model,Integer pageNow){
 		System.out.println("№tolist");
 
-		if(pageNow!=null&&pageNow==0){
-			//初始化
-			pageNow = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW);
-			Integer pageSize = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) ;
-
-			PageBean pageBean=new PageBean();
-
-			pageBean.setPageNow(pageNow);
-			pageBean.setPageSize(pageSize);
-			pageHelp.setPageBean(pageBean);
-
-			//清除搜索条件
-			pageHelp.setSelectStr(null);
-			model.addAttribute(pageHelp);
-		}else{
-			model.addAttribute(pageHelp);
-		}
+		pageHelp.getInit(model,pageNow);
 
 		return "equipment/equipment_list";
 	}
 
 	@RequestMapping("toadd")
-	public String toAddEquipment(HttpServletRequest request,Model model){
+	public String toAddEquipment(){
 		System.out.println("№toadd");
 		return "equipment/equipment_add";
 	}
 
 	@RequestMapping("toupdate")
-	public String toUpdate(HttpServletRequest request,Model model,Integer id){
+	public String toUpdate(Model model,Integer id){
 		System.out.println("№toupdate");
 
 		Equipment s=new Equipment();
@@ -135,6 +119,7 @@ public class EquipmentController {
 
 		equipmentService.updateEquipment(equipment);
 
+		pageHelp.setObject(equipment);
 		model.addAttribute(pageHelp);
 
 		return  Value.IntNumOne;

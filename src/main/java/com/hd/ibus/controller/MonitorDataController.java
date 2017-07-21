@@ -87,6 +87,7 @@ public class MonitorDataController {
 		}
 		monitorDataService.updateMonitorData(monitordata);
 
+		pageHelp.setObject(monitordata);
 		model.addAttribute(pageHelp);
 
 		return  Value.IntNumOne;

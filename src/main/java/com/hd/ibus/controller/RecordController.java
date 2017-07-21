@@ -35,32 +35,16 @@ public class RecordController {
 	private PageHelp pageHelp=PageHelp.getInstance();
 
 	@RequestMapping("tolist")
-	public String toRecordList(HttpServletRequest request,Model model,Integer pageNow){
+	public String toRecordList(Model model,Integer pageNow){
 		System.out.println("№tolist");
 
-		if(pageNow!=null&&pageNow==0){
-			//初始化
-			pageNow = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW);
-			Integer pageSize = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) ;
-
-			PageBean pageBean=new PageBean();
-
-			pageBean.setPageNow(pageNow);
-			pageBean.setPageSize(pageSize);
-			pageHelp.setPageBean(pageBean);
-
-			//清除搜索条件
-			pageHelp.setSelectStr(null);
-			model.addAttribute(pageHelp);
-		}else{
-			model.addAttribute(pageHelp);
-		}
+		pageHelp.getInit(model,pageNow);
 
 		return "record/record_list";
 	}
 
 	@RequestMapping("toadd")
-	public String toAddRecord(HttpServletRequest request,Model model){
+	public String toAddRecord(){
 		System.out.println("№toadd");
 		return "record/record_add";
 	}
@@ -117,6 +101,7 @@ public class RecordController {
 		}
 		recordService.updateRecord(record);
 
+		pageHelp.setObject(record);
 		model.addAttribute(pageHelp);
 
 		return  Value.IntNumOne;

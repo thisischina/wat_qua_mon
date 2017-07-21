@@ -38,8 +38,22 @@ public interface UserService {
      */
     void insertUser(User user);
 
+    /**
+     * 更新用户
+     * @param user
+     */
     void updateUser(User user);
 
+    /**
+     * 更新密码
+     * @param user
+     */
+    void updateUserPassword(User user);
+
+    /**
+     * 删除
+     * @param id
+     */
     void deleteUser(Integer id);
 
     /**

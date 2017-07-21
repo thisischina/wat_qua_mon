@@ -34,38 +34,22 @@ public class RoleController {
 	private PageHelp pageHelp=PageHelp.getInstance();
 
 	@RequestMapping("tolist")
-	public String toRoleList(HttpServletRequest request,Model model,Integer pageNow){
+	public String toRoleList(Model model,Integer pageNow){
 		System.out.println("№tolist");
 
-		if(pageNow!=null&&pageNow==0){
-			//初始化
-			pageNow = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW);
-			Integer pageSize = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) ;
-
-			PageBean pageBean=new PageBean();
-
-			pageBean.setPageNow(pageNow);
-			pageBean.setPageSize(pageSize);
-			pageHelp.setPageBean(pageBean);
-
-			//清除搜索条件
-			pageHelp.setSelectStr(null);
-			model.addAttribute(pageHelp);
-		}else{
-			model.addAttribute(pageHelp);
-		}
+		pageHelp.getInit(model,pageNow);
 
 		return "role/role_list";
 	}
 
 	@RequestMapping("toadd")
-	public String toAddRole(HttpServletRequest request,Model model){
+	public String toAddRole(){
 		System.out.println("№role_list");
 		return "role/role_add";
 	}
 
 	@RequestMapping("toupdate")
-	public String toUpdate(HttpServletRequest request,Model model,Integer id){
+	public String toUpdate(Model model,Integer id){
 		System.out.println("№toupdate");
 
 		Role s=new Role();
@@ -107,6 +91,7 @@ public class RoleController {
 		}
 		roleService.updateRole(role);
 
+		pageHelp.setObject(role);
 		model.addAttribute(pageHelp);
 
 		return  Value.IntNumOne;

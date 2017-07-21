@@ -105,11 +105,48 @@ public class UserController {
 		}
 		userService.updateUser(user);
 
+		pageHelp.setObject(user);
 		model.addAttribute(pageHelp);
 
 		return  Value.IntNumOne;
 	}
 
+	/**
+	 * 更新密码
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("updatepw")
+	public @ResponseBody int updatePassword(HttpServletRequest request,HttpServletResponse response,Model model)
+			throws IOException {
+		System.out.println("№:updatepw");
+
+		String id= PageStr.getParameterStr("id",request);
+		String account= PageStr.getParameterStr("account",request);
+		String password= PageStr.getParameterStr("password",request);
+
+		/**
+		 * 查询条件为空设置对象为空
+		 * 查询条件不为空，将参数设置到对象
+		 */
+		User user=new User();
+		user.setId(Integer.parseInt(id));
+
+		if(!account.equals("")){
+			user.setAccount(account);
+		}
+		if(!password.equals("")){
+			user.setPassword(password);
+		}
+		userService.updateUserPassword(user);
+
+		model.addAttribute(pageHelp);
+
+		return  Value.IntNumOne;
+	}
 	/**
 	 * 带可查询的分页列表
 	 * @param request

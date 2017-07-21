@@ -27,7 +27,6 @@
 <!-- 弹窗 -->
 <script type="text/javascript" src="${basepath }/style/popup/sweetalert2.min.js"></script>
 
-
 <script>
     jQuery(document).ready(function() {
         var usersession="${sessionScope.user}";

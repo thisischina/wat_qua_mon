@@ -34,38 +34,22 @@ public class StationController {
 	private PageHelp pageHelp=PageHelp.getInstance();
 
 	@RequestMapping("tolist")
-	public String toStationList(HttpServletRequest request,Model model,Integer pageNow){
+	public String toStationList(Model model,Integer pageNow){
 		System.out.println("№tolist");
 
-		if(pageNow!=null&&pageNow==0){
-			//初始化
-			pageNow = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW);
-			Integer pageSize = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) ;
-
-			PageBean pageBean=new PageBean();
-
-			pageBean.setPageNow(pageNow);
-			pageBean.setPageSize(pageSize);
-			pageHelp.setPageBean(pageBean);
-
-			//清除搜索条件
-			pageHelp.setSelectStr(null);
-			model.addAttribute(pageHelp);
-		}else{
-			model.addAttribute(pageHelp);
-		}
+		pageHelp.getInit(model,pageNow);
 
 		return "station/station_list";
 	}
 
 	@RequestMapping("toadd")
-	public String toAddStation(HttpServletRequest request,Model model){
+	public String toAddStation(){
 		System.out.println("№toadd");
 		return "station/station_add";
 	}
 
 	@RequestMapping("toupdate")
-	public String toUpdate(HttpServletRequest request,Model model,Integer id){
+	public String toUpdate(Model model,Integer id){
 		System.out.println("№toupdate");
 
 		Station s=new Station();
@@ -116,6 +100,7 @@ public class StationController {
 		}
 		stationService.updateStation(station);
 
+		pageHelp.setObject(station);
 		model.addAttribute(pageHelp);
 
 		return  Value.IntNumOne;

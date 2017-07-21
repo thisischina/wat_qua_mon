@@ -1,3 +1,5 @@
+<%@ page import="com.hd.ibus.util.shenw.Value" %><%--* Created by GitHub:thisischina .--%>
+<%--* 系统顶页--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     pageContext.setAttribute("basepath", request.getContextPath());
@@ -46,7 +48,7 @@
                     <c:if test="${sessionScope.user!=null}">
 						<span>账号：${sessionScope.user.name }	&nbsp;&nbsp;&nbsp;
 						<a href='${basepath }/user/logout' style='color:#fff;cursor: pointer;'> 注销</a>	</span>
-                        <a href='javascript:' onclick="setnewpasswoed()" style='color:#fff;cursor: pointer;'> 改密</a>
+                        <a href='javascript:' onclick="setnewpasswoed(${sessionScope.user.id },'${sessionScope.user.account }')" style='color:#fff;cursor: pointer;'> 改密</a>
                     </c:if>
                 </li>
                 <!-- END USER LOGIN DROPDOWN -->
@@ -57,7 +59,8 @@
 </header>
 
 <script>
-    function setnewpasswoed() {
+    function setnewpasswoed(id,account) {
+//        使用发现swal应该为一个单利，所以每个页面的逻辑判断new Promise即可
         swal({
                 title: "修改密码",
                 html:
@@ -69,25 +72,51 @@
                     return new Promise(function (resolve,reject) {
                         var password=$("#password").val();
                         var confirmpassword=$("#confirmpassword").val();
+                        var parm=<%=Value.USER_PASSWORD%>;
+
+
                         if (password==""||confirmpassword=="") {
                             reject('密码不能为空')
                         } if (password!=confirmpassword) {
                             reject('两次输入的密码不一致')
+                        }if(!parm.test(password)){
+                            reject('<%=Value.USER_PASSWORD_EM%>')
                         }
-                        resolve()
+                        else{
+                            $.ajax({
+                                url:"${basepath }/user/updatepw",
+                                type:"post",
+                                data:{id:id,account:account,password:password},
+                                dataType:"json",
+                                success: function (data) {
+                                    if(data==1){
+                                        resolve();
+                                    }else{
+                                        swal(
+                                            '未知错误',
+                                            '未知错误，请联系系统管理员 :)',
+                                            'error'
+                                        );
+                                    }
+                                }
+                            });
+                        }
+
+
                     })
                 }
-            }).then(function (isConfirm) {
-            if(isConfirm) {
-                swal(
-                    '修改成功!',
-                    '密码修改成功，请重新登录',
-                    'success'
-                )
-                    , function () {
-window.location.href='${basepath}/index.jsp'
-                }
-            }
-        });
+            }).then(function () {
+                swal({
+                    title: '修改成功',
+                    text: '您已经修改了密码，请重新登录.',
+                    type: 'success',
+                    allowOutsideClick: false,
+                    preConfirm: function () {
+                        return new Promise(function () {
+                              window.location.href='${basepath}/index.jsp'
+                        })
+                    }
+                })
+        })
     }
 </script>

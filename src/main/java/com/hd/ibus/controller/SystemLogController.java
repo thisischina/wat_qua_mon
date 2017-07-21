@@ -33,26 +33,10 @@ public class SystemLogController {
 	private PageHelp pageHelp=PageHelp.getInstance();
 
 	@RequestMapping("tolist")
-	public String toSystemLogList(HttpServletRequest request,Model model,Integer pageNow){
+	public String toSystemLogList(Model model,Integer pageNow){
 		System.out.println("№tolist");
 
-		if(pageNow!=null&&pageNow==0){
-			//初始化
-			pageNow = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_NOW);
-			Integer pageSize = PropertiesUtils.getIntValue(Config.CONFIG, Config.PAGE_SIZE) ;
-
-			PageBean pageBean=new PageBean();
-
-			pageBean.setPageNow(pageNow);
-			pageBean.setPageSize(pageSize);
-			pageHelp.setPageBean(pageBean);
-
-			//清除搜索条件
-			pageHelp.setSelectStr(null);
-			model.addAttribute(pageHelp);
-		}else{
-			model.addAttribute(pageHelp);
-		}
+		pageHelp.getInit(model,pageNow);
 
 		return "systemlog/systemlog_list";
 	}
