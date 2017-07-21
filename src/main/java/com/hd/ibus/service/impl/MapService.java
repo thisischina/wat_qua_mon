@@ -1,7 +1,9 @@
 package com.hd.ibus.service.impl;
 
+import com.hd.ibus.mapper.EquipmentMapper;
 import com.hd.ibus.mapper.HeatMapDataMapper;
 import com.hd.ibus.mapper.StationMapper;
+import com.hd.ibus.pojo.Equipment;
 import com.hd.ibus.pojo.HeatmapPoint;
 import com.hd.ibus.pojo.Station;
 import com.hd.ibus.service.BaseService;
@@ -20,19 +22,22 @@ public class MapService implements IMapService,BaseService {
     private HeatMapDataMapper heatMapDataMapper;
 
     @Resource
+    private EquipmentMapper equipmentMapper;
+
+    @Resource
     private StationMapper stationMapper;
 
     public List<HeatmapPoint> getHeatmapPoints() {
         return heatMapDataMapper.getHeatMapPoints();
     }
 
-    /**
-     * Created by Carlos
-     * 用于首页地图显示，
-     * 返回所有监测站信息
-     * */
     public List<Station> getStationList(){
         List<Station> stations = stationMapper.queryAll();
         return stations;
+    }
+
+    public List<Equipment> getEquipmentList() {
+        List<Equipment> equipments = equipmentMapper.queryAll();
+        return equipments;
     }
 }

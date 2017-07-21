@@ -53,5 +53,4 @@ public interface EquipmentMapper {
 
     //查询所有的设备信息luyan
     List<Equipment> queryAll();
-
 }

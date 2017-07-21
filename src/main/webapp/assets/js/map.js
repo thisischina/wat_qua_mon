@@ -1,33 +1,58 @@
 $(function(){
     var map = new MachMap();
-    Heatmap.init(map.map);
     Marker.init(map.map);
+    Heatmap.init(map.map);   
 });
 //-------------------------------------------------------------------------------------------
 function Marker(){}
 Marker.init=function(map){
-    //创建覆盖物
-    var pt = new BMap.Point(117.618261, 34.021984);
-    var myIcon = new BMap.Icon("../assets/images/sewage.png", new BMap.Size(50,50));
-    var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建覆盖物
-    var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-    marker.addEventListener("click", function(){    //添加左键单击事件
-        map.setCenter(pt);                          //地图中心点变为监测点
-        map.setZoom(20);                            //地图缩放等级更改为20，比例尺最小。
-        this.openInfoWindow(infoWindow);            //打开覆盖物的信息窗口
-        //图片加载完毕重绘infowindow
-        document.getElementById('imgDemo').onload = function (){
-            infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-        };
+    $.ajax({
+        type:"GET",
+        url:"../../map/getStationList",
+        dataType:"json",
+        success:function(data,status){
+            console.log(status);
+            var points = data.data;
+            console.log(points);
+            for(var i=0;i<points.length;i++){                                   
+                var point = Marker.strUtility(points[i].coordinate);
+                var lng = point[0];
+                var lat = point[1];
+                //创建覆盖物
+                var pt = new BMap.Point(lng,lat);
+                var myIcon = new BMap.Icon("../assets/images/sewage.png", new BMap.Size(50,50));
+                var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建覆盖物
+                var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+                marker.addEventListener("click", function(){    //添加左键单击事件
+                    map.setCenter(pt);                          //地图中心点变为监测点
+                    map.setZoom(22);                            //地图缩放等级更改为20，比例尺最小。
+                    this.openInfoWindow(infoWindow);            //打开覆盖物的信息窗口
+                    //图片加载完毕重绘infowindow
+                    document.getElementById('imgDemo').onload = function (){
+                        infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+                    };
+                });
+                map.addOverlay(marker);              // 将覆盖物添加到地图中
+            }
+        },
+        error:function(data,status){
+            console.log(status);
+        }
     });
-    map.addOverlay(marker);              // 将覆盖物添加到地图中
+    
 };
+Marker.strUtility = function(s){      
+    s = s.replace("(","");
+    s = s.replace(")","");
+    var items = s.split(",");
+    return items; 
+} 
 //-------------------------------------------------------------------------------------------
 function Heatmap(){}
 Heatmap.init = function(map){
     $.ajax({
         type:"GET",
-        url:"http://localhost:8080/map/heatmap_points", //相对路径，相对于引用该js文件的页面的路径
+        url:"../../map/heatmap_points", //相对路径，相对于引用该js文件的页面的路径
         dataType:"json",
         success:function(points,status){                     
             if(!Heatmap.isSupportCanvas()){                         //添加热力图图层
