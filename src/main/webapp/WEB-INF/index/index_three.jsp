@@ -14,7 +14,7 @@
 
 	<jsp:include page="${basepath}/main/js.jsp"></jsp:include>
 </head>
-<body style='overflow: hidden;'>
+<body style='overflow: hidden;font-family:"Microsoft Yahei";'>
 	<!-- HEADER -->
 	<jsp:include page="${basepath}/WEB-INF/main/top.jsp"></jsp:include>
 	<!--/HEADER -->
@@ -26,7 +26,7 @@
 				<div class="divide-20"></div>
 
 				<!-- SIDEBAR MENU -->
-				<ul style='margin-top: 28px'>
+				<ul>
 					<li class="nal_li active">
 						<a href="javascript:">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">监测数据预警</span>
@@ -61,7 +61,7 @@
 						<!-- PAGE HEADER-->
 						<div class="row">
 							<div class="col-sm-12">
-								<div class="page-header" style='min-height: 40px;margin:0 -15px 0px'>
+								<div class="page-header" style='min-height: 52px;margin:0 -15px 0px'>
 									<!-- BREADCRUMBS -->
 									<ul class="breadcrumb" id="ul-x" style='margin-top: 10px'>
 										<li>

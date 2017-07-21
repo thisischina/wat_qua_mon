@@ -18890,7 +18890,7 @@ input.typeahead.scrollable ~ .tt-dropdown-menu {
   }
   .no-skin .sidebar.h-sidebar .nav-list > li.active > a:after {
     /*border-width: 0 0 2px 0; */
-    border-width: 0 0 0 0;/* ÐÞ¸ÄtopÖÐµÄµ¼º½Í¼±êÏÂ»®Ïß */
+    border-width: 0 0 0 0;/* ï¿½Þ¸ï¿½topï¿½ÐµÄµï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ */
     border-color: transparent;
     border-bottom-color: #FFF;
     left: 0;

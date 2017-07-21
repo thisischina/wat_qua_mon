@@ -13,8 +13,25 @@
 	<title>水质监测系统</title>
 
 	<jsp:include page="${basepath}/main/js.jsp"></jsp:include>
+
+	<script>
+        jQuery(document).ready(function() {
+            initBody();
+        });
+
+        //页面加载时设置frame高度
+        function initBody(){
+            var width = document.body.clientWidth //BODY对象宽度
+            if(width<1000){
+                jQuery('#logoTitle').css({width: "20%" });
+            }
+            var height = document.body.clientHeight //BODY对象高度
+            jQuery('#iframe').height(height-120);
+        }
+
+	</script>
 </head>
-<body style='overflow: hidden;'>
+<body style='overflow: hidden;font-family:"Microsoft Yahei";'>
 	<!-- HEADER -->
 	<jsp:include page="${basepath}/WEB-INF/main/top.jsp"></jsp:include>
 	<!--/HEADER -->
@@ -26,7 +43,7 @@
 				<div class="divide-20"></div>
 
 				<!-- SIDEBAR MENU -->
-				<ul style='margin-top: 28px'>
+				<ul>
 					<li class="nal_li active">
 						<a href="javascript:">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">用户操作日志</span>
@@ -67,7 +84,7 @@
 						<!-- PAGE HEADER-->
 						<div class="row">
 							<div class="col-sm-12">
-								<div class="page-header" style='min-height: 40px;margin:0 -15px 0px'>
+								<div class="page-header" style='min-height: 52px;margin:0 -15px 0px'>
 									<!-- BREADCRUMBS -->
 									<ul class="breadcrumb" id="ul-x" style='margin-top: 10px'>
 									</ul>

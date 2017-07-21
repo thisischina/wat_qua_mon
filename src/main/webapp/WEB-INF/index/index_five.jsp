@@ -29,17 +29,43 @@
             jQuery('#iframe').height(height-120);
         }
 
-		function waterSys(){
-			jQuery('.nal_li').removeClass('active');
-			jQuery('#li_project').addClass('active');
-			var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:waterSys();'>监测设备列表</a></li>";
-			$("#ul-x").html(htmlss);
-			document.getElementById("iframe").src="${basepath }/waterSys/to_list";
-		}
+	</script>
+
+	<script>
+        function monitordata(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>检测数据信息</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/monitordata/tolist?pageNow=0";
+        }
+
+        function projectInfo(){
+            jQuery('.nal_li').removeClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>检测数据信息</a></li>";
+            $("#ultt").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/user/user_list";
+        }
+
+        function map(){
+            jQuery('.nal_li').removeClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>实时站点检测</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath}/main/homepage.html";
+        }
+
+
+        function waterSys(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:waterSys();'>监测设备列表</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/waterSys/to_list";
+        }
 
 	</script>
 </head>
-<body style='overflow: hidden;'>
+<body style='overflow: hidden;font-family:"Microsoft Yahei";'>
 	<!-- HEADER -->
 	<jsp:include page="${basepath}/WEB-INF/main/top.jsp"></jsp:include>
 	<!--/HEADER -->
@@ -51,7 +77,7 @@
 				<div class="divide-20"></div>
 
 				<!-- SIDEBAR MENU -->
-				<ul style='margin-top: 28px'>
+				<ul>
 					<li class="nal_li active">
 						<a href="javascript:map()">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">实时站点检测</span>
@@ -74,35 +100,6 @@
 					</li>
 
 				</ul>
-
-				<script>
-                    function monitordata(){
-                        jQuery('.nal_li').removeClass('active');
-                        jQuery('#li_project').addClass('active');
-                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>检测数据信息</a></li>";
-                        $("#ul-x").html(htmlss);
-                        document.getElementById("iframe").src="${basepath }/monitordata/tolist?pageNow=0";
-                    }
-				</script>
-				<!-- /SIDEBAR MENU -->
-
-				<script>
-                    function projectInfo(){
-                        jQuery('.nal_li').removeClass('active');
-                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>检测数据信息</a></li>";
-                        $("#ultt").html(htmlss);
-                        document.getElementById("iframe").src="${basepath }/user/user_list";
-                    }
-				</script>
-
-				<script>
-                    function map(){
-                        jQuery('.nal_li').removeClass('active');
-                        var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>实时站点检测</a></li>";
-                        $("#ul-x").html(htmlss);
-                        document.getElementById("iframe").src="${basepath}/main/homepage.html";
-                    }
-				</script>
 			</div>
 		</div>
 		<!-- /SIDEBAR -->
@@ -113,7 +110,7 @@
 						<!-- PAGE HEADER-->
 						<div class="row">
 							<div class="col-sm-12">
-								<div class="page-header" style='min-height: 40px;margin:0 -15px 0px'>
+								<div class="page-header" style='min-height: 52px;margin:0 -15px 0px'>
 									<!-- BREADCRUMBS -->
 									<ul class="breadcrumb" id="ul-x" style='margin-top: 10px'>
 										<li>

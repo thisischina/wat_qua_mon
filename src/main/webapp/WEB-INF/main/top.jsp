@@ -7,54 +7,62 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<header class="navbar clearfix" id="header" style='padding-top: 15px;  background: url("${basepath}/assets/images/banner.jpg") no-repeat center;background-size:cover;'>
-    <div class="container">
-        <div class="navbar-brand" style='width: 30%;min-width: 246px' id='logoTitle'>
-            <div style='color:#fff;font-family:"楷体";font-weight:bold;font-style:italic;font-size: 30px;line-height:30px;width: 250px '>水质监测系统</div>
+<header class="navbar clearfix"  style='font-family:"Microsoft Yahei";padding-top: 15px; height: 109px ; background: url("${basepath}/assets/images/banner.jpg") no-repeat center;background-size:cover;'>
+    <%--<div class="container">--%>
+        <div class="navbar-brand" style='min-width: 190px' id='logoTitle'>
+            <div style='color:#fff;font-weight:bold;font-style:italic;font-size: 30px;line-height:60px;width: 200px '>水质监测系统</div>
         </div>
         <!-- 导航 -->
         <div style='float: left;margin-bottom: 10px ' style="width: 700px">
-            <ul class="nav navbar-nav  " id="navbar-left" style="width: 700px">
+            <ul class="nav navbar-nav  " id="navbar-left" style="width: 600px">
                 <li class="" style='cursor: pointer;margin-right: 30px' onclick='window.location="${basepath }/index/index_five"'>
+                    <img alt="" src="${basepath }/static/images/1.ico">
                     <p style="font-size: larger ;color: white">监测信息</p>
                 </li>
                 <li class="" style='cursor: pointer;' onclick='window.location="${basepath }/index/index_one"'>
+                    <img alt="" src="${basepath }/static/images/2.ico" width="72px" height="67px">
                     <p style="font-size: larger ;color: white">系统管理</p>
                 </li>
                 <li  style='cursor: pointer;margin-left: 50px' onclick='window.location="${basepath }/index/index_two"'>
+                    <img alt="" src="${basepath }/static/images/3.ico">
                     <p style="font-size: larger ;color: white">统计报表</p>
                 </li>
                 <li class="" style='cursor: pointer;margin-left: 50px' onclick='window.location="${basepath }/index/index_three"'>
+                    <img alt="" src="${basepath }/static/images/4.ico" width="72px" height="67px">
                     <p style="font-size: larger ;color: white">预警信息</p>
                 </li>
                 <li class="" style='cursor: pointer;margin-left: 50px' onclick='window.location="${basepath }/index/index_four"'>
+                    <img alt="" src="${basepath }/static/images/5.ico">
                     <p style="font-size: larger ;color: white">通知公告</p>
                 </li>
             </ul>
         </div>
         <!-- /导航 -->
         <div style='float: right;min-width: 150px;text-align: right;color: #fff;font-size: 16px;line-height: 65px'>
-            <ul class="nav navbar-nav pull-right" style="width: 230px;min-width: 230px;">
+            <ul class="nav navbar-nav pull-right" style="width: 250px;">
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
-                <li class="dropdown" id="header-notification" style="margin-top: 10px">
-                    <a href="${basepath }/statistics/alarmNode.action" class="dropdown-toggle" data-toggle="dropdown" >
-                        <i class="fa fa-bell" style='color:orange'></i>
-                        <span id="count" class="badge"></span>
+                <li class="dropdown" style="margin-top: 10px">
+                    <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" >
+                        <i class="fa fa-bell" style='color:bisque'></i>
                     </a>
                 </li>
                 <!-- END NOTIFICATION DROPDOWN -->
                 <!-- BEGIN USER LOGIN DROPDOWN -->
-                <li class="dropdown user" id="header-user" style="float: right">
+                <li class="dropdown user" >
                     <c:if test="${sessionScope.user!=null}">
-						<span>账号：${sessionScope.user.name }	&nbsp;&nbsp;&nbsp;
-						<a href='${basepath }/user/logout' style='color:#fff;cursor: pointer;'> 注销</a>	</span>
-                        <a href='javascript:' onclick="setnewpasswoed(${sessionScope.user.id },'${sessionScope.user.account }')" style='color:#fff;cursor: pointer;'> 改密</a>
+						<span>
+                            欢迎：${sessionScope.user.name }	&nbsp;&nbsp;&nbsp;
+						    <a href='${basepath }/user/logout' style='color:#fff;cursor: pointer;'> 注销</a>
+                        </span>
+                        <span>
+                            <a href='javascript:' onclick="setnewpasswoed(${sessionScope.user.id },'${sessionScope.user.account }')" style='color:#fff;cursor: pointer;'> 改密</a>
+                        </span>
                     </c:if>
                 </li>
                 <!-- END USER LOGIN DROPDOWN -->
             </ul>
         </div>
-    </div>
+    <%--</div>--%>
 
 </header>
 

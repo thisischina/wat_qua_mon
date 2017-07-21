@@ -79,7 +79,7 @@
 
 	</script>
 </head>
-<body style='overflow: hidden;'>
+<body style='overflow: hidden;font-family:"Microsoft Yahei";'>
 	<!-- HEADER -->
 	<jsp:include page="${basepath}/WEB-INF/main/top.jsp"></jsp:include>
 	<!--/HEADER -->
@@ -91,7 +91,7 @@
 				<div class="divide-20"></div>
 
 				<!-- SIDEBAR MENU -->
-				<ul style='margin-top: 28px'>
+				<ul>
 					<li class="nal_li active">
 						<a href="javascript:user();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">用户管理</span>
@@ -115,12 +115,6 @@
 						<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">部门管理</span>
 						<span class="selected"></span>
 					</a>
-					</li>
-					<li class="nal_li">
-						<a href="javascript:">
-							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">水质等级管理</span>
-							<span class="selected"></span>
-						</a>
 					</li>
 					<li class="nal_li">
 						<a href="javascript:">
@@ -165,7 +159,7 @@
 						<!-- PAGE HEADER-->
 						<div class="row">
 							<div class="col-sm-12">
-								<div class="page-header" style='min-height: 40px;margin:0 -15px 0px'>
+								<div class="page-header" style='min-height: 52px;margin:0 -15px 0px'>
 									<!-- BREADCRUMBS -->
 									<ul class="breadcrumb" id="ul-x" style='margin-top: 10px'>
 									</ul>

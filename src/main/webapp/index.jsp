@@ -124,7 +124,7 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 						<label class="" style='color:#fff'>密码：</label> 
 					</div>
 					<div class="form-group form-row">
-						<input type="password" class="form-control" name='password' id='password' value=''>
+						<input type="password" class="form-control" name='password' id='password'>
 					</div>
 				</div>
 				<br>
