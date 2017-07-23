@@ -1,5 +1,5 @@
 <%--
-  Created by IntelliJ IDEA.
+  Created by github:thisischina.
   User: Administrator
   Date: 2017/6/30 0030
   Time: 11:54
@@ -19,41 +19,13 @@
 <meta name="author" content="qq:874114275">
 
 <%--列表页面--%>
-<link rel="stylesheet" type="text/css" href="${basepath }/assets/css/cloud-admin.css" >
-<link rel="stylesheet" type="text/css" href="${basepath }/assets/css/default.css" id="skin-switcher" >
-<!-- STYLESHEETS --><!--[if lt IE 9]><script src="js/flot/excanvas.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
-<link href="${basepath }/assets/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${basepath }/assets/css/styles.css" />
-<link rel="stylesheet" type="text/css" href="${basepath }/assets/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" />
-
-<!-- Theme UI -->
-<link id="layout-theme" rel="stylesheet" type="text/css"
-      href="${basepath }/assets/themes/minified/agileui/color-schemes/layouts/default.min.css">
-<link id="elements-theme" rel="stylesheet" type="text/css"
-      href="${basepath }/assets/themes/minified/agileui/color-schemes/elements/default.min.css">
-<!-- AgileUI Responsive -->
-<link rel="stylesheet" type="text/css"
-      href="${basepath }/assets/themes/minified/agileui/responsive.min.css">
-<!-- STYLESHEETS -->
-
-
-<%--更新页面--%>
-<!-- Favicons -->
-<link rel="apple-touch-icon-precomposed" sizes="144x144"
-      href="${basepath }/assets/images/icons/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114"
-      href="${basepath }/assets/images/icons/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72"
-      href="${basepath }/assets/images/icons/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed"
-      href="${basepath }/assets/images/icons/apple-touch-icon-57-precomposed.png">
-<link rel="shortcut icon"
-      href="${basepath }/assets/images/icons/favicon.png">
-
-<!-- AgileUI CSS Core -->
-
-<link rel="stylesheet" type="text/css"
-      href="${basepath }/assets/themes/minified/agileui/animations.min.css">
-
-<link rel="stylesheet" type="text/css"
-      href="${basepath }/style/popup/sweetalert2.min.css">
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/cloud-admin.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/default.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/styles.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/zTreeStyle.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/default.min.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/default-one.min.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/responsive.min.css"/>
+<%--弹窗页--%>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/css/listpage/sweetalert2.min.css"/>

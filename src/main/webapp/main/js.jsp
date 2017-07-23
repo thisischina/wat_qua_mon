@@ -11,21 +11,14 @@
     pageContext.setAttribute("basepath",request.getContextPath());
 %>
 
-<!-- JQUERY -->
-<script type="text/javascript" src="${basepath }/assets/js/jquery-2.0.3.min.js"></script>
-<!-- tree -->
-<script type="text/javascript" src="${basepath }/assets/zTree_v3-master/js/jquery.ztree.core.js"></script>
-<!-- CUSTOM SCRIPT -->
-<script type="text/javascript" src="${basepath }/assets/js/fuelux-tree/fuelux.tree-sampledata.js"></script>
-<script type="text/javascript" src="${basepath }/assets/js/fuelux-tree/fuelux.tree.min.js"></script>
-
-<script type="text/javascript"
-        src="${basepath }/style/custom/js/jquery.twbsPagination.min.js"></script>
-
-<script type="text/javascript" src="${basepath }/assets/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basepath }/static/js/listpage/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="${basepath }/static/js/listpage/jquery.ztree.core.min.js"></script>
+<script type="text/javascript" src="${basepath }/static/js/listpage/fuelux.tree-sampledata.js"></script>
+<script type="text/javascript" src="${basepath }/static/js/listpage/fuelux.tree.min.js"></script>
+<script type="text/javascript" src="${basepath }/static/js/listpage/jquery.twbsPagination.min.js"></script>
 
 <!-- 弹窗 -->
-<script type="text/javascript" src="${basepath }/style/popup/sweetalert2.min.js"></script>
+<script type="text/javascript" src="${basepath }/static/js/listpage/sweetalert2.min.js"></script>
 
 <script>
     jQuery(document).ready(function() {

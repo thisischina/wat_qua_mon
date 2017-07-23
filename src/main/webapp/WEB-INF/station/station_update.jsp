@@ -37,7 +37,7 @@
 <link id="layout-theme" rel="stylesheet" type="text/css"
 	  href="${basepath }/assets/themes/minified/agileui/color-schemes/layouts/default.min.css">
 <link id="elements-theme" rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/color-schemes/elements/default.min.css">
+	  href="${basepath }/assets/themes/minified/agileui/color-schemes/elements/default-one.css">
 
 <!-- AgileUI Responsive -->
 

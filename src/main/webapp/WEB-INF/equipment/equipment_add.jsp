@@ -7,49 +7,8 @@
 <html>
 
 <head>
+<jsp:include page="${basepath}/main/css.jsp"></jsp:include>
 <title>新增</title>
-
-<!-- Favicons -->
-
-<link rel="apple-touch-icon-precomposed" sizes="144x144"
-	  href="${basepath }/assets/images/icons/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114"
-	  href="${basepath }/assets/images/icons/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72"
-	  href="${basepath }/assets/images/icons/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed"
-	  href="${basepath }/assets/images/icons/apple-touch-icon-57-precomposed.png">
-<link rel="shortcut icon"
-	  href="${basepath }/assets/images/icons/favicon.png">
-
-<!--[if lt IE 9]>
-<script src="assets/js/minified/core/html5shiv.min.js"></script>
-<script src="assets/js/minified/core/respond.min.js"></script>
-<![endif]-->
-
-<!-- AgileUI CSS Core -->
-
-<link rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/css/minified/aui-production.min.css">
-
-<!-- Theme UI -->
-
-<link id="layout-theme" rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/color-schemes/layouts/default.min.css">
-<link id="elements-theme" rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/color-schemes/elements/default.min.css">
-
-<!-- AgileUI Responsive -->
-
-<link rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/responsive.min.css">
-
-<!-- AgileUI Animations -->
-
-<link rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/animations.min.css">
-
-<!-- AgileUI JS -->
 
 <jsp:include page="${basepath}/main/js.jsp"></jsp:include>
 

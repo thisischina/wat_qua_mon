@@ -53,9 +53,9 @@
 
             var imageSrc = "";
             if(item.state == 1){
-                imageSrc = "${basepath}/assets/images/on.jpg";
+                imageSrc = "${basepath}/static/images/on.jpg";
             }else if(item.state == 0){
-                imageSrc = "${basepath}/assets/images/off.jpg";
+                imageSrc = "${basepath}/static/images/off.jpg";
             }
 
 

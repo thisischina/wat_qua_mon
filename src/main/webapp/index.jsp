@@ -9,15 +9,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
+<jsp:include page="${basepath}/main/css.jsp"></jsp:include>
 <title>水质监测系统</title>
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="stylesheet" type="text/css"
-	href="${basepath }/assets/css/cloud-admin.css">
-<link rel="stylesheet" type="text/css"
-	href="${basepath }/assets/css/default.css" id="skin-switcher">
 
 <style type="text/css">
 #pagination {
@@ -44,8 +37,6 @@ width:100%;
 
 height:600px; 
 
-FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#b8c4cb,endColorStr=red); /*IE 6 7 8*/ 
-
 background: -ms-linear-gradient(top, #5E87B0,#CBD8E6);        /* IE 10 */
 
 background:-moz-linear-gradient(top,#5E87B0,#CBD8E6);/*火狐*/ 
@@ -62,9 +53,8 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 
 </style>
 
-<script src="${basepath }/assets/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript"
-	src="${basepath }/style/custom/js/jquery.twbsPagination.min.js"></script>
+<script src="${basepath }/static/js/listpage/jquery-2.0.3.min.js"></script>
+
 <script type="text/javascript">
 	if(window.parent!=window){
 		window.parent.location='${basepath }/index.jsp';
@@ -97,7 +87,7 @@ background: -o-linear-gradient(top,#5E87B0,#CBD8E6);  /*Opera 11.10+*/
 	
 </script>
 </head>
-<body class="linear" style='background: url("${basepath}/assets/images/bg.jpg") no-repeat center;background-size:cover; '>
+<body class="linear" style='background: url("${basepath}/static/images/bg.jpg") no-repeat center;background-size:cover; '>
 
 	<div style='width: 100%;text-align: center'>
 

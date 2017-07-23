@@ -7,7 +7,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<header class="navbar clearfix"  style='font-family:"Microsoft Yahei";padding-top: 15px; height: 109px ; background: url("${basepath}/assets/images/banner.jpg") no-repeat center;background-size:cover;'>
+<header class="navbar clearfix"  style='font-family:"Microsoft Yahei";padding-top: 15px; height: 109px ; background: url("${basepath}/static/images/banner.jpg") no-repeat center;background-size:cover;'>
     <%--<div class="container">--%>
         <div class="navbar-brand" style='min-width: 190px' id='logoTitle'>
             <div style='color:#fff;font-weight:bold;font-style:italic;font-size: 30px;line-height:60px;width: 200px '>水质监测系统</div>

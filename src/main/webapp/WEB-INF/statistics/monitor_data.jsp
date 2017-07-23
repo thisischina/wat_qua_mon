@@ -9,34 +9,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
+<jsp:include page="${basepath}/main/css.jsp"></jsp:include>
 <title>统计报表</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="stylesheet" type="text/css"
-	href="${basepath }/assets/css/cloud-admin.css">
-<link rel="stylesheet" type="text/css"
-	href="${basepath }/assets/css/default.css" id="skin-switcher">
-<%-- <link rel="stylesheet" type="text/css"
-	href="${basepath }/assets/css/minified/aui-production.min.css"> --%>
-<!-- Theme UI -->
-<link id="layout-theme" rel="stylesheet" type="text/css"
-	href="${basepath }/assets/themes/minified/agileui/color-schemes/layouts/default.min.css">
-<link id="elements-theme" rel="stylesheet" type="text/css"
-	href="${basepath }/assets/themes/minified/agileui/color-schemes/elements/default.min.css">
-<!-- AgileUI Responsive -->
-<link rel="stylesheet" type="text/css"
-	href="${basepath }/assets/themes/minified/agileui/responsive.min.css">
-<!-- STYLESHEETS -->
-<!--[if lt IE 9]><script src="js/flot/excanvas.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
-<link href="${basepath }/assets/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="${basepath }/assets/css/styles.css" />
-<%-- <link rel="stylesheet" href="${basepath }/style/css/bootstrap.css" /> --%>
 
 <style type="text/css">
 #pagination {
@@ -62,11 +36,7 @@ td {
 }
 </style>
 
-<script src="${basepath }/assets/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript"
-	src="${basepath }/style/custom/js/jquery.twbsPagination.min.js"></script>
-	<script type="text/javascript"
-	src="${basepath }/style/My97DatePicker/WdatePicker.js"></script>
+<jsp:include page="${basepath}/main/js.jsp"></jsp:include>
 
 <script type="text/javascript">
 	jQuery(document).ready(function() {
@@ -141,7 +111,6 @@ td {
 
 						$("#tbody").html("");
 						$('#pagination_div').html("");
-                        debugger
 						if (data == null || data.total == 0) {
 							return;
 						}
