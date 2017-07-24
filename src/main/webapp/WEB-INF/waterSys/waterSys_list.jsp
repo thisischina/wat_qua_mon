@@ -11,10 +11,16 @@
 
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="${basepath }/assets/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
-    <script type="text/javascript" src="${basepath }/assets/jquery/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="${basepath }/assets/zTree_v3-master/js/jquery.ztree.core.min.js"></script>
-    <script type="text/javascript" src="${basepath }/assets/zTree_v3-master/js/jquery.ztree.excheck.min.js"></script>
+    <%--<link rel="stylesheet" href="${basepath }/assets/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">--%>
+    <%--<script type="text/javascript" src="${basepath }/assets/jquery/jquery-1.9.1.min.js"></script>--%>
+    <%--<script type="text/javascript" src="${basepath }/assets/zTree_v3-master/js/jquery.ztree.core.min.js"></script>--%>
+    <%--<script type="text/javascript" src="${basepath }/assets/zTree_v3-master/js/jquery.ztree.excheck.min.js"></script>--%>
+
+    <%--<script type="text/javascript" src="${basepath }/assets/jquery/jquery-1.9.1.min.js"></script>--%>
+    <script type="text/javascript" src="${basepath }/static/js/listpage/jquery-2.0.3.min.js"></script>
+    <link rel="stylesheet" href="${basepath }/static/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script type="text/javascript" src="${basepath }/static/js/listpage/jquery.ztree.core.min.js"></script>
+    <script type="text/javascript" src="${basepath }/static/js/listpage/jquery.ztree.excheck.min.js"></script>
 
     <script type="text/javascript">
 
