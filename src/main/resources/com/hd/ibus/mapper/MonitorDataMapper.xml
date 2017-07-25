@@ -91,4 +91,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+  <!--lizhipeng-->
+  <select id="getAllData" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from monitor_data
+  </select>
 </mapper>

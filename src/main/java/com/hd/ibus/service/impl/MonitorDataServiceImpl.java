@@ -74,4 +74,11 @@ public class MonitorDataServiceImpl implements MonitorDataService {
     public void deleteMonitorData(Integer id){
         monitorDataMapper.delete(id);
     }
+
+    /**
+     * 查询所有数据
+     */
+    public List<MonitorData> getAllData() {
+       return  monitorDataMapper.getAllData();
+    }
 }

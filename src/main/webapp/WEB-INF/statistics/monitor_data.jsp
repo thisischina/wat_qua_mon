@@ -232,6 +232,12 @@ td {
 			</thead>
 			<tbody id="tbody"> </tbody>
 		</table>
+		<div class="dataTables_info" id="dynamic-table_info"
+			 style="float: left;">
+			<a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
+			   href="${basepath}/statistics/echarts">
+				<span class="button-content">显示曲线图</span> </a>
+		</div>
 		<div id="pagination_div" style="float: right;padding-right: 0px">
 
 		</div>
