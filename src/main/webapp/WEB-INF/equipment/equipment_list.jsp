@@ -1,3 +1,4 @@
+<%@ page import="com.hd.ibus.util.DateUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -73,7 +74,7 @@
                 + (item.samplingFrequency == null ? "" : item.samplingFrequency)
                 + "</td>"
                 + "<td>"
-                + (item.installTime == null ? "" : item.installTime)
+                + (item.installTime == null ? "" : moment(item.installTime).format('YYYY-MM-DD'))
                 + "</td>"
                 + "<td>"
                 + (item.stationId == null ? "" : item.stationId)

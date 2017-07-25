@@ -15,7 +15,7 @@ public class Equipment {
 
     private Integer typeId;
 
-    private Date lifetime;
+    private String lifetime;
 
     private Long max;
 
@@ -75,11 +75,11 @@ public class Equipment {
         this.typeId = typeId;
     }
 
-    public Date getLifetime() {
+    public String getLifetime() {
         return lifetime;
     }
 
-    public void setLifetime(Date lifetime) {
+    public void setLifetime(String lifetime) {
         this.lifetime = lifetime;
     }
 

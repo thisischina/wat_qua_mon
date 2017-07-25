@@ -82,7 +82,7 @@ public class UserController {
 		String email= PageStr.getParameterStr("email",request);
 		String unitId= PageStr.getParameterStr("unitId",request);
 		String roleId= PageStr.getParameterStr("roleId",request);
-		String power= PageStr.getParameterStr("power",request);
+		String state= PageStr.getParameterStr("state",request);
 
 		/**
 		 * 查询条件为空设置对象为空
@@ -100,8 +100,8 @@ public class UserController {
 			user.setUnitId(Integer.parseInt(unitId));
 		}if(!roleId.equals("")){
 			user.setRoleId(Integer.parseInt(roleId));
-		}if(!power.equals("")){
-			user.setPower(power);
+		}if(!state.equals("")){
+			user.setState(Integer.parseInt(state));
 		}
 		userService.updateUser(user);
 

@@ -16,9 +16,12 @@
 <script type="text/javascript" src="${basepath }/static/js/listpage/fuelux.tree-sampledata.js"></script>
 <script type="text/javascript" src="${basepath }/static/js/listpage/fuelux.tree.min.js"></script>
 <script type="text/javascript" src="${basepath }/static/js/listpage/jquery.twbsPagination.min.js"></script>
+<%--时间格式转换--%>
+<script type="text/javascript" src="${basepath }/static/js/timeformat/moment-with-locales.min.js"></script>
 
 <!-- 弹窗 -->
-<script type="text/javascript" src="${basepath }/static/js/listpage/sweetalert2.min.js"></script>
+<script type="text/javascript" src="${basepath }/static/js/popup/sweetalert2.min.js"></script>
+<script type="text/javascript" src="${basepath }/static/js/popup/lhgdialog.min.js?skin=discuz"></script>
 
 <script>
     jQuery(document).ready(function() {

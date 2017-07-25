@@ -48,7 +48,7 @@
     function ifuserexis() {
         var account="";
 
-        $("#account").mousedown(function(){debugger
+        $("#account").mousedown(function(){
             $("#namelabel").css("display","none");
 
             $("#account").mouseleave(function(){

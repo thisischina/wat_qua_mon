@@ -7,56 +7,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>监测站信息</title>
+	<jsp:include page="${basepath}/main/updatepage_css.jsp"></jsp:include>
+	<title>更新</title>
 
-<!-- Favicons -->
+	<!-- AgileUI JS -->
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144"
-	  href="${basepath }/assets/images/icons/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114"
-	  href="${basepath }/assets/images/icons/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72"
-	  href="${basepath }/assets/images/icons/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed"
-	  href="${basepath }/assets/images/icons/apple-touch-icon-57-precomposed.png">
-<link rel="shortcut icon"
-	  href="${basepath }/assets/images/icons/favicon.png">
+	<jsp:include page="${basepath}/main/updatepage_js.jsp"></jsp:include>
 
-<!--[if lt IE 9]>
-<script src="assets/js/minified/core/html5shiv.min.js"></script>
-<script src="assets/js/minified/core/respond.min.js"></script>
-<![endif]-->
+	<script type="text/javascript">
+        jQuery(document).ready(function(){
+            changeTitle();
 
-<!-- AgileUI CSS Core -->
+            App.init();
 
-<link rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/css/minified/aui-production.min.css">
-
-<!-- Theme UI -->
-
-<link id="layout-theme" rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/color-schemes/layouts/default.min.css">
-<link id="elements-theme" rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/color-schemes/elements/default-one.css">
-
-<!-- AgileUI Responsive -->
-
-<link rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/responsive.min.css">
-
-<!-- AgileUI Animations -->
-
-<link rel="stylesheet" type="text/css"
-	  href="${basepath }/assets/themes/minified/agileui/animations.min.css">
-
-<!-- AgileUI JS -->
-
-<jsp:include page="${basepath}/main/js.jsp"></jsp:include>
-
-<script type="text/javascript">
-	jQuery(document).ready(function(){
-		changeTitle();
-	});
+            FormComponents.init();
+        });
 
 	function changeTitle(){
 		var htmlss = $('#ultt', parent.document).html();
@@ -94,7 +59,7 @@
 					changeTitle2();
 					window.location.href="${basepath }/station/tolist";
 				}else{
-					alert("添加失败");
+					alert("修改失败");
 				}
 			}
 		});
@@ -104,90 +69,134 @@
 </script>
 
 </head>
-<body>
-<div id="page-content">
-	<h3>修改项目信息</h3>
-<div class="divider"></div>
-		<div class="">
-			<div class="example-code clearfix">
-				<input type="hidden" id="id" value='${station.id }'>
-				<form action="" class="col-md-20 center-margin" method="get">
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 检测站名: </label>
-						</div>
-						<div class="form-input col-md-5">
-						 <input type="text" value="${station.name}" readonly="readonly">
+
+<body style='font-family:"Microsoft Yahei"'>
+
+<div class="portlet box">
+
+	<div class="portlet-body form">
+		<input type="hidden" id="id" value='${station.id }'>
+		<form action="#" class="horizontal-form">
+
+			<h3 class="form-section">添加检测站点</h3>
+
+			<div class="row-fluid">
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label">监测站名</label>
+
+						<div class="controls">
+
+							<input type="text" value="${station.name}" readonly="readonly" class="m-wrap span12">
+
 						</div>
 
-						<div class="form-input col-md-2">
-						带*为必填项
-						</div>
 					</div>
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 位置名称: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<input value='${station.address }' id="address" type="text">
-						</div>
-						<div class="form-input col-md-1">
-							*
-						</div>
-					</div>
+				</div>
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 所属类型: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<select id='type'>
-								<option value='1'>类型一</option>
-								<option value='2'>类型二</option>
-							</select>
-						</div>
-					</div>
+				<div class="span6 ">
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 坐标: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<input id="coordinate" type="text" value='${station.coordinate}'>
-						</div>
-					</div>
+					<div class="control-group">
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 所属单位: </label>
+						<label class="control-label">位置名称</label>
+
+						<div class="controls">
+
+							<input type="text" id="address" value='${station.address }' class="m-wrap span12">
+
 						</div>
-						<div class="form-input col-md-5">
-							<select id='unitId'>
-								<option value='1'>单位一</option>
-								<option value='2'>单位二</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="form-row">
-						<div class="form-label col-md-2">
-					</div>
-
-					<div class="form-label col-md-2">
-					<input class="btn medium primary-bg" style="width:80px" value="提交" type="button" onclick="update();"/>
-					</div>
-
-					<div class="form-label col-md-2">
-					<input class="btn medium primary-bg" style="width:80px" value="返回" type="button" onclick="window.location.href='${basepath}/station/tolist'"/>
-					</div>
 
 					</div>
-				</form>
+
+				</div>
 
 			</div>
 
+			<div class="row-fluid">
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label" >所属类型</label>
+
+						<div class="controls">
+
+							<select id="type"  class="m-wrap span12">
+
+								<option value="1">一</option>
+
+								<option value="2">二</option>
+
+							</select>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label">坐标</label>
+
+						<div class="controls">
+
+							<input type="text" id="coordinate" value='${station.coordinate}' class="m-wrap span12">
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row-fluid">
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label" >所属单位</label>
+
+						<div class="controls">
+
+							<select id="unitId"  class="m-wrap span12">
+
+								<option value="1">一</option>
+
+								<option value="2">二</option>
+
+							</select>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="form-actions" style="padding-left: 10px">
+
+				<button type="button" class="btn blue" onclick="update()">确定</button>
+
+				<button type="button" class="btn" onclick="window.location.href='${basepath}/station/tolist'">取消</button>
+
+			</div>
+
+		</form>
+
 	</div>
-	</div>
+
+</div>
+
 </body>
 </html>

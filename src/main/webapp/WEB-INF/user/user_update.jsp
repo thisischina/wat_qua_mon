@@ -38,7 +38,7 @@
 		var email=$('#email').val();
 		var unitId=$('#unitId').val();
 		var roleId=$('#roleId').val();
-        var power=$('#power').val();
+        var state=$('#state').val();
 
 		if(tel==""){
 			alert("手机号不能为空。");
@@ -47,7 +47,7 @@
 		   $.ajax({
 			url:"${basepath }/user/update",
 			type:"post",
-			data:{id:id,name:name,tel:tel,email:email,unitId:unitId,roleId:roleId,power:power},
+			data:{id:id,name:name,tel:tel,email:email,unitId:unitId,roleId:roleId,state:state},
 			dataType:"json",
 			success: function (data) {
 				if(data==1){
@@ -184,6 +184,32 @@
 								<option value="1">一</option>
 
 								<option value="2">二</option>
+
+							</select>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row-fluid">
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label" >状态</label>
+
+						<div class="controls">
+
+							<select id="state"  class="m-wrap span12">
+
+								<option value="1">启用</option>
+
+								<option value="0">冻结</option>
 
 							</select>
 

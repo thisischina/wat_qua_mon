@@ -237,7 +237,7 @@
 <div class='row' style="margin: 0px">
     <div class='col-md-12'>
         <form class="form-inline" role="form"
-              style='float: right;margin-bottom:10px;margin-top: 5px;margin-left: 5px '>
+              style='float: right;margin-bottom:10px;margin-top: 15px;'>
             <div class="form-group">
                 <input type="text" class="form-control" id="name" value="${pageHelp.selectStr}" placeholder="站名">
             </div>
@@ -266,23 +266,25 @@
             </tbody>
         </table>
 
-        <div class="form-row">
-            <div class="form-input col-md-5">
-                <input id="power" type="text">
-                <input id="power1" type="hidden">
-                <input id="power2" type="hidden">
-                <input id="power3" type="hidden">
-            </div>
-        </div>
-        <div class="dataTables_info" id="dynamic-table_info"
-             style="float: left;">
-            <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
-               href="${basepath}/station/toadd">
-                <span class="button-content">确认分配</span> </a>
-        </div>
         <div id="pagination_div" style='float: right;padding-right: 0px'>
 
         </div>
+
+        <div class='row'>
+            <div class='col-md-12'>
+                <form class="form-inline" role="form"
+                      style='float: left;'>
+                    <div class="form-group">
+                        <input id="power" type="text" class="form-control" style="width: 350px">
+                        <input id="power1" type="hidden">
+                        <input id="power2" type="hidden">
+                        <input id="power3" type="hidden">
+                    </div>
+                    <button type="button" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >确认分配</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 

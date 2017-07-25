@@ -101,7 +101,7 @@ public class EquipmentController {
 		}if(!typeId.equals("")){
 			equipment.setTypeId(Integer.parseInt(typeId));
 		}if(!lifetime.equals("")){
-			equipment.setLifetime(DateUtils.getDate(lifetime,"yyyy-MM-dd HH:mm:ss"));
+			equipment.setLifetime(lifetime);
 		}if(!max.equals("")){
 			equipment.setMax(Long.parseLong(max));
 		}if(!min.equals("")){
@@ -109,7 +109,7 @@ public class EquipmentController {
 		}if(!samplingFrequency.equals("")){
 			equipment.setSamplingFrequency(Long.parseLong(samplingFrequency));
 		}if(!installTime.equals("")){
-			equipment.setInstallTime(DateUtils.getDate(installTime,"yyyy-MM-dd HH:mm:ss"));
+			equipment.setInstallTime(DateUtils.getAmericanDate(installTime,"MM/dd/yyyy"));
 		}if(!stationId.equals("")){
 			equipment.setStationId(Integer.parseInt(stationId));
 		}if(!state.equals("")){
@@ -210,7 +210,7 @@ public class EquipmentController {
 		}if(!typeId.equals("")){
 			equipment.setTypeId(Integer.parseInt(typeId));
 		}if(!lifetime.equals("")){
-			equipment.setLifetime(DateUtils.getDate(lifetime,"yyyy-MM-dd HH:mm:ss"));
+			equipment.setLifetime(lifetime);
 		}if(!max.equals("")){
 			equipment.setMax(Long.parseLong(max));
 		}if(!min.equals("")){
@@ -218,7 +218,7 @@ public class EquipmentController {
 		}if(!samplingFrequency.equals("")){
 			equipment.setSamplingFrequency(Long.parseLong(samplingFrequency));
 		}if(!installTime.equals("")){
-			equipment.setInstallTime(DateUtils.getDate(installTime,"yyyy-MM-dd HH:mm:ss"));
+			equipment.setInstallTime(DateUtils.getAmericanDate(installTime,"MM/dd/yyyy"));
 		}if(!stationId.equals("")){
 			equipment.setStationId(Integer.parseInt(stationId));
 		}if(!state.equals("")){

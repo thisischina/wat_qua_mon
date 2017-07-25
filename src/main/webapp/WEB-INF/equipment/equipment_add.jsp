@@ -7,15 +7,21 @@
 <html>
 
 <head>
-<jsp:include page="${basepath}/main/css.jsp"></jsp:include>
-<title>新增</title>
+	<jsp:include page="${basepath}/main/updatepage_css.jsp"></jsp:include>
+	<title>新增</title>
 
-<jsp:include page="${basepath}/main/js.jsp"></jsp:include>
+	<!-- AgileUI JS -->
 
-<script type="text/javascript">
-	jQuery(document).ready(function(){
-		changeTitle();
-	});
+	<jsp:include page="${basepath}/main/updatepage_js.jsp"></jsp:include>
+
+	<script type="text/javascript">
+        jQuery(document).ready(function(){
+            changeTitle();
+
+            App.init();
+
+            FormComponents.init();
+        });
 
 	function changeTitle(){
 		$('#ultt', parent.document).html("");
@@ -52,167 +58,230 @@
 			return
 		}
 
-		//判断用户是否已存在
-		$.ajax({
-			url:"${basepath}/equipment/confirmexist",
-			type:"post",
-			data:{name:name},
-			dataType:"json",
-			async:false,
-			success: function (data) {
-				if(data.total>0){
-				    alert("设备名已存在");
-				    return;
-				}else{
-
-				    //添加用户
-                    $.ajax({
-                        url:"${basepath}/equipment/addequipment",
-                        type:"post",
-                        data:{name:name,number:number,typeId:typeId,lifetime:lifetime,
-                            max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime,
-                            stationId:stationId,state:state},
-                        dataType:"json",
-                        async:false,
-                        success: function (data) {
-                            if(data>0){
-                                alert("添加成功");
-                                changeTitle2();
-                                window.location.href='${basepath}/equipment/tolist';
-							}
-                        }
-                    });
+        //添加
+        $.ajax({
+            url:"${basepath}/equipment/addequipment",
+            type:"post",
+            data:{name:name,number:number,typeId:typeId,lifetime:lifetime,
+                max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime,
+                stationId:stationId,state:state},
+            dataType:"json",
+            async:false,
+            success: function (data) {
+                if(data>0){
+                    alert("添加成功");
+                    changeTitle2();
+                    window.location.href='${basepath}/equipment/tolist';
                 }
-			}
-		}); 
+            }
+        });
 	}
 
 </script>
 
 </head>
-<body>
+<body style='font-family:"Microsoft Yahei"'>
+<div class="portlet box">
 
-<div id="page-content">
-	<h3>添加设备</h3>
-	<div class="divider"></div>
+	<div class="portlet-body form">
 
-		<div class="">
-			<div class="example-code clearfix">
+		<form class="horizontal-form">
 
-				<form action="" class="col-md-20 center-margin" method="get">
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 设备名: </label>
-						</div>
-						<div class="form-input col-md-5">
-						 <input id="name" type="text">
-						</div>
-						<div class="form-input col-md-1">
-						*
-						</div>
-						<div class="form-input col-md-2">
-						带*为必填项
-						</div>
-					</div>
+			<h3 class="form-section">添加设备</h3>
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 编号: </label>
-						</div>
-						<div class="form-input col-md-5">
-						 <input id="number" type="text">
-						</div>
-						<div class="form-input col-md-1">
-						*
-						</div>
-					</div>
+			<div class="row-fluid">
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 所属类型: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<select id='typeId'>
-								<option value='1'>类型一</option>
-								<option value='2'>类型二</option>
-							</select>
-						</div>
-					</div>
+				<div class="span6 ">
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 寿命: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<input id="lifetime" type="text">
-						</div>
-					</div>
+					<div class="control-group">
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 阈值上限: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<input id="max" type="text">
-						</div>
-					</div>
+						<label class="control-label">设备名</label>
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 阈值下限: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<input id="min" type="text">
-						</div>
-					</div>
+						<div class="controls">
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 采集频率: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<input id="samplingFrequency" type="text">
-						</div>
-					</div>
+							<input type="text" id="name" class="m-wrap span12">
 
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 安装日期: </label>
 						</div>
-						<input id="startDate" class="Wdate form-control" value='${startdate }'
-							   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true,onpicked:function() {javascript:changeTime();}})" style='height:30px;width: 165px'/>
-					</div>
-
-					<div class="form-row">
-						<div class="form-label col-md-2">
-							<label> 所属监测站: </label>
-						</div>
-						<div class="form-input col-md-5">
-							<select id='stationId'>
-								<option value='1'>一</option>
-								<option value='2'>二</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="form-row">
-						<div class="form-label col-md-2">
-					</div>
-
-					<div class="form-label col-md-2">
-					<input class="btn medium primary-bg"  style="width:80px" value="提交" type="button" onclick="saveObject();"/>
-					</div>
-
-					<div class="form-label col-md-2">
-					<input class="btn medium primary-bg" style="width:80px" value="返回" type="button" onclick="returnPage();"/>
-					</div>
 
 					</div>
-				</form>
+
+				</div>
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label">编号</label>
+
+						<div class="controls">
+
+							<input type="text" id="number" class="m-wrap span12">
+
+						</div>
+
+					</div>
+
+				</div>
 
 			</div>
 
+			<div class="row-fluid">
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label" >所属类型</label>
+
+						<div class="controls">
+
+							<select id="typeId" class="m-wrap span12">
+
+								<option value="1">一</option>
+
+								<option value="2">二</option>
+
+							</select>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label">寿命</label>
+
+						<div class="controls">
+
+							<input type="text" id="lifetime" class="m-wrap span12">
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row-fluid">
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label" >阀值上限</label>
+
+						<div class="controls">
+
+							<input type="text" id="max" class="m-wrap span12">
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label">阀值下限</label>
+
+						<div class="controls">
+
+							<input type="text" id="min" class="m-wrap span12">
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row-fluid">
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label" >采集频率</label>
+
+						<div class="controls">
+
+							<input type="text" id="samplingFrequency" class="m-wrap span12">
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label">安装日期</label>
+
+						<div class="controls">
+
+							<input type="text" id="installTime" size="16" readonly class="m-wrap m-ctrl-medium date-picker span12">
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row-fluid">
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label" >所属检测站</label>
+
+						<div class="controls">
+
+							<select id="stationId" class="m-wrap span12">
+
+								<option value="1">一</option>
+
+								<option value="2">二</option>
+
+							</select>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+			<div class="form-actions" style="padding-left: 10px">
+
+				<button type="button" class="btn blue" onclick="saveObject()">确定</button>
+
+				<button type="button" class="btn" onclick="returnPage();">取消</button>
+
+			</div>
+
+		</form>
+
 	</div>
-	</div>
+
+</div>
+
 </body>
 </html>

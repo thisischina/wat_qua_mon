@@ -89,6 +89,9 @@
 
 <script type="text/javascript" src="${basepath }/static/js/updatepage/form-components.js"></script>
 
+<%--时间格式转换--%>
+<script type="text/javascript" src="${basepath }/static/js/timeformat/moment-with-locales.min.js"></script>
+
 <script>
     jQuery(document).ready(function() {
         var usersession="${sessionScope.user}";

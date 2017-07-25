@@ -7,9 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.hd.ibus.pojo.Station;
 import com.hd.ibus.pojo.User;
-import com.hd.ibus.pojo.vo.IbusUserVo;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

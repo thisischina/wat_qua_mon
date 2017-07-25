@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -47,6 +48,22 @@ public class DateUtils {
 	public static Date getDate(String date, String pattern) throws ParseException {
 		SimpleDateFormat s = new SimpleDateFormat(pattern);
 		return s.parse(date);
+	}
+
+	/**
+	 * 美国时间M/dd/yyyy转换yyyy/MM/dd 返回date
+	 *
+	 * @param date
+	 * @param pattern
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Date getAmericanDate(String date, String pattern) throws ParseException {
+		SimpleDateFormat s = new SimpleDateFormat(pattern);
+		Date d = s.parse(date);
+		s = new SimpleDateFormat("yyyy-MM-dd");
+		String newD=s.format(d);
+		return s.parse(newD);
 	}
 
 	/**

@@ -98,7 +98,7 @@
         power = #{power,jdbcType=VARCHAR},
       </if>
       <if test="state != null" >
-        state = #{power,jdbcType=VARCHAR},
+        state = #{state,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
