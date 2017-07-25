@@ -4,6 +4,8 @@ import com.hd.ibus.pojo.MonitorData;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.util.shenw.PageHelp;
 
+import java.util.List;
+
 /**
  * Created by github:thisischina .
  */
@@ -40,5 +42,8 @@ public interface MonitorDataService {
     void updateMonitorData(MonitorData monitorData);
 
     void deleteMonitorData(Integer id);
+
+    List<MonitorData> getAllData();
+
 
 }

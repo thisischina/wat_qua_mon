@@ -23,6 +23,13 @@
         <property name="filterChainBuilder" ref="filterChainBuilder" />
         <property name="reuseAddress" value="true" />
     </bean>
+
+    <!--CodecCharset-->
+    <bean id="gbkCharset" class="java.nio.charset.Charset" factory-method="forName">
+        <constructor-arg value="GBK" />
+    </bean>
+
+
     <!--Filters-->
     <bean id="executorFilter"
           class="org.apache.mina.filter.executor.ExecutorFilter" />
@@ -33,7 +40,9 @@
     <bean id="codecFilter"
           class="org.apache.mina.filter.codec.ProtocolCodecFilter">
         <constructor-arg>
-            <bean class="org.apache.mina.filter.codec.textline.TextLineCodecFactory"></bean>
+            <bean id="codecFactory" class="org.apache.mina.filter.codec.textline.TextLineCodecFactory">
+                <constructor-arg ref="gbkCharset" />
+            </bean>
 
             <!--<bean class="com.hd.ibus.socketserver.MinaCodeFactory"></bean>-->
 

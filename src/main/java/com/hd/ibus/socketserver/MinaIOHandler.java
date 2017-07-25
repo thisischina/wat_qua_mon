@@ -44,8 +44,10 @@ public class MinaIOHandler extends IoHandlerAdapter {
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {
         super.messageReceived(session, message);
-        String response = "I have received your message:" + message.toString();
-        session.write(response);
+        String response = "I have received your message:";
+        System.out.println(response);
+        System.out.println(message.toString());
+//        session.write(response);
 
     }
 
