@@ -1,5 +1,6 @@
 package com.hd.ibus.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hd.ibus.pojo.MonitorData;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.service.MonitorDataService;
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by GitHub:thisischina .
@@ -73,4 +75,24 @@ public class StatisticsController {
 		return monitorDataService.findList(pageHelp,pageNow);
 	}
 
+	//显示曲线图
+	@RequestMapping("echarts")
+	public String showEcharts(){
+		return "statistics/echartshow";
+	}
+	//动态加载数据
+	@ResponseBody
+	@RequestMapping("getAllEcharts")
+	public String getAllEcharts(HttpServletRequest request,HttpServletResponse response)
+			throws IOException{
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+
+		JSONObject jsonObject = new JSONObject();
+		List<MonitorData> datas = monitorDataService.getAllData();
+		jsonObject.put("data",datas);
+		String result = jsonObject.toString();
+		return result;
+	}
 }

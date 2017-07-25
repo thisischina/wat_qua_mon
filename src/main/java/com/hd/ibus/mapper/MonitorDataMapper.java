@@ -2,6 +2,7 @@ package com.hd.ibus.mapper;
 
 import java.util.List;
 import com.hd.ibus.pojo.MonitorData;
+import com.hd.ibus.pojo.Station;
 import com.hd.ibus.util.shenw.PageHelp;
 import org.springframework.stereotype.Repository;
 
@@ -52,4 +53,7 @@ public interface MonitorDataMapper {
     void update(MonitorData monitorData);
 
     int delete(Integer id);
+
+    //查询所有的监测站设备数据
+    List<MonitorData> getAllData();
 }
