@@ -28,14 +28,6 @@
 			jQuery('#iframe').height(height-120);
 		}
 
-		function waterSys(){
-			jQuery('.nal_li').removeClass('active');
-			jQuery('#li_project').addClass('active');
-			var htmlss = "<li id='title1'><i class='fa fa-home'/>统计报表</li><li id='title2'><a href='javascript:waterSys();'>历史检测数据</a></li>";
-			$("#ultt").html(htmlss);
-			document.getElementById("iframe").src="${basepath }/waterSys/to_list";
-		}
-
 	</script>
 </head>
 <body style='overflow: hidden;font-family:"Microsoft Yahei";'>
@@ -58,19 +50,19 @@
 						</a>
 					</li>
 					<li class="nal_li">
-						<a href="javascript:">
+						<a href="javascript:waterSys()">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">异常数据</span>
 							<span class="selected"></span>
 						</a>
 					</li>
 					<li class="nal_li">
-						<a href="javascript:">
+						<a href="javascript:waterSys()">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">水质统计</span>
 							<span class="selected"></span>
 						</a>
 					</li>
 					<li class="nal_li">
-						<a href="javascript:">
+						<a href="javascript:waterSys()">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">预警统计</span>
 							<span class="selected"></span>
 						</a>
@@ -101,7 +93,17 @@
                         $("#ul-x").html(htmlss);
                         document.getElementById("iframe").src="${basepath }/statistics/monitordata?pageNow=0";
                     }
+
+					function waterSys(){
+						jQuery('.nal_li').removeClass('active');
+						jQuery('#li_project').addClass('active');
+						var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>监测数据</a></li>";
+						$("#ul-x").html(htmlss);
+						document.getElementById("iframe").src="${basepath }/waterSys/to_list";
+					}
+
 				</script>
+
 			</div>
 		</div>
 		<!-- /SIDEBAR -->

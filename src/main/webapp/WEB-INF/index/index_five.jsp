@@ -92,12 +92,12 @@
 						</a>
 					</li>
 
-					<li class="nal_li">
-						<a href="javascript:waterSys()">
-							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">监测设备列表</span>
-							<span class="selected"></span>
-						</a>
-					</li>
+					<%--<li class="nal_li">--%>
+						<%--<a href="javascript:waterSys()">--%>
+							<%--<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">监测设备列表</span>--%>
+							<%--<span class="selected"></span>--%>
+						<%--</a>--%>
+					<%--</li>--%>
 
 				</ul>
 			</div>
