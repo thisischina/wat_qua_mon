@@ -1,12 +1,17 @@
 package com.hd.ibus.controller;
 
 import java.io.IOException;
+import java.util.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hd.ibus.pojo.Role;
+import com.hd.ibus.pojo.Unit;
 import com.hd.ibus.pojo.User;
+import com.hd.ibus.service.RoleService;
+import com.hd.ibus.service.UnitService;
 import com.hd.ibus.service.UserService;
 import com.hd.ibus.util.Config;
 import com.hd.ibus.util.PageBean;
@@ -14,12 +19,14 @@ import com.hd.ibus.util.PropertiesUtils;
 import com.hd.ibus.util.shenw.PageHelp;
 import com.hd.ibus.util.shenw.PageStr;
 import com.hd.ibus.util.shenw.Value;
+import org.apache.commons.collections.list.TreeList;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.hd.ibus.result.DataGridResultInfo;
+import sun.reflect.generics.tree.Tree;
 
 /**
  * Created by GitHub:thisischina on 2017年7月10日10:25:23.
@@ -32,6 +39,10 @@ import com.hd.ibus.result.DataGridResultInfo;
 public class UserController {
 	@Resource
 	private UserService userService;
+	@Resource
+	private RoleService roleService;
+	@Resource
+	private UnitService unitService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
@@ -45,14 +56,17 @@ public class UserController {
 	}
 
 	@RequestMapping("toadd")
-	public String toAddUser(HttpServletRequest request,Model model){
+	public String toAddUser(Model model){
 		System.out.println("№toadd");
+		setOtherData(model);
 		return "user/user_add";
 	}
 
 	@RequestMapping("toupdate")
 	public String toUpdate(HttpServletRequest request,Model model,Integer id){
 		System.out.println("№toupdate");
+		setOtherData(model);
+
 		User u=new User();
 		u.setId(id);
 		pageHelp.setObject(u);
@@ -82,6 +96,7 @@ public class UserController {
 		String email= PageStr.getParameterStr("email",request);
 		String unitId= PageStr.getParameterStr("unitId",request);
 		String roleId= PageStr.getParameterStr("roleId",request);
+		String power= PageStr.getParameterStr("power",request);
 		String state= PageStr.getParameterStr("state",request);
 
 		/**
@@ -100,6 +115,9 @@ public class UserController {
 			user.setUnitId(Integer.parseInt(unitId));
 		}if(!roleId.equals("")){
 			user.setRoleId(Integer.parseInt(roleId));
+		}if(!power.equals("")){
+			power=setPowerStr(power);
+			user.setPower(power);
 		}if(!state.equals("")){
 			user.setState(Integer.parseInt(state));
 		}
@@ -326,45 +344,45 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("tosetstation")
-	public String toSetStation(HttpServletRequest request,Model model,Integer pageNow,Integer id){
+	public String toSetStation(Model model,Integer pageNow,String id){
+		System.out.println("№tosetstation");
 		pageHelp.getInit(model,pageNow);
 
-		System.out.println("№tosetstation");
-//		存储分配的对象
-		User u=new User();
-		u.setId(id);
-		pageHelp.setObject(u);
+		model.addAttribute("userid",id);
 
 		return "user/setstation";
 	}
 
 	/**
-	 * 用户分配站点
-	 * @return
+	 * 字段power数据处理
+	 * @return str
 	 */
-	@ResponseBody
-	@RequestMapping("setstation")
-	public String setStation(HttpServletRequest request){
-		User user=(User)pageHelp.getObject();
+	public String setPowerStr(String str){
+		StringBuilder builder=new StringBuilder();
 
-		String string[]=request.getParameterValues("stationId");
-		if(string==null){
-			return "";
+		String []strings=str.split(",");
+		Integer []stringss=new Integer[strings.length];
+		for (int i=0;i<strings.length;i++){
+			stringss[i]=Integer.valueOf(strings[i]);
 		}
-		StringBuffer s=new StringBuffer();
-
-		for (String str:string) {
-			if(string.length>1){
-				s.append(str+",");
-			}else{
-				s.append(str);
-			}
+		List<Integer> list = Arrays.asList(stringss);//数组转集合
+		Set<Integer> set=new TreeSet<Integer>(list);
+		for(Integer s:set){
+			builder.append(s.toString()+",");
 		}
 
-		user.setPower(s.toString());
-
-		userService.updateUser(user);
-		return "";
+		return builder.toString();
 	}
 
+	/**
+	 * 加载角色、单位数据
+	 * @param model
+	 */
+	public void setOtherData(Model model){
+		List<Role> roleList=roleService.selectAll();
+		List<Unit> unitList=unitService.selectAll();
+
+		model.addAttribute("roleList",roleList);
+		model.addAttribute("unitList",unitList);
+	}
 }

@@ -75,4 +75,8 @@ public class RoleServiceImpl implements RoleService {
     public void deleteRole(Integer id){
         roleMapper.delete(id);
     }
+
+    public List<Role> selectAll(){
+        return roleMapper.queryAll();
+    };
 }

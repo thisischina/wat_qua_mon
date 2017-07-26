@@ -1,4 +1,5 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf-8"
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%
 	pageContext.setAttribute("basepath", request.getContextPath());
@@ -44,7 +45,7 @@
     }
 
 
-    var exis=0
+    var exis=0;
     function ifuserexis() {
         var account="";
 
@@ -241,9 +242,9 @@
 
 								<select id="unitId"  class="m-wrap span12">
 
-								<option value="1">一</option>
-
-								<option value="2">二</option>
+								<c:forEach items="${unitList}" var="unit">
+									<option value="${unit.unitId}">${unit.name}</option>
+								</c:forEach>
 
 								</select>
 
@@ -267,11 +268,9 @@
 							<div class="controls">
 
 								<select id="roleId" class="m-wrap span12">
-
-									<option value="1">一</option>
-
-									<option value="2">二</option>
-
+								<c:forEach items="${roleList}" var="role">
+									<option value="${role.roleId}">${role.name}</option>
+								</c:forEach>
 								</select>
 
 							</div>

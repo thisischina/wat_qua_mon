@@ -49,4 +49,6 @@ public interface UnitMapper {
     void update(Unit unit);
 
     int delete(Integer id);
+
+    List<Unit> queryAll();
 }

@@ -72,4 +72,8 @@ public class UnitServiceImpl implements UnitService {
     public void deleteUnit(Integer id){
         unitMapper.delete(id);
     }
+
+    public List<Unit> selectAll(){
+        return unitMapper.queryAll();
+    }
 }

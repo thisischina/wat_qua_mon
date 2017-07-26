@@ -4,6 +4,8 @@ import com.hd.ibus.pojo.Role;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.util.shenw.PageHelp;
 
+import java.util.List;
+
 /**
  * Created by github:thisischina on 2017/6/30 0030.
  * 可调用的接口
@@ -40,4 +42,10 @@ public interface RoleService {
     void updateRole(Role role);
 
     void deleteRole(Integer id);
+
+    /**
+     * 查询记录
+     * @return
+     */
+    List<Role> selectAll();
 }

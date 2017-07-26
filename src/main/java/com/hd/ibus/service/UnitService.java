@@ -5,6 +5,8 @@ import com.hd.ibus.pojo.User;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.util.shenw.PageHelp;
 
+import java.util.List;
+
 /**
  * Created by github:thisischina 0030.
  * 可调用的接口
@@ -42,4 +44,6 @@ public interface UnitService {
     void updateUnit(Unit unit);
 
     void deleteUnit(Integer id);
+
+    List<Unit> selectAll();
 }

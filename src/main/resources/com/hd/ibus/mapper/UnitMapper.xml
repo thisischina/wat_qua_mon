@@ -72,5 +72,9 @@
         where unit_id = #{unitId,jdbcType=INTEGER}
     </delete>
 
-
+    <select id="queryAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        from unit
+    </select>
 </mapper>

@@ -164,7 +164,7 @@
 
     </script>
 
-    <script>
+    <script type="text/javascript">
 //        全选反选
         var checklist = document.getElementsByName ("checkboxs");
         var strvalue;
@@ -231,9 +231,30 @@
 
     </script>
 
+    <script type="text/javascript">
+        function setStation() {
+            var id="${userid}";
+            var power=$("#power2").val();
+            if(power==""){
+                alert("未选择站点");
+                return;
+            }
+            $.ajax({
+                url : '${basepath}/user/update',
+                type : "post",
+                data : {id:id,power:power},
+                dataType : "json",
+                success : function(data) {
+                    if(data==1){
+                        alert("站点分配成功");
+                    }
+                }
+            });
+        }
+    </script>
+
 </head>
 <body>
-
 <div class='row' style="margin: 0px">
     <div class='col-md-12'>
         <form class="form-inline" role="form"
@@ -280,7 +301,7 @@
                         <input id="power2" type="hidden">
                         <input id="power3" type="hidden">
                     </div>
-                    <button type="button" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >确认分配</button>
+                    <button type="button" onclick="setStation()" class="btn btn-info"  style='background: #4F81BD;border: 1px solid #4F81BD' >确认分配</button>
                 </form>
             </div>
         </div>

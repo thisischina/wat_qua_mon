@@ -33,17 +33,13 @@
 	
 	function update(){
 		var id=$('#id').val();
-		var  name=$('#name').val();
+		var name=$('#name').val();
 		var tel=$('#user_tel').val();
 		var email=$('#email').val();
 		var unitId=$('#unitId').val();
 		var roleId=$('#roleId').val();
         var state=$('#state').val();
 
-		if(tel==""){
-			alert("手机号不能为空。");
-			return
-		}
 		   $.ajax({
 			url:"${basepath }/user/update",
 			type:"post",
@@ -121,7 +117,7 @@
 
 						<div class="controls">
 
-							<input type="text" id="user_tel" value='${user.tel }' class="m-wrap span12">
+							<input type="text" id="user_tel" placeholder='${user.tel }' class="m-wrap span12">
 
 						</div>
 
@@ -159,9 +155,14 @@
 
 							<select id="unitId"  class="m-wrap span12">
 
-								<option value="1">一</option>
+								<c:forEach items="${unitList}" var="unit">
 
-								<option value="2">二</option>
+									<c:if test="${user.unitId==unit.unitId}">
+										<option value="${unit.unitId}" selected>${unit.name}</option>
+									</c:if>
+										<option value="${unit.unitId}">${unit.name}</option>
+
+								</c:forEach>
 
 							</select>
 
@@ -181,9 +182,12 @@
 
 							<select id="roleId" class="m-wrap span12">
 
-								<option value="1">一</option>
-
-								<option value="2">二</option>
+								<c:forEach items="${roleList}" var="role">
+									<c:if test="${user.roleId==role.roleId}">
+									<option value="${role.roleId}" selected>${role.name}</option>
+									</c:if>
+									<option value="${role.roleId}">${role.name}</option>
+								</c:forEach>
 
 							</select>
 

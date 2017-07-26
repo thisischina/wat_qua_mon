@@ -86,8 +86,7 @@
 //            if(role==1){
             str=str+ "<td>"
                 + "<div class=''>"
-                + "<a class='btn btn-xs btn-info' href='javascript:void(0)' onclick='assignStation("
-                + item.name
+                + "<a class='btn btn-xs btn-info' href='javascript:void(0)' onclick='assignStation("+ item.id+",\""+item.name+"\" "
                 + ")' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>分配"
                 + "</a>"
@@ -183,12 +182,12 @@
                 dataType : "json",
                 success : function(data) {
                     alert("删除成功");
-                    window,location.href='${basepath}/user/tolist';
+                    window.location.href='${basepath}/user/tolist';
                 }
             });
         }
 
-        function assignStation(name) {
+        function assignStation(id,name) {
             var diatc = $.dialog({
                 title: "[分配站点]："+name+"，正在接受分配",
                 width:"950px",
@@ -196,7 +195,7 @@
                 max: false,
                 min: false,
                 lock: true,
-                content: "url:${basepath}/user/tosetstation"
+                content: "url:${basepath}/user/tosetstation?id="+id
             });
         }
     </script>

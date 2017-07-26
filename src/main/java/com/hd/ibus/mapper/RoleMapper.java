@@ -50,4 +50,10 @@ public interface RoleMapper {
     void update(Role role);
 
     int delete(Integer id);
+
+    /**
+     * 单纯查询所有记录
+     * @return
+     */
+    List<Role> queryAll();
 }
