@@ -31,10 +31,14 @@
                     <img alt="" src="${basepath }/static/images/4.ico" width="72px" height="67px">
                     <p style="font-size: larger ;color: white">预警信息</p>
                 </li>
+
+                <c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
                 <li class="" style='cursor: pointer;margin-left: 50px' onclick='window.location="${basepath }/index/index_four"'>
                     <img alt="" src="${basepath }/static/images/5.ico">
                     <p style="font-size: larger ;color: white">通知公告</p>
                 </li>
+                </c:if>
+
             </ul>
         </div>
         <!-- /导航 -->

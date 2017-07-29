@@ -68,7 +68,7 @@
                 + "</td>"
                 + "<td>"
                 + (item.unitId == null ? "" : item.unitId)
-                + "</td>"
+                + "</td>";
 
 //            if(role==1){
             str=str+ "<td>"
@@ -77,11 +77,14 @@
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                 + "</a>"
+                <c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
                 + "<a class='btn btn-xs btn-danger' href='javascript:void(0)' onclick='deleteObject("
                 + item.id
                 + ")' style='height:20px;font-size:10px;'>"
                 + "<i class='ace-icon fa fa-trash-o bigger-120'></i> 删除"
-                + "</a>" + "</div>" + "</td>" + "</tr>	";
+                + "</a>"
+                </c:if>
+                + "</div>" + "</td>" + "</tr>	";
 //            }else{
                 str=str+ "</tr>	";
 //            }
@@ -203,12 +206,16 @@
 
             </tbody>
         </table>
+
+        <c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
         <div class="dataTables_info" id="dynamic-table_info"
              style="float: left;">
                 <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'
                    href="${basepath}/station/toadd">
                     <span class="button-content">添加</span> </a>
         </div>
+        </c:if>
+
         <div id="pagination_div" style='float: right;padding-right: 0px'>
 
         </div>

@@ -54,4 +54,5 @@ public interface StationMapper {
     //查询所有的监测站luyan
     List<Station> queryAll();
 
+    List<Station> queryAllIdIn(PageHelp help);
 }

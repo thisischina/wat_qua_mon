@@ -1,8 +1,11 @@
 package com.hd.ibus.controller;
 
 import com.hd.ibus.pojo.Station;
+import com.hd.ibus.pojo.Unit;
+import com.hd.ibus.pojo.User;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.service.StationService;
+import com.hd.ibus.service.UnitService;
 import com.hd.ibus.util.Config;
 import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.PropertiesUtils;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by GitHub:thisischina on 2017年7月10日10:25:23.
@@ -30,6 +35,8 @@ import java.io.IOException;
 public class StationController {
 	@Resource
 	private StationService stationService;
+	@Resource
+	private UnitService unitService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
@@ -43,8 +50,11 @@ public class StationController {
 	}
 
 	@RequestMapping("toadd")
-	public String toAddStation(){
+	public String toAddStation(Model model){
 		System.out.println("№toadd");
+		List<Unit> list=unitService.selectAll();
+		model.addAttribute("unitList",list);
+
 		return "station/station_add";
 	}
 
@@ -62,6 +72,8 @@ public class StationController {
 		model.addAttribute(station);
 		model.addAttribute(pageHelp);
 
+		List<Unit> list=unitService.selectAll();
+		model.addAttribute("unitList",list);
 		return "station/station_update";
 	}
 
@@ -138,6 +150,8 @@ public class StationController {
 		}else {
 			pageHelp.setObject(null);
 	}
+		//查询已分配的站点
+		pageHelp.setUserPower(userPowerStr(request));
 		return stationService.findList(pageHelp,pageNow);
 	}
 
@@ -206,5 +220,17 @@ public class StationController {
 		stationService.deleteStation(id);
 
 		return Value.IntNumOne;
+	}
+
+	public String userPowerStr(HttpServletRequest request){
+		HttpSession session=request.getSession();
+
+		User user=(User)session.getAttribute("user");
+		String power=null;
+		if(user!=null){
+			power=user.getPower();
+		}
+
+		return power;
 	}
 }

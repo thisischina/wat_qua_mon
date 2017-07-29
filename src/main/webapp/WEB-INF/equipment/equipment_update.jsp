@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
@@ -259,9 +260,14 @@
 
 							<select id="stationId" class="m-wrap span12">
 
-								<option value="1">一</option>
+								<c:forEach items="${stationList}" var="station">
 
-								<option value="2">二</option>
+									<c:if test="${equipment.stationId==station.id}">
+										<option value="${equipment.stationId}" selected>${station.name}</option>
+									</c:if>
+									<option value="${equipment.stationId}">${station.name}</option>
+
+								</c:forEach>
 
 							</select>
 

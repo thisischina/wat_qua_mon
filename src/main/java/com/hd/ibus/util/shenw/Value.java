@@ -5,6 +5,10 @@ package com.hd.ibus.util.shenw;
  * 存放所有与变量作判断的值
  */
 public class Value {
+
+    public static final int RoleAdmin=1;//role表管理员权限
+    public static final int RoleUser=2;//role表用户权限
+
     //   作为增改操作成功返回值
     public static final int IntNumOne=1;
 

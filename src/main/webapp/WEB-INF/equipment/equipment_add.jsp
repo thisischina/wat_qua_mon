@@ -1,4 +1,5 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf-8"
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%
 	pageContext.setAttribute("basepath", request.getContextPath());
@@ -253,9 +254,9 @@
 
 							<select id="stationId" class="m-wrap span12">
 
-								<option value="1">一</option>
-
-								<option value="2">二</option>
+								<c:forEach items="${stationList}" var="station">
+									<option value="${station.id}">${station.name}</option>
+								</c:forEach>
 
 							</select>
 

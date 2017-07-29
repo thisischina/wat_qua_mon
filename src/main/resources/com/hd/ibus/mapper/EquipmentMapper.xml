@@ -25,8 +25,12 @@
     SELECT
     <include refid="Base_Column_List" />
     from equipment
+    WHERE 1=1
     <if test="object!=null">
-      WHERE name LIKE concat(concat('%',#{object.name}),'%')
+      AND name LIKE concat(concat('%',#{object.name}),'%')
+    </if>
+    <if test="userPower!='admin'">
+      AND station_id in ${userPower}
     </if>
 
     <if test="pageBean!=null">
@@ -38,16 +42,24 @@
   <select id="findTotal" parameterType="com.hd.ibus.util.shenw.PageHelp"
           resultType="int">
     select count(*) from equipment
+    WHERE 1=1
     <if test="object!=null">
-      WHERE name LIKE concat(concat('%',#{object.name}),'%')
+      AND name LIKE concat(concat('%',#{object.name}),'%')
+    </if>
+    <if test="userPower!='admin'">
+      AND station_id in ${userPower}
     </if>
   </select>
 
   <select id="paramCount" parameterType="com.hd.ibus.util.shenw.PageHelp"
           resultType="int">
     select count(*) from equipment
+    WHERE 1=1
     <if test="object!=null">
-      WHERE name =#{object.name}
+      AND name =#{object.name}
+    </if>
+    <if test="userPower!='admin'">
+      AND station_id in ${userPower}
     </if>
   </select>
 

@@ -77,4 +77,9 @@ public class StationServiceImpl implements StationService {
     public void deleteStation(Integer id){
         stationMapper.delete(id);
     }
+
+    public List<Station> listByUserPower(PageHelp help) {
+        return stationMapper.queryAllIdIn(help);
+    }
+
 }

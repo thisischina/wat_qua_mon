@@ -96,7 +96,6 @@ public class UserController {
 		String email= PageStr.getParameterStr("email",request);
 		String unitId= PageStr.getParameterStr("unitId",request);
 		String roleId= PageStr.getParameterStr("roleId",request);
-		String power= PageStr.getParameterStr("power",request);
 		String state= PageStr.getParameterStr("state",request);
 
 		/**
@@ -115,12 +114,14 @@ public class UserController {
 			user.setUnitId(Integer.parseInt(unitId));
 		}if(!roleId.equals("")){
 			user.setRoleId(Integer.parseInt(roleId));
-		}if(!power.equals("")){
-			power=setPowerStr(power);
-			user.setPower(power);
 		}if(!state.equals("")){
 			user.setState(Integer.parseInt(state));
+		}if(Integer.parseInt(roleId)==Value.RoleAdmin){
+			user.setPower("admin");
+		}else {
+			user.setPower("0");
 		}
+
 		userService.updateUser(user);
 
 		pageHelp.setObject(user);
@@ -237,7 +238,6 @@ public class UserController {
 		String email=PageStr.getParameterStr("email",request);
 		String unitId=PageStr.getParameterStr("unitId",request);
 		String roleId=PageStr.getParameterStr("roleId",request);
-		String power=PageStr.getParameterStr("power",request);
 
 		User user=new User();
 		if(!account.equals("")){
@@ -254,8 +254,10 @@ public class UserController {
 			user.setUnitId(Integer.parseInt(unitId));
 		}if(!roleId.equals("")){
 			user.setRoleId(Integer.parseInt(roleId));
-		}if(!power.equals("")){
-			user.setPower(power);
+		}if(Integer.parseInt(roleId)==Value.RoleAdmin){
+			user.setPower("admin");
+		}else {
+			user.setPower("0");
 		}
 
 		//默认用户启用状态
@@ -318,6 +320,10 @@ public class UserController {
 
 			HttpSession session=request.getSession();
 			session.setAttribute("user",user);
+
+			Integer userRole=Value.RoleAdmin;
+			session.setAttribute("userRole",userRole);
+
 			return "redirect:/index/index_five";
 		}
 		else{
@@ -344,9 +350,10 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("tosetstation")
-	public String toSetStation(Model model,Integer pageNow,String id){
+	public String toSetStation(Model model,String id){
 		System.out.println("№tosetstation");
-		pageHelp.getInit(model,pageNow);
+//		初始化
+		pageHelp.getInit(model,0);
 
 		model.addAttribute("userid",id);
 
@@ -367,9 +374,7 @@ public class UserController {
 		}
 		List<Integer> list = Arrays.asList(stringss);//数组转集合
 		Set<Integer> set=new TreeSet<Integer>(list);
-		for(Integer s:set){
-			builder.append(s.toString()+",");
-		}
+		builder.append(set.toString().replaceAll("\\[","(").replaceAll("\\]",")"));
 
 		return builder.toString();
 	}

@@ -4,6 +4,8 @@ import com.hd.ibus.pojo.Station;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.util.shenw.PageHelp;
 
+import java.util.List;
+
 /**
  * Created by github:thisischina .
  * 接口:监测站
@@ -40,4 +42,10 @@ public interface StationService {
     void updateStation(Station station);
 
     void deleteStation(Integer id);
+
+    /**
+     * 获取已分配的站点
+     * @return
+     */
+    List<Station> listByUserPower(PageHelp help);
 }

@@ -170,9 +170,14 @@
 
 							<select id="unitId"  class="m-wrap span12">
 
-								<option value="1">一</option>
+								<c:forEach items="${unitList}" var="unit">
 
-								<option value="2">二</option>
+									<c:if test="${user.unitId==unit.unitId}">
+										<option value="${unit.unitId}" selected>${unit.name}</option>
+									</c:if>
+									<option value="${unit.unitId}">${unit.name}</option>
+
+								</c:forEach>
 
 							</select>
 

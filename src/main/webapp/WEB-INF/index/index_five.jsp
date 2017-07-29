@@ -21,11 +21,11 @@
 
         //页面加载时设置frame高度
         function initBody(){
-            var width = document.body.clientWidth //BODY对象宽度
+            var width = document.body.clientWidth; //BODY对象宽度
             if(width<1000){
                 jQuery('#logoTitle').css({width: "20%" });
             }
-            var height = document.body.clientHeight //BODY对象高度
+            var height = document.body.clientHeight ;//BODY对象高度
             jQuery('#iframe').height(height-120);
         }
 

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.hd.ibus.util.shenw.Value" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2017/6/30 0030
@@ -28,6 +28,6 @@
         var usersession="${sessionScope.user}";
         if(usersession==""){
             window.location.href='${basepath}/index.jsp';
-        };
+        }
     });
 </script>

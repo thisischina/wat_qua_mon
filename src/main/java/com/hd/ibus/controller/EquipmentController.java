@@ -1,8 +1,11 @@
 package com.hd.ibus.controller;
 
 import com.hd.ibus.pojo.Equipment;
+import com.hd.ibus.pojo.Station;
+import com.hd.ibus.pojo.User;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.service.EquipmentService;
+import com.hd.ibus.service.StationService;
 import com.hd.ibus.util.Config;
 import com.hd.ibus.util.DateUtils;
 import com.hd.ibus.util.PageBean;
@@ -18,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * Created by GitHub:thisischina .
@@ -32,6 +37,8 @@ import java.text.ParseException;
 public class EquipmentController {
 	@Resource
 	private EquipmentService equipmentService;
+	@Resource
+	private StationService stationService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
@@ -45,13 +52,20 @@ public class EquipmentController {
 	}
 
 	@RequestMapping("toadd")
-	public String toAddEquipment(){
+	public String toAddEquipment(HttpServletRequest request,Model model){
 		System.out.println("№toadd");
+		//		初始化
+		pageHelp.getInit(model,0);
+		//查询已分配的站点
+		pageHelp.setUserPower(userPowerStr(request));
+		List<Station> stationList=stationService.listByUserPower(pageHelp);
+
+		model.addAttribute("stationList",stationList);
 		return "equipment/equipment_add";
 	}
 
 	@RequestMapping("toupdate")
-	public String toUpdate(Model model,Integer id){
+	public String toUpdate(Model model,Integer id,HttpServletRequest request){
 		System.out.println("№toupdate");
 
 		Equipment s=new Equipment();
@@ -64,6 +78,11 @@ public class EquipmentController {
 		model.addAttribute(equipment);
 		model.addAttribute(pageHelp);
 
+		//查询已分配的站点
+		pageHelp.setUserPower(userPowerStr(request));
+		List<Station> stationList=stationService.listByUserPower(pageHelp);
+
+		model.addAttribute("stationList",stationList);
 		return "equipment/equipment_update";
 	}
 
@@ -157,6 +176,9 @@ public class EquipmentController {
 		}else {
 			pageHelp.setObject(null);
 	}
+
+		//查询已分配的站点
+		pageHelp.setUserPower(userPowerStr(request));
 		return equipmentService.findList(pageHelp,pageNow);
 	}
 
@@ -237,5 +259,17 @@ public class EquipmentController {
 		equipmentService.deleteEquipment(id);
 
 		return Value.IntNumOne;
+	}
+
+	public String userPowerStr(HttpServletRequest request){
+		HttpSession session=request.getSession();
+
+		User user=(User)session.getAttribute("user");
+		String power=null;
+		if(user!=null){
+			power=user.getPower();
+		}
+
+		return power;
 	}
 }

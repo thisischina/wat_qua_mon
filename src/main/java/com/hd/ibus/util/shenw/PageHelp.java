@@ -28,7 +28,9 @@ public class PageHelp implements Serializable{
 
     private PageBean pageBean;
 
-    private String selectStr;
+    private String selectStr;//查询条件
+
+    private String userPower;//用户分配的站点
 
     public Object getObject() {
         return object;
@@ -54,6 +56,13 @@ public class PageHelp implements Serializable{
         this.selectStr = selectStr;
     }
 
+    public String getUserPower() {
+        return userPower;
+    }
+
+    public void setUserPower(String userPower) {
+        this.userPower = userPower;
+    }
     /**
      * 定义一个初始化方法
      * @param model
@@ -71,8 +80,9 @@ public class PageHelp implements Serializable{
             pageBean.setPageSize(pageSize);
             pageHelp.setPageBean(pageBean);
 
-            //清除搜索条件
+            //清除搜索条件、用户分配的站点的站点
             pageHelp.setSelectStr(null);
+            pageHelp.setUserPower(null);
             model.addAttribute(pageHelp);
         }else{
             model.addAttribute(pageHelp);

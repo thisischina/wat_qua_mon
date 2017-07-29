@@ -1,5 +1,6 @@
+<%@ page import="com.hd.ibus.util.shenw.Value" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	pageContext.setAttribute("basepath",request.getContextPath());
@@ -21,11 +22,11 @@
 
         //页面加载时设置frame高度
         function initBody(){
-            var width = document.body.clientWidth //BODY对象宽度
+            var width = document.body.clientWidth ;//BODY对象宽度
             if(width<1000){
                 jQuery('#logoTitle').css({width: "20%" });
             }
-            var height = document.body.clientHeight //BODY对象高度
+            var height = document.body.clientHeight ;//BODY对象高度
             jQuery('#iframe').height(height-200);
         }
 
@@ -77,6 +78,14 @@
             document.getElementById("iframe").src="${basepath }/systemlog/tolist?pageNow=0";
         }
 
+        function monitorType(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>数据类型</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/monitortype/tolist?pageNow=0";
+        }
+
 	</script>
 </head>
 <body style='overflow: hidden;font-family:"Microsoft Yahei";'>
@@ -92,60 +101,56 @@
 
 				<!-- SIDEBAR MENU -->
 				<ul>
+					<c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
 					<li class="nal_li active">
 						<a href="javascript:user();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">用户管理</span>
 							<span class="selected"></span>
 						</a>
 					</li>
+					</c:if>
+
+					<c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
 					<li class="nal_li">
 						<a href="javascript:role();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">角色管理</span>
 							<span class="selected"></span>
 						</a>
 					</li>
-					<li class="nal_li">
-						<a href="javascript:">
-							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">权限管理</span>
-							<span class="selected"></span>
-						</a>
-					</li>
+					</c:if>
+
+					<c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
 					<li class="nal_li">
 					<a href="javascript:unit();">
 						<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">部门管理</span>
 						<span class="selected"></span>
 					</a>
 					</li>
-					<li class="nal_li">
-						<a href="javascript:">
-							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">水资源信息管理</span>
-							<span class="selected"></span>
-						</a>
-					</li>
+					</c:if>
+
 					<li class="nal_li">
 						<a href="javascript:station();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">监测站管理</span>
 							<span class="selected"></span>
 						</a>
 					</li>
+
 					<li class="nal_li">
 						<a href="javascript:equipment();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">设备管理</span>
 							<span class="selected"></span>
 						</a>
 					</li>
+
+					<c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
 					<li class="nal_li">
 						<a href="javascript:systemLog();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">系统日志</span>
 							<span class="selected"></span>
 						</a>
 					</li>
-					<li class="nal_li">
-						<a href="javascript:">
-							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">参数设置</span>
-							<span class="selected"></span>
-						</a>
-					</li>
+					</c:if>
+
 				</ul>
 				<!-- /SIDEBAR MENU -->
 
