@@ -11,9 +11,7 @@ Marker.init=function(map){
         url:"../../map/getStationList",
         dataType:"json",
         success:function(data,status){
-            console.log(status);
             var points = data.data;
-            console.log(points);
             for(var i=0;i<points.length;i++){                                   
                 var point = Marker.strUtility(points[i].coordinate);
                 var lng = point[0];
@@ -99,7 +97,18 @@ MachMap.prototype.initMap = function (containerID) {
     map.addControl(new BMap.MapTypeControl());      //添加地图类型控件
     map.addControl(new BMap.NavigationControl());   // 添加平移缩放控件
     map.addControl(new BMap.ScaleControl());        // 添加比例尺控件
-    map.addControl(new BMap.OverviewMapControl());  //添加缩略地图控件   
+    map.addControl(new BMap.OverviewMapControl());  //添加缩略地图控件
+    var menu = new BMap.ContextMenu();
+    var txtMenuItem = [
+        {
+            text:'显示坐标',
+            callback:function(e){alert(e.lng + ", " + e.lat);}
+        }
+    ];
+    for(var i=0; i < txtMenuItem.length; i++){
+        menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
+    }
+    map.addContextMenu(menu);
     return map;
 }      
 //---------------------------------------------------------------------------------------------------------------   
