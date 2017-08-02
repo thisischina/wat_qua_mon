@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>添加监测站</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+        <script type="text/javascript" src="../js/map/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="../js/map/addStation.js"></script>
+    </head>
+    <body>
+        <div id="station">           
+                <table>
+                    <tr>
+                        <td>监测站名称:</td>
+                        <td><input type="text" id="station_name"/></td>
+                    </tr>
+                    <tr>
+                        <td>监测站地址:</td>
+                        <td><input type="text" id="station_address"/></td>
+                    </tr>
+                    <tr>
+                        <td>监测站类型:</td>
+                        <td><input type="text" id="station_type"/></td>
+                    </tr>
+                </table>  
+                <input type="button" value="重置" onclick="reset()"/>
+                <input type="button" value="提交" onclick="submit()"/>
+        </div>
+    </body>
+</html>

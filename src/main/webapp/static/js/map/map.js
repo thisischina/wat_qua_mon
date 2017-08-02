@@ -36,9 +36,32 @@ Marker.init=function(map){
         error:function(data,status){
             console.log(status);
         }
-    });
-    
+    });    
+    var menu = new BMap.ContextMenu();
+    var txtMenuItem = [
+        {
+            text:'添加监测站',
+            callback:function(e){
+                window.station=e;
+                Marker.openWin();               
+            }
+        }
+    ];
+    for(var i=0; i < txtMenuItem.length; i++){
+        menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
+    }
+    map.addContextMenu(menu);
 };
+
+Marker.openWin=function(url,name,iWidth,iHeight) { 
+            var iHeight = 120;
+            var iWidth = 400;
+            //获得窗口的垂直位置 
+            var iTop = (window.screen.availHeight - 30 - iHeight) / 2; 
+            //获得窗口的水平位置 
+            var iLeft = (window.screen.availWidth - 10 - iWidth) / 2; 
+            window.open("stationForm.html", "newwindow", 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+        }
 Marker.strUtility = function(s){      
     s = s.replace("(","");
     s = s.replace(")","");
@@ -88,7 +111,7 @@ MachMap.prototype.containerId = "map_container";
 MachMap.prototype.map;
 // 根据地图容器的ID,初始化地图
 MachMap.prototype.initMap = function (containerID) {
-    var map = new BMap.Map("map_container");            // 创建地图实例
+    var map = new BMap.Map("map_container");            // 创建地图实例   
     var point = new BMap.Point(117.636257, 34.022178);  // 创建中心点坐标   
     map.centerAndZoom(point, 15);                       // 初始化地图，设置中心点坐标和地图级别
     map.setMapType(BMAP_HYBRID_MAP);                //设置为卫星图
@@ -97,20 +120,9 @@ MachMap.prototype.initMap = function (containerID) {
     map.addControl(new BMap.MapTypeControl());      //添加地图类型控件
     map.addControl(new BMap.NavigationControl());   // 添加平移缩放控件
     map.addControl(new BMap.ScaleControl());        // 添加比例尺控件
-    map.addControl(new BMap.OverviewMapControl());  //添加缩略地图控件
-    var menu = new BMap.ContextMenu();
-    var txtMenuItem = [
-        {
-            text:'显示坐标',
-            callback:function(e){alert(e.lng + ", " + e.lat);}
-        }
-    ];
-    for(var i=0; i < txtMenuItem.length; i++){
-        menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
-    }
-    map.addContextMenu(menu);
+    map.addControl(new BMap.OverviewMapControl());  //添加缩略地图控件    
     return map;
-}      
+}
 //---------------------------------------------------------------------------------------------------------------   
 var sContent =
     "<table width=\"100%\"  border=\"1\" cellspacing=\"0\" cellpadding=\"0\">"+

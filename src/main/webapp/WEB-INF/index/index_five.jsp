@@ -51,7 +51,7 @@
             jQuery('.nal_li').removeClass('active');
             var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>实时站点检测</a></li>";
             $("#ul-x").html(htmlss);
-            document.getElementById("iframe").src="${basepath}/static/html/homepage.html";
+            document.getElementById("iframe").src="${basepath}/static/html/mapPage.html";
         }
 
 
@@ -125,7 +125,7 @@
 						<!-- /PAGE HEADER -->
 						<!-- DASHBOARD CONTENT -->
 						<div class="row">
-							<iframe id='iframe' src="${basepath}/static/html/homepage.html" width="100%" style='overflow-y :auto;border: 0px'>
+							<iframe id='iframe' src="${basepath}/static/html/mapPage.html" width="100%" style='overflow-y :auto;border: 0px'>
 							</iframe>
 						</div>
 					   <!-- /DASHBOARD CONTENT -->
