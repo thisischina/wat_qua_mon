@@ -1,7 +1,3 @@
-$(function() {
-    var father = window.opener;
-    console.log(father.station);
-});
 function reset(){
     $('#station_name').val("");
     $("#station_address").val("");
@@ -23,6 +19,8 @@ function submit(){
                         if(points.data == "success"){
                              window.opener.location.reload();
                              window.close();
+                        }else{
+                            alert("数据插入失败！");
                         }
                     }
     });

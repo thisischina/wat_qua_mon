@@ -66,7 +66,30 @@
     </if>
   </select>
 
+  <select id="selectByID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from station
+      WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByCoordinate" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from station
+      WHERE coordinate = #{coordinate,jdbcType=VARCHAR}
+  </select>
+
   <insert id="insert" parameterType="com.hd.ibus.pojo.Station">
+    insert into station (id, number, name,
+    address, type, coordinate,
+    unit_id)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+    #{address,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{coordinate,jdbcType=VARCHAR},
+    #{unitId,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertAndReturn" parameterType="com.hd.ibus.pojo.Station">
     insert into station (id, number, name,
     address, type, coordinate,
     unit_id)
@@ -100,9 +123,39 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <update id="updateStation" parameterType="com.hd.ibus.pojo.Station">
+    update station
+    <set >
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="coordinate != null">
+        coordinate = #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        unit_id = #{unitId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
   <delete id="delete" parameterType="java.lang.Integer">
     delete from station
     where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteFromCoordinate" parameterType="java.lang.String">
+    delete from station
+    where coordinate = #{coordinate,jdbcType=VARCHAR}
   </delete>
 
   <!-- luyan -->

@@ -20,6 +20,7 @@ Marker.init=function(map){
                 var pt = new BMap.Point(lng,lat);
                 var myIcon = new BMap.Icon("../images/sewage.png", new BMap.Size(50,50));
                 var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建覆盖物
+                marker.id = points[i].id;
                 var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
                 marker.addEventListener("click", function(){    //添加左键单击事件
                     map.setCenter(pt);                          //地图中心点变为监测点
@@ -30,20 +31,35 @@ Marker.init=function(map){
                         infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
                     };
                 });
+                //创建覆盖物右键菜单
+                var markerMenu=new BMap.ContextMenu();
+                markerMenu.addItem(new BMap.MenuItem('删除监测站',removeMarker.bind(marker)));
+                markerMenu.addItem(new BMap.MenuItem('修改监测站配置',editMarker.bind(marker)));
+                marker.addContextMenu(markerMenu);   // 将覆盖物菜单添加到覆盖物上
                 map.addOverlay(marker);              // 将覆盖物添加到地图中
             }
         },
         error:function(data,status){
             console.log(status);
         }
-    });    
+    });
+    var removeMarker = function(e,ee,marker){
+        window.markerID = this.id;
+        Marker.openDelWin();
+    };
+    var editMarker = function(e,ee,marker){
+        window.markerID = this.id;
+        window.station=e;
+        Marker.openEditWin();
+    };
+    //地图右键菜单
     var menu = new BMap.ContextMenu();
     var txtMenuItem = [
         {
             text:'添加监测站',
             callback:function(e){
                 window.station=e;
-                Marker.openWin();               
+                Marker.openAddWin();
             }
         }
     ];
@@ -53,21 +69,39 @@ Marker.init=function(map){
     map.addContextMenu(menu);
 };
 
-Marker.openWin=function(url,name,iWidth,iHeight) { 
+Marker.openAddWin=function(url,name,iWidth,iHeight) {
             var iHeight = 120;
-            var iWidth = 400;
+            var iWidth = 300;
             //获得窗口的垂直位置 
             var iTop = (window.screen.availHeight - 30 - iHeight) / 2; 
             //获得窗口的水平位置 
             var iLeft = (window.screen.availWidth - 10 - iWidth) / 2; 
-            window.open("stationForm.html", "newwindow", 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+            window.open("addStationForm.html", "newwindow", 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
         }
+Marker.openDelWin=function(url,name,iWidth,iHeight) {
+    var iHeight = 120;
+    var iWidth = 300;
+    //获得窗口的垂直位置
+    var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+    //获得窗口的水平位置
+    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+    window.open("delStationForm.html", "newwindow", 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+}
+Marker.openEditWin=function(url,name,iWidth,iHeight) {
+    var iHeight = 120;
+    var iWidth = 300;
+    //获得窗口的垂直位置
+    var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+    //获得窗口的水平位置
+    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+    window.open("editStationForm.html", "newwindow", 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+}
 Marker.strUtility = function(s){      
     s = s.replace("(","");
     s = s.replace(")","");
     var items = s.split(",");
     return items; 
-} 
+}
 //-------------------------------------------------------------------------------------------
 function Heatmap(){}
 Heatmap.init = function(map){

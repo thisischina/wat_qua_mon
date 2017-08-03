@@ -1,5 +1,6 @@
 package com.hd.ibus.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hd.ibus.mapper.EquipmentMapper;
 import com.hd.ibus.mapper.HeatMapDataMapper;
 import com.hd.ibus.mapper.StationMapper;
@@ -40,4 +41,55 @@ public class MapService implements IMapService,BaseService {
         List<Equipment> equipments = equipmentMapper.queryAll();
         return equipments;
     }
+
+    public JSONObject insertStationFromPage(Station station) {
+        JSONObject jsonObject = new JSONObject();
+        int result = stationMapper.insertAndReturn(station);
+        if(result == 1) {
+            jsonObject.put("data", "success");
+            return jsonObject;
+        }else{
+            jsonObject.put("data", "error");
+            return jsonObject;
+        }
+    }
+
+    public JSONObject getStation(Station station) {
+        JSONObject jsonObject = new JSONObject();
+        Integer id = station.getId();
+        Station s = stationMapper.selectByID(id);
+        if(s != null) {
+            jsonObject.put("data", s);
+            return jsonObject;
+        }else{
+            jsonObject.put("data", "error");
+            return jsonObject;
+        }
+    }
+
+    public JSONObject deleteStation(Station station) {
+        JSONObject jsonObject = new JSONObject();
+        Integer id = station.getId();
+        Integer r = stationMapper.delete(id);
+        if(r == 1) {
+            jsonObject.put("data", "success");
+            return jsonObject;
+        }else{
+            jsonObject.put("data", "error");
+            return jsonObject;
+        }
+    }
+
+    public JSONObject updateStation(Station station) {
+        JSONObject jsonObject = new JSONObject();
+        int r = stationMapper.updateStation(station);
+        if(r == 1) {
+            jsonObject.put("data", "success");
+            return jsonObject;
+        }else{
+            jsonObject.put("data", "error");
+            return jsonObject;
+        }
+    }
+
 }

@@ -23,15 +23,12 @@ import java.util.List;
 @RequestMapping("map")
 public class MapController {
     @Resource
-    private IMapService heapmapService;
-    @Resource
-    private StationMapper stationMapper;
+    private IMapService mapService;
 
     @RequestMapping("heatmap_points")
     @ResponseBody
     public String getHeatMapPoints(){
-        List<HeatmapPoint> points = heapmapService.getHeatmapPoints();
-
+        List<HeatmapPoint> points =  mapService.getHeatmapPoints();
         JSONObject Jpoints = new JSONObject();
         Jpoints.put("points",points);
         String JpointsString = Jpoints.toString();
@@ -42,7 +39,7 @@ public class MapController {
     @ResponseBody
     public String getStationList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data",heapmapService.getStationList());
+        jsonObject.put("data", mapService.getStationList());
         String jsonString = jsonObject.toString();
         return jsonString;
     }
@@ -51,19 +48,33 @@ public class MapController {
     @ResponseBody
     public String getEquipmentList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data",heapmapService.getEquipmentList());
+        jsonObject.put("data", mapService.getEquipmentList());
         String jsonString = jsonObject.toString();
         return jsonString;
     }
 
     @RequestMapping("addStationFromPage")
     @ResponseBody
-    public String addStationFromPage(Station station){
-        stationMapper.insert(station);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data","success");
-        String jsonString = jsonObject.toString();
-        return jsonString;
+    public JSONObject addStationFromPage(Station station){
+        return mapService.insertStationFromPage(station);
+    }
+
+    @RequestMapping("getStation")
+    @ResponseBody
+    public JSONObject getStation(Station station){
+        return  mapService.getStation(station);
+    }
+
+    @RequestMapping("deleteStation")
+    @ResponseBody
+    public JSONObject deleteStation(Station station){
+        return mapService.deleteStation(station);
+    }
+
+    @RequestMapping("editStation")
+    @ResponseBody
+    public JSONObject editStation(Station station){
+        return mapService.updateStation(station);
     }
 
     @RequestMapping("testAjax")
