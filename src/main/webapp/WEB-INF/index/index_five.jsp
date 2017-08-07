@@ -51,7 +51,7 @@
             jQuery('.nal_li').removeClass('active');
             var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:nodeInfo();'>实时站点检测</a></li>";
             $("#ul-x").html(htmlss);
-            document.getElementById("iframe").src="${basepath}/main/homepage.html";
+            document.getElementById("iframe").src="${basepath}/static/html/mapPage.html";
         }
 
 
@@ -60,9 +60,8 @@
             jQuery('#li_project').addClass('active');
             var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:waterSys();'>监测设备列表</a></li>";
             $("#ul-x").html(htmlss);
-            document.getElementById("iframe").src="${basepath }/waterSys/to_list";
+            document.getElementById("iframe").src="${basepath }/hardware/to_list";
         }
-
 	</script>
 </head>
 <body style='overflow: hidden;font-family:"Microsoft Yahei";'>
@@ -92,12 +91,12 @@
 						</a>
 					</li>
 
-					<%--<li class="nal_li">--%>
-						<%--<a href="javascript:waterSys()">--%>
-							<%--<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">监测设备列表</span>--%>
-							<%--<span class="selected"></span>--%>
-						<%--</a>--%>
-					<%--</li>--%>
+					<li class="nal_li">
+						<a href="javascript:waterSys()">
+							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">监测设备列表</span>
+							<span class="selected"></span>
+						</a>
+					</li>
 
 				</ul>
 			</div>
@@ -126,7 +125,7 @@
 						<!-- /PAGE HEADER -->
 						<!-- DASHBOARD CONTENT -->
 						<div class="row">
-							<iframe id='iframe' src="${basepath}/static/html/homepage.html" width="100%" style='overflow-y :auto;border: 0px'>
+							<iframe id='iframe' src="${basepath}/static/html/mapPage.html" width="100%" style='overflow-y :auto;border: 0px'>
 							</iframe>
 						</div>
 					   <!-- /DASHBOARD CONTENT -->

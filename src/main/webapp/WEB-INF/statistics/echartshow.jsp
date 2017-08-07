@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <title>曲线图</title>
-    <script src="${basepath}/static/js/jquery-2.0.3.min.js"></script>
+    <script src="${basepath}/static/js/map/jquery-2.0.3.min.js"></script>
     <script src="${basepath}/static/js/echarts-2.2.7/build/dist/echarts.js"></script>
 </head>
 <body >

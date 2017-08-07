@@ -28,6 +28,8 @@ public interface StationMapper {
      * @return User
      */
     Station selectByKey(PageHelp help);
+    Station selectByID(Integer id);
+    Station selectByCoordinate(String coordinate);
 
     /**
      * 按条件查询记录数
@@ -43,14 +45,19 @@ public interface StationMapper {
      */
     void insert(Station station);
 
+    int insertAndReturn(Station station);
+
     /**
      * 更新
      * @param station
      */
     void update(Station station);
 
+    int updateStation(Station station);
+
     int delete(Integer id);
 
+    int deleteFromCoordinate(String coordinate);
     //查询所有的监测站luyan
     List<Station> queryAll();
 

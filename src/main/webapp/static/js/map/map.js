@@ -11,9 +11,7 @@ Marker.init=function(map){
         url:"../../map/getStationList",
         dataType:"json",
         success:function(data,status){
-            console.log(status);
             var points = data.data;
-            console.log(points);
             for(var i=0;i<points.length;i++){                                   
                 var point = Marker.strUtility(points[i].coordinate);
                 var lng = point[0];
@@ -22,6 +20,7 @@ Marker.init=function(map){
                 var pt = new BMap.Point(lng,lat);
                 var myIcon = new BMap.Icon("../images/sewage.png", new BMap.Size(50,50));
                 var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建覆盖物
+                marker.id = points[i].id;
                 var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
                 marker.addEventListener("click", function(){    //添加左键单击事件
                     map.setCenter(pt);                          //地图中心点变为监测点
@@ -32,6 +31,11 @@ Marker.init=function(map){
                         infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
                     };
                 });
+                //创建覆盖物右键菜单
+                var markerMenu=new BMap.ContextMenu();
+                markerMenu.addItem(new BMap.MenuItem('删除监测站',removeMarker.bind(marker)));
+                markerMenu.addItem(new BMap.MenuItem('修改监测站配置',editMarker.bind(marker)));
+                marker.addContextMenu(markerMenu);   // 将覆盖物菜单添加到覆盖物上
                 map.addOverlay(marker);              // 将覆盖物添加到地图中
             }
         },
@@ -39,14 +43,65 @@ Marker.init=function(map){
             console.log(status);
         }
     });
-    
+    var removeMarker = function(e,ee,marker){
+        window.markerID = this.id;
+        Marker.openDelWin();
+    };
+    var editMarker = function(e,ee,marker){
+        window.markerID = this.id;
+        window.station=e;
+        Marker.openEditWin();
+    };
+    //地图右键菜单
+    var menu = new BMap.ContextMenu();
+    var txtMenuItem = [
+        {
+            text:'添加监测站',
+            callback:function(e){
+                window.station=e;
+                Marker.openAddWin();
+            }
+        }
+    ];
+    for(var i=0; i < txtMenuItem.length; i++){
+        menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
+    }
+    map.addContextMenu(menu);
 };
+
+Marker.openAddWin=function(url,name,iWidth,iHeight) {
+            var iHeight = 120;
+            var iWidth = 300;
+            //获得窗口的垂直位置 
+            var iTop = (window.screen.availHeight - 30 - iHeight) / 2; 
+            //获得窗口的水平位置 
+            var iLeft = (window.screen.availWidth - 10 - iWidth) / 2; 
+            window.open("addStationForm.html", "newwindow", 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+        }
+Marker.openDelWin=function(url,name,iWidth,iHeight) {
+    var iHeight = 120;
+    var iWidth = 300;
+    //获得窗口的垂直位置
+    var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+    //获得窗口的水平位置
+    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+    window.open("delStationForm.html", "newwindow", 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+}
+Marker.openEditWin=function(url,name,iWidth,iHeight) {
+    var iHeight = 120;
+    var iWidth = 300;
+    //获得窗口的垂直位置
+    var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+    //获得窗口的水平位置
+    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+    window.open("editStationForm.html", "newwindow", 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+}
 Marker.strUtility = function(s){      
     s = s.replace("(","");
     s = s.replace(")","");
     var items = s.split(",");
     return items; 
-} 
+}
 //-------------------------------------------------------------------------------------------
 function Heatmap(){}
 Heatmap.init = function(map){
@@ -90,7 +145,7 @@ MachMap.prototype.containerId = "map_container";
 MachMap.prototype.map;
 // 根据地图容器的ID,初始化地图
 MachMap.prototype.initMap = function (containerID) {
-    var map = new BMap.Map("map_container");            // 创建地图实例
+    var map = new BMap.Map("map_container");            // 创建地图实例   
     var point = new BMap.Point(117.636257, 34.022178);  // 创建中心点坐标   
     map.centerAndZoom(point, 15);                       // 初始化地图，设置中心点坐标和地图级别
     map.setMapType(BMAP_HYBRID_MAP);                //设置为卫星图
@@ -99,9 +154,9 @@ MachMap.prototype.initMap = function (containerID) {
     map.addControl(new BMap.MapTypeControl());      //添加地图类型控件
     map.addControl(new BMap.NavigationControl());   // 添加平移缩放控件
     map.addControl(new BMap.ScaleControl());        // 添加比例尺控件
-    map.addControl(new BMap.OverviewMapControl());  //添加缩略地图控件   
+    map.addControl(new BMap.OverviewMapControl());  //添加缩略地图控件    
     return map;
-}      
+}
 //---------------------------------------------------------------------------------------------------------------   
 var sContent =
     "<table width=\"100%\"  border=\"1\" cellspacing=\"0\" cellpadding=\"0\">"+

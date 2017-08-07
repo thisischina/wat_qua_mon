@@ -1,7 +1,9 @@
 package com.hd.ibus.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hd.ibus.mapper.StationMapper;
 import com.hd.ibus.pojo.HeatmapPoint;
+import com.hd.ibus.pojo.Station;
 import com.hd.ibus.service.IMapService;
 import com.hd.ibus.service.impl.MapService;
 import org.springframework.stereotype.Controller;
@@ -21,13 +23,12 @@ import java.util.List;
 @RequestMapping("map")
 public class MapController {
     @Resource
-    private IMapService heapmapService;
+    private IMapService mapService;
 
     @RequestMapping("heatmap_points")
     @ResponseBody
     public String getHeatMapPoints(){
-        List<HeatmapPoint> points = heapmapService.getHeatmapPoints();
-
+        List<HeatmapPoint> points =  mapService.getHeatmapPoints();
         JSONObject Jpoints = new JSONObject();
         Jpoints.put("points",points);
         String JpointsString = Jpoints.toString();
@@ -38,7 +39,7 @@ public class MapController {
     @ResponseBody
     public String getStationList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data",heapmapService.getStationList());
+        jsonObject.put("data", mapService.getStationList());
         String jsonString = jsonObject.toString();
         return jsonString;
     }
@@ -47,9 +48,33 @@ public class MapController {
     @ResponseBody
     public String getEquipmentList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data",heapmapService.getEquipmentList());
+        jsonObject.put("data", mapService.getEquipmentList());
         String jsonString = jsonObject.toString();
         return jsonString;
+    }
+
+    @RequestMapping("addStationFromPage")
+    @ResponseBody
+    public JSONObject addStationFromPage(Station station){
+        return mapService.insertStationFromPage(station);
+    }
+
+    @RequestMapping("getStation")
+    @ResponseBody
+    public JSONObject getStation(Station station){
+        return  mapService.getStation(station);
+    }
+
+    @RequestMapping("deleteStation")
+    @ResponseBody
+    public JSONObject deleteStation(Station station){
+        return mapService.deleteStation(station);
+    }
+
+    @RequestMapping("editStation")
+    @ResponseBody
+    public JSONObject editStation(Station station){
+        return mapService.updateStation(station);
     }
 
     @RequestMapping("testAjax")

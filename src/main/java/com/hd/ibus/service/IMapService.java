@@ -1,5 +1,6 @@
 package com.hd.ibus.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hd.ibus.pojo.Equipment;
 import com.hd.ibus.pojo.HeatmapPoint;
 import com.hd.ibus.pojo.Station;
@@ -15,4 +16,12 @@ public interface IMapService {
     List<Station> getStationList();
     //查询所有设备信息
     List<Equipment> getEquipmentList();
+
+    JSONObject insertStationFromPage(Station station);
+
+    JSONObject getStation(Station station);
+
+    JSONObject deleteStation(Station station);
+
+    JSONObject updateStation(Station station);
 }
