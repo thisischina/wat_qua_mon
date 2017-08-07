@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,6 +101,7 @@ public class EquipmentController {
 		String number= PageStr.getParameterStr("number",request);
 		String typeId= PageStr.getParameterStr("typeId",request);
 		String lifetime= PageStr.getParameterStr("lifetime",request);
+		String manufactor= PageStr.getParameterStr("manufactor",request);
 		String max= PageStr.getParameterStr("max",request);
 		String min= PageStr.getParameterStr("min",request);
 		String samplingFrequency= PageStr.getParameterStr("samplingFrequency",request);
@@ -121,6 +123,8 @@ public class EquipmentController {
 			equipment.setTypeId(Integer.parseInt(typeId));
 		}if(!lifetime.equals("")){
 			equipment.setLifetime(lifetime);
+		}if(!manufactor.equals("")){
+			equipment.setManufactor(manufactor);
 		}if(!max.equals("")){
 			equipment.setMax(Long.parseLong(max));
 		}if(!min.equals("")){
@@ -217,6 +221,7 @@ public class EquipmentController {
 		String number= PageStr.getParameterStr("number",request);
 		String typeId= PageStr.getParameterStr("typeId",request);
 		String lifetime= PageStr.getParameterStr("lifetime",request);
+		String manufactor= PageStr.getParameterStr("manufactor",request);
 		String max= PageStr.getParameterStr("max",request);
 		String min= PageStr.getParameterStr("min",request);
 		String samplingFrequency= PageStr.getParameterStr("samplingFrequency",request);
@@ -233,6 +238,8 @@ public class EquipmentController {
 			equipment.setTypeId(Integer.parseInt(typeId));
 		}if(!lifetime.equals("")){
 			equipment.setLifetime(lifetime);
+		}if(!manufactor.equals("")){
+			equipment.setManufactor(manufactor);
 		}if(!max.equals("")){
 			equipment.setMax(Long.parseLong(max));
 		}if(!min.equals("")){
@@ -240,7 +247,7 @@ public class EquipmentController {
 		}if(!samplingFrequency.equals("")){
 			equipment.setSamplingFrequency(Long.parseLong(samplingFrequency));
 		}if(!installTime.equals("")){
-			equipment.setInstallTime(DateUtils.getAmericanDate(installTime,"MM/dd/yyyy"));
+			equipment.setInstallTime(new Date());
 		}if(!stationId.equals("")){
 			equipment.setStationId(Integer.parseInt(stationId));
 		}if(!state.equals("")){

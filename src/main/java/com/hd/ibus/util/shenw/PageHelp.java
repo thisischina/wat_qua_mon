@@ -82,7 +82,6 @@ public class PageHelp implements Serializable{
 
             //清除搜索条件、用户分配的站点的站点
             pageHelp.setSelectStr(null);
-            pageHelp.setUserPower(null);
             model.addAttribute(pageHelp);
         }else{
             model.addAttribute(pageHelp);

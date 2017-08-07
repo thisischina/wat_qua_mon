@@ -61,15 +61,19 @@
                 + (item.address == null ? "" : item.address)
                 + "</td>"
                 + "<td>"
-                + (item.type == null ? "" : item.type)
                 + "</td>"
                 + "<td>"
                 + (item.coordinate == null ? "" : item.coordinate)
                 + "</td>"
                 + "<td>"
-                + (item.unitId == null ? "" : item.unitId)
+                + (item.unitId == null ? "" : item.unit.name)
+                + "</td>"
+                + "<td>"
+                + (item.userId == null ? "" : item.user.name)
+                + "</td>"
+                + "<td>"
+                + (item.remarks == null ? "" : item.remarks)
                 + "</td>";
-
 //            if(role==1){
             str=str+ "<td>"
                 + "<div class=''>"
@@ -77,7 +81,7 @@
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                 + "</a>"
-                <c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
+                <c:if test="${sessionScope.sessionRole==sessionScope.user.roleId}">
                 + "<a class='btn btn-xs btn-danger' href='javascript:void(0)' onclick='deleteObject("
                 + item.id
                 + ")' style='height:20px;font-size:10px;'>"
@@ -195,10 +199,12 @@
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>名称</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>编号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>位置</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>地址</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>类型</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>坐标</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>单位</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>所属部门</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>负责人</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>备注</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
             </tr>
             </thead>
@@ -207,7 +213,7 @@
             </tbody>
         </table>
 
-        <c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
+        <c:if test="${sessionScope.sessionRole==sessionScope.user.roleId}">
         <div class="dataTables_info" id="dynamic-table_info"
              style="float: left;">
                 <a class="btn btn-info" style='background: #4F81BD;border: 1px solid #4F81BD'

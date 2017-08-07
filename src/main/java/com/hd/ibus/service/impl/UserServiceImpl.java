@@ -50,15 +50,33 @@ public class UserServiceImpl implements UserService {
         return u;
     }
 
+    public User selectById(Integer id){
+        User u=userMapper.selectById(id);
+        return u;
+    }
+
     /**
      * account作为加密参数
      * @param user
      */
-    public void setNewPassword(User user){
+    public void setNewPasswordByAccount(User user){
         String account=user.getAccount();
         String password=user.getPassword();
 
         String passwordJM=AES.encryptGetStr(password,account);
+        System.out.println("改密者id:"+user.getId()+"密前:"+user.getPassword()+"密后:"+passwordJM);
+        user.setPassword(passwordJM);
+    }
+
+    /**
+     * name作为加密参数
+     * @param user
+     */
+    public void setNewPasswordByName(User user){
+        String name=user.getName();
+        String password=user.getPassword();
+
+        String passwordJM=AES.encryptGetStr(password,name);
         System.out.println("改密者id:"+user.getId()+"密前:"+user.getPassword()+"密后:"+passwordJM);
         user.setPassword(passwordJM);
     }
@@ -69,7 +87,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     public void insertUser(User user){
-        setNewPassword(user);
+        setNewPasswordByName(user);
         userMapper.insert(user);
     }
 
@@ -79,7 +97,7 @@ public class UserServiceImpl implements UserService {
 
 
     public void updateUserPassword(User user){
-        setNewPassword(user);
+        setNewPasswordByName(user);
         userMapper.update(user);
     }
 
@@ -87,7 +105,7 @@ public class UserServiceImpl implements UserService {
         userMapper.delete(id);
     }
 
-    public User login(PageHelp help){
+    public User loginByAccount(PageHelp help){
         User user=(User)help.getObject();
         String account=user.getAccount();
         String password=user.getPassword();
@@ -97,7 +115,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordJM);
         help.setObject(user);
 
-        User u=userMapper.login(help);
+        User u=userMapper.loginByAccount(help);
 
         if(u!=null){
             return u;
@@ -105,5 +123,24 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
+    }
+
+    public User loginByName(PageHelp help){
+        User user=(User)help.getObject();
+        String name=user.getName();
+        String password=user.getPassword();
+
+        String passwordJM=AES.encryptGetStr(password,name);
+
+        user.setPassword(passwordJM);
+        help.setObject(user);
+
+        User u=userMapper.loginByName(help);
+
+        return u;
+    }
+
+    public List<User> selectAll(){
+        return userMapper.queryAll();
     }
 }

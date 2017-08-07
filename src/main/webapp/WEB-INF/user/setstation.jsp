@@ -296,7 +296,7 @@
                 <form class="form-inline" role="form"
                       style='float: left;'>
                     <div class="form-group">
-                        <input id="power" type="text" class="form-control" style="width: 350px">
+                        <input id="power" type="text" class="form-control" readonly style="width: 350px">
                         <input id="power1" type="hidden">
                         <input id="power2" type="hidden">
                         <input id="power3" type="hidden">

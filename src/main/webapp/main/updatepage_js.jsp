@@ -85,13 +85,16 @@
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 
-<script type="text/javascript" src="${basepath }/static/js/updatepage/app.js"></script>
 
 <script type="text/javascript" src="${basepath }/static/js/updatepage/form-components.js"></script>
 
 <%--时间格式转换--%>
 <script type="text/javascript" src="${basepath }/static/js/timeformat/moment-with-locales.min.js"></script>
 
+<%--树状结构，循环下级--%>
+<script type="text/javascript" src="${basepath }/static/tree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${basepath }/static/tree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${basepath }/static/tree/js/jquery.ztree.excheck.js"></script>
 <script>
     jQuery(document).ready(function() {
         var usersession="${sessionScope.user}";

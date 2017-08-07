@@ -5,9 +5,13 @@ package com.hd.ibus.util.shenw;
  * 存放所有与变量作判断的值
  */
 public class Value {
-
-    public static final int RoleAdmin=1;//role表管理员权限
-    public static final int RoleUser=2;//role表用户权限
+/**
+ * user
+ */
+    public static final int RoleAdmin=2;//对应role表id
+    public static final String RoleAdminPower="admin";
+    public static final int RoleUser=1;//role表用户权限
+    public static final String RoleUserPower="(0)";
 
     //   作为增改操作成功返回值
     public static final int IntNumOne=1;
@@ -28,4 +32,14 @@ public class Value {
     //    密码正则:只能输入6-20个字母、数字、下划线
     public static final String USER_PASSWORD="/^[a-z0-9_-]{6,18}$/";
     public static final String USER_PASSWORD_EM="只能输入6-20个字母、数字、下划线";
+
+    public static final String PASSWORDRESET="123456";
+
+/**
+ * unit
+ */
+
+    //    用户停启用状态
+    public static final int UNIT_STATE_OPEN=1;
+    public static final int UNIT_STATE_CLOSE=0;
 }

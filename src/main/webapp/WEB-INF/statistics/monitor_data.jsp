@@ -50,7 +50,7 @@ td {
 				this.checked = false;
 			}
 		}
-	}
+	};
 
 	
 	Date.prototype.Format = function(fmt) 

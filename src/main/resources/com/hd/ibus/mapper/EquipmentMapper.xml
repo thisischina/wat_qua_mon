@@ -7,30 +7,42 @@
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="lifetime" jdbcType="VARCHAR" property="lifetime" />
+    <result column="manufactor" jdbcType="VARCHAR" property="manufactor" />
     <result column="max" jdbcType="DECIMAL" property="max" />
     <result column="min" jdbcType="DECIMAL" property="min" />
     <result column="sampling_frequency" jdbcType="DECIMAL" property="samplingFrequency" />
     <result column="install_time" jdbcType="TIMESTAMP" property="installTime" />
     <result column="station_id" jdbcType="INTEGER" property="stationId" />
     <result column="state" jdbcType="INTEGER" property="state" />
+    
+    <association property="station" javaType="com.hd.ibus.pojo.Station">
+      <result jdbcType="VARCHAR" column="stationName" property="name"/>
+    </association>
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, name, number, type_id, lifetime, max, min, sampling_frequency, install_time,
+    id, name, number, type_id, lifetime, manufactor, max, min, sampling_frequency, install_time,
     station_id, state
+  </sql>
+
+  <sql id="alias_object">
+    equipment.id, equipment.name, equipment.number, equipment.type_id, equipment.lifetime, equipment.manufactor, equipment.max, equipment.min, equipment.sampling_frequency, equipment.install_time,
+    equipment.station_id, equipment.state,
+    station.name AS stationName
   </sql>
 
   <!--分页查询列表-->
   <select id="select" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List" />
-    from equipment
+    <include refid="alias_object" />
+    from equipment equipment
+    LEFT JOIN station station ON station.id=equipment.station_id
     WHERE 1=1
     <if test="object!=null">
-      AND name LIKE concat(concat('%',#{object.name}),'%')
+      AND equipment.name LIKE concat(concat('%',#{object.name}),'%')
     </if>
     <if test="userPower!='admin'">
-      AND station_id in ${userPower}
+      AND equipment.station_id in ${userPower}
     </if>
 
     <if test="pageBean!=null">
@@ -74,11 +86,11 @@
 
   <insert id="insert" parameterType="com.hd.ibus.pojo.Equipment">
     insert into equipment (id, name, number,
-      type_id, lifetime, max,
+      type_id, lifetime, manufactor,max,
       min, sampling_frequency, install_time,
       station_id, state)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR},
-      #{typeId,jdbcType=INTEGER}, #{lifetime,jdbcType=VARCHAR}, #{max,jdbcType=DECIMAL},
+      #{typeId,jdbcType=INTEGER}, #{lifetime,jdbcType=VARCHAR}, #{manufactor,jdbcType=VARCHAR},#{max,jdbcType=DECIMAL},
       #{min,jdbcType=DECIMAL}, #{samplingFrequency,jdbcType=DECIMAL}, #{installTime,jdbcType=TIMESTAMP},
       #{stationId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
   </insert>
@@ -97,6 +109,9 @@
       </if>
       <if test="lifetime != null">
         lifetime = #{lifetime,jdbcType=VARCHAR},
+      </if>
+      <if test="manufactor != null">
+        manufactor = #{manufactor,jdbcType=VARCHAR},
       </if>
       <if test="max != null">
         max = #{max,jdbcType=DECIMAL},

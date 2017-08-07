@@ -28,6 +28,8 @@ public interface UnitMapper {
      */
     Unit selectByKey(PageHelp help);
 
+    Unit selectById(Integer id);
+
     /**
      * 按条件查询记录数
      * @param help
@@ -51,4 +53,6 @@ public interface UnitMapper {
     int delete(Integer id);
 
     List<Unit> queryAll();
+
+    int selectBySuperior(Integer id);
 }

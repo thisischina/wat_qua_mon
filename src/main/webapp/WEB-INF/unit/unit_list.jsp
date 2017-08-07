@@ -10,7 +10,7 @@
 <head>
     <jsp:include page="${basepath}/main/css.jsp"></jsp:include>
 
-    <title>单位列表</title>
+    <title>部门列表</title>
 
     <style type="text/css">
         #pagination {
@@ -53,16 +53,24 @@
                 + "<td>"
                 + (item.name == null ? "" : item.name)
                 + "</td>"
+                + "<td>"
+                + (item.tel == null ? "" : item.tel)
+                + "</td>"
+                + "<td>"
+                + (item.address == null ? "" : item.address)
+                + "</td>"
+                + "<td>"
+                + (item.remarks == null ? "" : item.remarks)
+                + "</td>";
 
             str=str+ "<td>"
                 + "<div class=''>"
-                + "<a class='btn btn-xs btn-info' href='../unit/toupdate?id="+item.unitId
+                + "<a class='btn btn-xs btn-info' href='../unit/toupdate?id="+item.id
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>修改"
                 + "</a>"
-                + "<a class='btn btn-xs btn-danger' href='javascript:void(0)' onclick='deleteObject("
-                + item.unitId
-                + ")' style='height:20px;font-size:10px;'>"
+                + "<a class='btn btn-xs btn-danger' href='javascript:void(0)' onclick='deleteObject(" + item.id+")' "
+                + "style='height:20px;font-size:10px;'>"
                 + "<i class='ace-icon fa fa-trash-o bigger-120'></i> 删除"
                 + "</a>" + "</div>" + "</td>" + "</tr>	";
 //            }else{
@@ -70,7 +78,7 @@
 //            }
 
             $("#tbody").append(str);
-        }
+        };
 
         var loadDataGird = function(selectType) {
             var url="";
@@ -138,17 +146,39 @@
 
     <script type="text/javascript">
         function deleteObject(id){
-            var id=id;
+            if(!confirm("确认删除吗")){
+                return;
+            }
+
             $.ajax({
-                url : "${basepath }/unit/delete",
+                url : "${basepath }/unit/deleteifchildren",
                 type : "post",
                 data : {id:id},
                 dataType : "json",
                 success : function(data) {
-                    alert("删除成功");
-                    window,location.href='${basepath}/unit/tolist';
+                    if(data>0){
+                        alert("该部门下存在子部门，无法删除");
+                        window.location.href='${basepath}/unit/tolist';
+                    }else{
+                        gotodelete();
+                    }
+
                 }
             });
+
+            function gotodelete() {
+                $.ajax({
+                    url : "${basepath }/unit/delete",
+                    type : "post",
+                    data : {id:id},
+                    dataType : "json",
+                    success : function(data) {
+                        alert("删除成功");
+                        window.location.href='${basepath}/unit/tolist';
+                    }
+                });
+            }
+
         }
     </script>
 </head>
@@ -172,7 +202,10 @@
             <thead style='background:#A8BC7B;color:#fff'>
             <tr>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>单位名称</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>部门名</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>固定电话</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>地址</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>备注</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
             </tr>
             </thead>

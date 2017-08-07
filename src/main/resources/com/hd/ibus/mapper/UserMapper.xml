@@ -2,31 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hd.ibus.mapper.UserMapper">
 
-  <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.User">
+  <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="user_post" property="userPost" jdbcType="VARCHAR" />
     <result column="unit_id" property="unitId" jdbcType="INTEGER" />
+    <result column="post_id" property="postId" jdbcType="INTEGER" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="power" property="power" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
+
+    <association property="post" javaType="com.hd.ibus.pojo.Post">
+      <result column="postname" property="name" jdbcType="VARCHAR" />
+    </association>
+
+    <association property="unit" javaType="com.hd.ibus.pojo.Unit">
+      <result column="unitname" property="name" jdbcType="VARCHAR" />
+    </association>
+
+    <association property="role" javaType="com.hd.ibus.pojo.Role">
+      <result column="rolename" property="name" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, account, password, name, tel, email, unit_id, role_id, power, state
+    id, account, password, name, tel, user_post, unit_id, post_id, role_id, power, remarks, state
+  </sql>
+
+  <sql id="alias_object">
+    user.id, user.account, user.password, user.name, user.tel, user.user_post, user.unit_id, user.post_id, user.role_id, user.power, user.remarks, user.state,
+    post.name AS postname,
+    unit.name AS unitname,
+    role.name AS rolename
   </sql>
 
   <!--分页查询列表-->
   <select id="select" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List" />
-    from user
+    <include refid="alias_object" />
+    from user user
+    LEFT JOIN unit unit ON user.unit_id=unit.id
+    LEFT JOIN post post ON user.post_id=post.id
+    LEFT JOIN role role ON user.role_id=role.role_id
+    WHERE 1=1
     <if test="object!=null">
-      WHERE account LIKE concat(concat('%',#{object.account}),'%')
+     and user.account LIKE concat(concat('%',#{object.account}),'%')
     </if>
+
+    order by user.state desc
 
     <if test="pageBean!=null">
       limit ${pageBean.start},${pageBean.pageSize}
@@ -59,46 +86,62 @@
     </if>
   </select>
 
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from user
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
   <insert id="insert" parameterType="com.hd.ibus.pojo.User">
-    insert into user (id, account, password,
-    name, tel, email, unit_id,
-    role_id, power, state
-    )
+   insert into user (id, account, password,
+      name, tel, user_post,
+      unit_id, post_id, role_id, power,
+      remarks, state)
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-    #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER},
-    #{roleId,jdbcType=INTEGER}, #{power,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
-    )
+      #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{userPost,jdbcType=VARCHAR},
+      #{unitId,jdbcType=INTEGER},#{postId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{power,jdbcType=VARCHAR},
+      #{remarks,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
   </insert>
 
   <update id="update" parameterType="com.hd.ibus.pojo.User">
     update user
-    <set>
-      <if test="account != null">
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
         account = #{account,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="tel != null">
+      <if test="tel != null" >
         tel = #{tel,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="userPost != null" >
+        user_post = #{userPost,jdbcType=VARCHAR},
       </if>
-      <if test="unitId != null">
+      <if test="unitId != null" >
         unit_id = #{unitId,jdbcType=INTEGER},
       </if>
-      <if test="roleId != null">
+      <if test="postId != null" >
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
         role_id = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="power != null">
+      <if test="power != null" >
         power = #{power,jdbcType=VARCHAR},
       </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
       <if test="state != null" >
-        state = #{state,jdbcType=VARCHAR},
+        state = #{state,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -110,12 +153,27 @@
   </delete>
 
 
-  <select id="login" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
+  <select id="loginByAccount" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     from user
     <if test="object!=null">
       WHERE account = #{object.account} AND password = #{object.password}
     </if>
+  </select>
+
+  <select id="loginByName" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from user
+    <if test="object!=null">
+      WHERE name = #{object.name} AND password = #{object.password}
+    </if>
+  </select>
+
+  <select id="queryAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from user
   </select>
 </mapper>

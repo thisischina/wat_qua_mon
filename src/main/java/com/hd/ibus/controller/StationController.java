@@ -1,11 +1,10 @@
 package com.hd.ibus.controller;
 
-import com.hd.ibus.pojo.Station;
-import com.hd.ibus.pojo.Unit;
-import com.hd.ibus.pojo.User;
+import com.hd.ibus.pojo.*;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.service.StationService;
 import com.hd.ibus.service.UnitService;
+import com.hd.ibus.service.UserService;
 import com.hd.ibus.util.Config;
 import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.PropertiesUtils;
@@ -37,6 +36,8 @@ public class StationController {
 	private StationService stationService;
 	@Resource
 	private UnitService unitService;
+	@Resource
+	private UserService userService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
@@ -51,10 +52,8 @@ public class StationController {
 
 	@RequestMapping("toadd")
 	public String toAddStation(Model model){
-		System.out.println("№toadd");
-		List<Unit> list=unitService.selectAll();
-		model.addAttribute("unitList",list);
-
+		System.out.println("№toAddStation");
+		setOtherData(model);
 		return "station/station_add";
 	}
 
@@ -92,6 +91,7 @@ public class StationController {
 		String type= PageStr.getParameterStr("type",request);
 		String coordinate= PageStr.getParameterStr("coordinate",request);
 		String unitId= PageStr.getParameterStr("unitId",request);
+		String userId= PageStr.getParameterStr("userId",request);
 
 		/**
 		 * 查询条件为空设置对象为空
@@ -109,6 +109,8 @@ public class StationController {
 			station.setCoordinate(coordinate);
 		}if(!unitId.equals("")){
 			station.setUnitId(Integer.parseInt(unitId));
+		}if(!userId.equals("")){
+			station.setUserId(Integer.parseInt(userId));
 		}
 		stationService.updateStation(station);
 
@@ -191,6 +193,7 @@ public class StationController {
 		String type= PageStr.getParameterStr("type",request);
 		String coordinate= PageStr.getParameterStr("coordinate",request);
 		String unitId= PageStr.getParameterStr("unitId",request);
+		String userId= PageStr.getParameterStr("userId",request);
 
 		Station station=new Station();
 		if(!name.equals("")){
@@ -203,6 +206,8 @@ public class StationController {
 			station.setCoordinate(coordinate);
 		}if(!unitId.equals("")){
 			station.setUnitId(Integer.parseInt(unitId));
+		}if(!userId.equals("")){
+			station.setUserId(Integer.parseInt(userId));
 		}
 
 		String number=Value.STATION;
@@ -232,5 +237,17 @@ public class StationController {
 		}
 
 		return power;
+	}
+
+	/**
+	 * 加载用户、单位数据
+	 * @param model
+	 */
+	public void setOtherData(Model model){
+		List<Unit> unitList=unitService.selectAll();
+		model.addAttribute("unitList",unitList);
+
+		List<User> userList=userService.selectAll();
+		model.addAttribute("userList",userList);
 	}
 }

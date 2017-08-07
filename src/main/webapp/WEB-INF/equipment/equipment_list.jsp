@@ -59,6 +59,9 @@
                 + (item.number == null ? "" : item.number)
                 + "</td>"
                 + "<td>"
+                + (item.manufactor == null ? "" : item.manufactor)
+                + "</td>"
+                + "<td>"
                 + (item.typeId == null ? "" : item.typeId)
                 + "</td>"
                 + "<td>"
@@ -77,11 +80,11 @@
                 + (item.installTime == null ? "" : moment(item.installTime).format('YYYY-MM-DD'))
                 + "</td>"
                 + "<td>"
-                + (item.stationId == null ? "" : item.stationId)
+                + (item.stationId == null ? "" : item.station.name)
                 + "</td>"
                 + "<td>"
                 + (item.state == null ? "" : item.state)
-                + "</td>"
+                + "</td>";
 
 //            if(role==1){
             str=str+ "<td>"
@@ -205,8 +208,9 @@
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>名称</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>编号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>类型</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>寿命</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>厂家</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>检测类型</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>维保周期</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>阈值上限</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>阈值下限</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>采集频率</th>

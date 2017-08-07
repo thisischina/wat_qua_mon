@@ -34,6 +34,8 @@ public interface UserMapper {
      */
     User selectByKey(PageHelp help);
 
+    User selectById(Integer id);
+
     /**
      * 按条件查询记录数
      * @param help
@@ -57,9 +59,18 @@ public interface UserMapper {
     int delete(Integer id);
 
     /**
-     * 登陆
+     * account登陆
      * @param help
      * @return
      */
-    User login(PageHelp help);
+    User loginByAccount(PageHelp help);
+
+    /**
+     * name登陆
+     * @param help
+     * @return
+     */
+    User loginByName(PageHelp help);
+
+    List<User> queryAll();
 }

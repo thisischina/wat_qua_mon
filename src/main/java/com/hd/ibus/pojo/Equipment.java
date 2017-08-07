@@ -15,7 +15,9 @@ public class Equipment {
 
     private Integer typeId;
 
-    private String lifetime;
+    private String manufactor;//厂家
+
+    private String lifetime;//维保周期
 
     private Long max;
 
@@ -75,6 +77,14 @@ public class Equipment {
         this.typeId = typeId;
     }
 
+    public String getManufactor() {
+        return manufactor;
+    }
+
+    public void setManufactor(String manufactor) {
+        this.manufactor = manufactor;
+    }
+
     public String getLifetime() {
         return lifetime;
     }
@@ -129,5 +139,15 @@ public class Equipment {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    private Station station;
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
     }
 }

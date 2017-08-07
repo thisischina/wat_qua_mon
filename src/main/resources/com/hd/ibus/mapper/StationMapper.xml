@@ -9,22 +9,39 @@
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
     <result column="unit_id" jdbcType="INTEGER" property="unitId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+
+    <association property="user" javaType="com.hd.ibus.pojo.User">
+      <result column="username" property="name" jdbcType="VARCHAR" />
+    </association>
+
+    <association property="unit" javaType="com.hd.ibus.pojo.Unit">
+      <result column="unitname" property="name" jdbcType="VARCHAR" />
+    </association>
+
   </resultMap>
   <sql id="Base_Column_List" >
-   id, number, name, address, type, coordinate, unit_id
+   id, number, name, address, type, coordinate, unit_id, user_id
+  </sql>
+
+  <sql id="alias_object" >
+    station.id, station.number, station.name, station.address, station.type, station.coordinate, station.unit_id, station.user_id,
+    user.name AS username,unit.name AS unitname
   </sql>
 
   <!--分页查询列表-->
   <select id="select" parameterType="com.hd.ibus.util.shenw.PageHelp" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List" />
-    from station
+    <include refid="alias_object" />
+    from station station
+    LEFT JOIN user user ON station.user_id=user.id
+    LEFT JOIN unit unit ON station.unit_id=unit.id
     WHERE 1=1
     <if test="object!=null">
-      AND name LIKE concat(concat('%',#{object.name}),'%')
+      AND station.name LIKE concat(concat('%',#{object.name}),'%')
     </if>
     <if test="userPower!='admin'">
-      AND id in ${userPower}
+      AND station.id in ${userPower}
     </if>
 
     <if test="pageBean!=null">
@@ -68,11 +85,11 @@
 
   <insert id="insert" parameterType="com.hd.ibus.pojo.Station">
     insert into station (id, number, name,
-    address, type, coordinate,
-    unit_id)
+      address, type, coordinate,
+      unit_id, user_id)
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
-    #{address,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{coordinate,jdbcType=VARCHAR},
-    #{unitId,jdbcType=INTEGER})
+      #{address,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{coordinate,jdbcType=VARCHAR},
+      #{unitId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
   </insert>
 
   <update id="update" parameterType="com.hd.ibus.pojo.Station">
@@ -95,6 +112,9 @@
       </if>
       <if test="unitId != null">
         unit_id = #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

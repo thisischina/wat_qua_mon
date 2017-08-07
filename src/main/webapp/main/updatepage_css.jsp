@@ -41,3 +41,6 @@
 <link rel="stylesheet" type="text/css" href="${basepath }/static/css/updatepage/style-responsive.css"/>
 <link rel="stylesheet" type="text/css" href="${basepath }/static/css/updatepage/timepicker.css"/>
 <link rel="stylesheet" type="text/css" href="${basepath }/static/css/updatepage/uniform.default.css"/>
+<%--树形结构--%>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/tree/css/demo.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath }/static/tree/css/zTreeStyle/zTreeStyle.css"/>

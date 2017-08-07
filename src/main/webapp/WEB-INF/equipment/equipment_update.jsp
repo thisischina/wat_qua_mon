@@ -41,6 +41,7 @@
 		var id=$('#id').val();
         var name=$('#name').val();
         var number=$('#number').val();
+        var manufactor=$('#manufactor').val();
         var typeId=$('#typeId').val();
         var lifetime=$('#lifetime').val();
         var max=$('#max').val();
@@ -57,7 +58,7 @@
 		   $.ajax({
 			url:"${basepath }/equipment/update",
 			type:"post",
-			data:{id:id,name:name,number:number,typeId:typeId,lifetime:lifetime,
+			data:{id:id,name:name,number:number,manufactor:manufactor,typeId:typeId,lifetime:lifetime,
                 max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime,
                 stationId:stationId,state:state},
 			dataType:"json",
@@ -130,6 +131,22 @@
 
 					<div class="control-group">
 
+						<label class="control-label">厂家</label>
+
+						<div class="controls">
+
+							<input type="text" id="manufactor" value='${equipment.manufactor}' class="m-wrap span12">
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
 						<label class="control-label" >所属类型</label>
 
 						<div class="controls">
@@ -148,6 +165,10 @@
 
 				</div>
 
+			</div>
+
+			<div class="row-fluid">
+
 				<div class="span6 ">
 
 					<div class="control-group">
@@ -163,10 +184,6 @@
 					</div>
 
 				</div>
-
-			</div>
-
-			<div class="row-fluid">
 
 				<div class="span6 ">
 
@@ -185,6 +202,10 @@
 
 				</div>
 
+			</div>
+
+			<div class="row-fluid">
+
 				<div class="span6 ">
 
 					<div class="control-group">
@@ -201,10 +222,6 @@
 
 				</div>
 
-			</div>
-
-			<div class="row-fluid">
-
 				<div class="span6 ">
 
 					<div class="control-group">
@@ -215,12 +232,18 @@
 
 							<input type="text" id="samplingFrequency" value='${equipment.samplingFrequency}' class="m-wrap span12">
 
+							<i class="icon-warning-sign">单位:Hz</i>
+
 						</div>
 
 
 					</div>
 
 				</div>
+
+			</div>
+
+			<div class="row-fluid">
 
 				<div class="span6 ">
 
@@ -239,16 +262,12 @@
                                     }
                                 })
 							</script>
-							<input type="text" id="installTime" size="16" readonly class="m-wrap m-ctrl-medium date-picker span12">
+							<input type="text" id="installTime" size="16"  class="m-wrap m-ctrl-medium date-picker span12">
 						</div>
 
 					</div>
 
 				</div>
-
-			</div>
-
-			<div class="row-fluid">
 
 				<div class="span6 ">
 
@@ -265,7 +284,9 @@
 									<c:if test="${equipment.stationId==station.id}">
 										<option value="${equipment.stationId}" selected>${station.name}</option>
 									</c:if>
-									<option value="${equipment.stationId}">${station.name}</option>
+									<c:if test="${equipment.stationId!=station.id}">
+										<option value="${equipment.stationId}">${station.name}</option>
+									</c:if>
 
 								</c:forEach>
 
@@ -276,8 +297,6 @@
 					</div>
 
 				</div>
-
-
 
 			</div>
 

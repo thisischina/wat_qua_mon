@@ -44,11 +44,11 @@
         window.location.href='${basepath}/role/tolist';
 	}
 
-    var exis=0
+    var exis=0;
     function ifuserexis() {
         var name="";
 
-        $("#name").mousedown(function(){debugger
+        $("#name").mousedown(function(){
             $("#namelabel").css("display","none");
 
             $("#name").mouseleave(function(){
@@ -70,7 +70,7 @@
                         success: function (data) {
                             if(data.total>0){
                                 exis=1;
-                                $("#namelabel").html("站点名已存在");
+                                $("#namelabel").html("角色名已存在");
                                 $("#namelabel").css("display","block");
                             }
 

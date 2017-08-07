@@ -222,7 +222,6 @@ Metro icons
   margin-top: 4px;
   line-height: 14px;  
   vertical-align: top;
-  background-image: url(../image/syncfusion-icons.png);
   background-position: 0 0;
   background-repeat: no-repeat; 
 }
@@ -233,13 +232,8 @@ Metro icons
   height: 30px; 
   margin: 6px;
   vertical-align: top;
-  background-image: url(../image/syncfusion-icons.png);
   background-position: 0 0px;
-  background-repeat: no-repeat; 
-}
-
-.m-icon-white {
-  background-image: url(../image/syncfusion-icons-white.png);
+  background-repeat: no-repeat;
 }
 
 /*  Misc */
@@ -363,7 +357,6 @@ textarea.m-wrap {
   font-size: 14px;
   font-weight: normal;
   line-height: 20px;
-
 }
 
 input.m-wrap,
@@ -395,7 +388,7 @@ input[type="search"].m-wrap,
 input[type="tel"].m-wrap,
 input[type="color"].m-wrap {
   -webkit-appearance: none !important;   
-	color: #333333; 		
+	color: #333333;
   outline: 0;
   height: 20px;
 	padding: 6px 6px !important;
@@ -409,14 +402,14 @@ input[type="color"].m-wrap {
 	  -webkit-box-shadow: none !important;
 	     -moz-box-shadow: none !important;
 	          box-shadow: none !important;
-	  -webkit-border-radius: 0px;
-	     -moz-border-radius: 0px;
-	          border-radius: 0px;
+	  -webkit-border-radius: 10px;
+	     -moz-border-radius: 10px;
+	          border-radius: 10px;
   background: transparent;   
 }
 
 input.m-wrap {
-  border: 1px solid #e5e5e5;
+  border-radius: 20px;
 }
 
 textarea.m-wrap {

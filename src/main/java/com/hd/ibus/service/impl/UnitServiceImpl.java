@@ -48,6 +48,11 @@ public class UnitServiceImpl implements UnitService {
         return u;
     }
 
+    public Unit selectById(Integer id){
+        Unit u=unitMapper.selectById(id);
+        return u;
+    }
+
     /**
      * 添加
      * @param unit
@@ -75,5 +80,9 @@ public class UnitServiceImpl implements UnitService {
 
     public List<Unit> selectAll(){
         return unitMapper.queryAll();
+    }
+
+    public int selectBySuperior(Integer id){
+        return unitMapper.selectBySuperior(id);
     }
 }

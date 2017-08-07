@@ -35,6 +35,11 @@ public interface UnitService {
     Unit selectByKey(PageHelp pageHelp);
 
     /**
+     * id取单个对象
+     * @param id
+     */
+    Unit selectById(Integer id);
+    /**
      * 添加
      * @param unit
      * @return
@@ -46,4 +51,6 @@ public interface UnitService {
     void deleteUnit(Integer id);
 
     List<Unit> selectAll();
+
+    int selectBySuperior(Integer id);
 }

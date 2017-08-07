@@ -2,12 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hd.ibus.mapper.UnitMapper" >
     <resultMap id="BaseResultMap" type="com.hd.ibus.pojo.Unit" >
-        <id column="unit_id" property="unitId" jdbcType="INTEGER" />
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="number" property="number" jdbcType="VARCHAR" />
         <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="superior" property="superior" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="tel" property="tel" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        unit_id, name
+        id, number, name, superior, user_id, tel, address, remarks, state, addtime
     </sql>
 
     <!--分页查询列表-->
@@ -46,35 +54,79 @@
         <include refid="Base_Column_List" />
         from unit
         <if test="object!=null">
-            WHERE unit_id = #{object.unitId}
+            WHERE id = #{object.id}
         </if>
     </select>
 
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        from unit
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+
     <insert id="insert" parameterType="com.hd.ibus.pojo.Unit">
-        insert into unit (unit_id, name
-        )
-        values (#{unitId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}
-        )
+       insert into unit (id, number, name,
+          superior, user_id, tel,
+          address, remarks, state,
+          addtime)
+      values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+          #{superior,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR},
+          #{address,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
+          #{addtime,jdbcType=TIMESTAMP})
     </insert>
 
     <update id="update" parameterType="com.hd.ibus.pojo.Unit">
         update unit
         <set >
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="number != null" >
+                number = #{number,jdbcType=VARCHAR},
+            </if>
             <if test="name != null" >
                 name = #{name,jdbcType=VARCHAR},
             </if>
+            <if test="superior != null" >
+                superior = #{superior,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="tel != null" >
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null" >
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="addtime != null" >
+                addtime = #{addtime,jdbcType=TIMESTAMP},
+            </if>
         </set>
-        where unit_id = #{unitId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </update>
 
     <delete id="delete" parameterType="java.lang.Integer">
         delete from unit
-        where unit_id = #{unitId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </delete>
 
     <select id="queryAll" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         from unit
+    </select>
+
+    <select id="selectBySuperior" parameterType="java.lang.Integer" resultType="int">
+        select count(*)
+        from unit
+        WHERE superior = #{superior,jdbcType=INTEGER}
     </select>
 </mapper>

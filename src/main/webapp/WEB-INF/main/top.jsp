@@ -32,7 +32,7 @@
                     <p style="font-size: larger ;color: white">预警信息</p>
                 </li>
 
-                <c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
+                <c:if test="${sessionScope.sessionRole==sessionScope.user.roleId}">
                 <li class="" style='cursor: pointer;margin-left: 50px' onclick='window.location="${basepath }/index/index_four"'>
                     <img alt="" src="${basepath }/static/images/5.ico">
                     <p style="font-size: larger ;color: white">通知公告</p>
@@ -59,7 +59,7 @@
 						    <a href='${basepath }/user/logout' style='color:#fff;cursor: pointer;'> 注销</a>
                         </span>
                         <span>
-                            <a href='javascript:' onclick="setnewpasswoed(${sessionScope.user.id },'${sessionScope.user.account }')" style='color:#fff;cursor: pointer;'> 改密</a>
+                            <a href='javascript:' onclick="setnewpasswoed(${sessionScope.user.id },'${sessionScope.user.name }')" style='color:#fff;cursor: pointer;'> 改密</a>
                         </span>
                     </c:if>
                 </li>
@@ -71,7 +71,7 @@
 </header>
 
 <script>
-    function setnewpasswoed(id,account) {
+    function setnewpasswoed(id,name) {
 //        使用发现swal应该为一个单利，所以每个页面的逻辑判断new Promise即可
         swal({
                 title: "修改密码",
@@ -98,7 +98,7 @@
                             $.ajax({
                                 url:"${basepath }/user/updatepw",
                                 type:"post",
-                                data:{id:id,account:account,password:password},
+                                data:{id:id,name:name,password:password},
                                 dataType:"json",
                                 success: function (data) {
                                     if(data==1){

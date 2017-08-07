@@ -57,7 +57,7 @@
         function unit(){
             jQuery('.nal_li').removeClass('active');
             jQuery('#li_project').addClass('active');
-            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>单位管理</a></li>";
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>部门管理</a></li>";
             $("#ul-x").html(htmlss);
             document.getElementById("iframe").src="${basepath }/unit/tolist?pageNow=0";
         }
@@ -70,12 +70,36 @@
             document.getElementById("iframe").src="${basepath }/equipment/tolist?pageNow=0";
         }
 
+        function monitorange(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>水质标准</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/monitorange/tolist?pageNow=0";
+        }
+
         function systemLog(){
             jQuery('.nal_li').removeClass('active');
             jQuery('#li_project').addClass('active');
             var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>系统日志</a></li>";
             $("#ul-x").html(htmlss);
             document.getElementById("iframe").src="${basepath }/systemlog/tolist?pageNow=0";
+        }
+
+        function messageLog(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>报文日志</a></li>";
+            $("#ul-x").html(htmlss);
+            <%--document.getElementById("iframe").src="${basepath }/systemlog/tolist?pageNow=0";--%>
+        }
+
+        function post(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:'>职务管理</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/post/tolist?pageNow=0";
         }
 
         function monitorType(){
@@ -101,7 +125,7 @@
 
 				<!-- SIDEBAR MENU -->
 				<ul>
-					<c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
+					<c:if test="${sessionScope.user.roleId==sessionScope.sessionRole}">
 					<li class="nal_li active">
 						<a href="javascript:user();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">用户管理</span>
@@ -110,7 +134,7 @@
 					</li>
 					</c:if>
 
-					<c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
+					<c:if test="${sessionScope.user.roleId==sessionScope.sessionRole}">
 					<li class="nal_li">
 						<a href="javascript:role();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">角色管理</span>
@@ -119,13 +143,22 @@
 					</li>
 					</c:if>
 
-					<c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
+					<c:if test="${sessionScope.user.roleId==sessionScope.sessionRole}">
 					<li class="nal_li">
 					<a href="javascript:unit();">
 						<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">部门管理</span>
 						<span class="selected"></span>
 					</a>
 					</li>
+					</c:if>
+
+					<c:if test="${sessionScope.user.roleId==sessionScope.sessionRole}">
+						<li class="nal_li">
+							<a href="javascript:post();">
+								<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">职务管理</span>
+								<span class="selected"></span>
+							</a>
+						</li>
 					</c:if>
 
 					<li class="nal_li">
@@ -142,13 +175,31 @@
 						</a>
 					</li>
 
-					<c:if test="${sessionScope.userRole==sessionScope.user.roleId}">
+					<c:if test="${sessionScope.user.roleId==sessionScope.sessionRole}">
+						<li class="nal_li">
+							<a href="javascript:monitorange();">
+								<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">水质标准</span>
+								<span class="selected"></span>
+							</a>
+						</li>
+					</c:if>
+
+					<c:if test="${sessionScope.user.roleId==sessionScope.sessionRole}">
 					<li class="nal_li">
 						<a href="javascript:systemLog();">
 							<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">系统日志</span>
 							<span class="selected"></span>
 						</a>
 					</li>
+					</c:if>
+
+					<c:if test="${sessionScope.user.roleId==sessionScope.sessionRole}">
+						<li class="nal_li">
+							<a href="javascript:messageLog();">
+								<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">报文日志</span>
+								<span class="selected"></span>
+							</a>
+						</li>
 					</c:if>
 
 				</ul>

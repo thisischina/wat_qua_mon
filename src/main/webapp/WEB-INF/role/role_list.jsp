@@ -143,7 +143,10 @@
 
     <script type="text/javascript">
         function deleteObject(id){
-            var id=id;
+            if(!confirm("确定删除吗")){
+                return;
+            }
+
             $.ajax({
                 url : "${basepath }/role/delete",
                 type : "post",
@@ -151,7 +154,7 @@
                 dataType : "json",
                 success : function(data) {
                     alert("删除成功");
-                    window,location.href='${basepath}/role/tolist';
+                    window.location.href='${basepath}/role/tolist';
                 }
             });
         }

@@ -60,6 +60,75 @@
 
 </script>
 
+<%--//	递归所有部门--%>
+<SCRIPT type="text/javascript">
+	var setting = {
+		view: {
+			dblClickExpand: false
+		},
+		data: {
+			simpleData: {
+				enable: true
+			}
+		},
+		callback: {
+//                beforeClick: beforeClick,
+			onClick: onClick
+		}
+	};
+
+
+	var zNodes =[
+		<c:forEach var="unit" items="${unitlist}">
+		{id:${unit.id}, pId:${unit.superior}, name:'${unit.name}'},
+		</c:forEach>
+	];
+
+	//        function beforeClick(treeId, treeNode) {
+	//            var check = (treeNode && !treeNode.isParent);
+	//            if (!check) alert("只能选择子部门...");
+	//            return check;
+	//        }
+
+	function onClick(e, treeId, treeNode) {
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			nodes = zTree.getSelectedNodes(),
+			v = "";
+		superiorid="";
+		nodes.sort(function compare(a,b){return a.id-b.id;});
+		for (var i=0, l=nodes.length; i<l; i++) {
+			v += nodes[i].name + ",";
+			superiorid=nodes[i].id;
+		}
+		if (v.length > 0 ) v = v.substring(0, v.length-1);
+		var cityObj = $("#superior");
+		cityObj.attr("value", v);
+		$("#superiorid").val(superiorid);
+	}
+
+	function showMenu() {
+		var cityObj = $("#superior");
+		var cityOffset = $("#superior").offset();
+		$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
+
+		$("body").bind("mousedown", onBodyDown);
+	}
+	function hideMenu() {
+		$("#menuContent").fadeOut("fast");
+		$("body").unbind("mousedown", onBodyDown);
+	}
+	function onBodyDown(event) {
+		if (!(event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+			hideMenu();
+		}
+	}
+
+	$(document).ready(function(){
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	});
+	//-->
+</SCRIPT>
+
 </head>
 <body style='font-family:"Microsoft Yahei"'>
 
@@ -76,22 +145,6 @@
 
 					<div class="control-group">
 
-						<label class="control-label">用户名</label>
-
-						<div class="controls">
-
-							<input type="text" value="${user.account}" readonly="readonly" class="m-wrap span12">
-
-						</div>
-
-					</div>
-
-				</div>
-
-				<div class="span6 ">
-
-					<div class="control-group">
-
 						<label class="control-label">姓名</label>
 
 						<div class="controls">
@@ -103,11 +156,6 @@
 					</div>
 
 				</div>
-			</div>
-
-
-			<div class="row-fluid">
-
 
 				<div class="span6 ">
 
@@ -125,15 +173,38 @@
 
 				</div>
 
+			</div>
+
+
+			<div class="row-fluid">
+
 				<div class="span6 ">
 
 					<div class="control-group">
 
-						<label class="control-label">邮箱</label>
+						<label class="control-label">岗位</label>
 
 						<div class="controls">
 
-							<input class="span12 m-wrap" id="email" value='${user.email}'/>
+							<input class="span12 m-wrap" id="userPost" value='${user.userPost}'/>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
+						<label class="control-label" >所属部门</label>
+
+						<div class="controls">
+
+							<input type="text" id="superior" placeholder="${unitService.selectById(user.unitId).name}" onclick="showMenu();" readonly class="m-wrap span12">
+
+							<input type="hidden" id="superiorid"  readonly class="m-wrap span12">
 
 						</div>
 
@@ -149,20 +220,15 @@
 
 					<div class="control-group">
 
-						<label class="control-label" >所属单位</label>
+						<label class="control-label" >职务</label>
 
 						<div class="controls">
 
-							<select id="unitId"  class="m-wrap span12">
+							<select id="postId"  class="m-wrap span12">
 
-								<c:forEach items="${unitList}" var="unit">
+								<option value="1">职务一</option>
 
-									<c:if test="${user.unitId==unit.unitId}">
-										<option value="${unit.unitId}" selected>${unit.name}</option>
-									</c:if>
-										<option value="${unit.unitId}">${unit.name}</option>
-
-								</c:forEach>
+								<option value="2">职务二</option>
 
 							</select>
 
@@ -184,9 +250,11 @@
 
 								<c:forEach items="${roleList}" var="role">
 									<c:if test="${user.roleId==role.roleId}">
-									<option value="${role.roleId}" selected>${role.name}</option>
+										<option value="${role.roleId}" selected>${role.name}</option>
 									</c:if>
-									<option value="${role.roleId}">${role.name}</option>
+									<c:if test="${user.roleId!=role.roleId}">
+										<option value="${role.roleId}">${role.name}</option>
+									</c:if>
 								</c:forEach>
 
 							</select>
@@ -223,6 +291,30 @@
 
 				</div>
 
+			</div>
+
+			<div class="row-fluid">
+
+				<div class="span12 ">
+
+					<div class="control-group">
+
+						<label class="control-label">备注</label>
+
+						<div class="controls">
+
+							<textarea class="span12 m-wrap" id="remarks" rows="3">${user.remarks}</textarea>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+				<ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;"></ul>
 			</div>
 
 			<div class="form-actions" style="padding-left: 10px">

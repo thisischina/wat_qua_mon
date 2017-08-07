@@ -19,6 +19,8 @@ public class Station {
 
     private Integer unitId;
 
+    private Integer userId;
+
     public Integer getId() {
         return id;
     }
@@ -75,12 +77,31 @@ public class Station {
         this.unitId = unitId;
     }
 
-    @Override
-    public String toString() {
-        return  "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", type=" + type +
-                ", coordinate='" + coordinate + '\'' +
-                ", unitId=" + unitId ;
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private Unit unit;
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 }

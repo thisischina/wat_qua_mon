@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hd.ibus.pojo.Post;
 import com.hd.ibus.pojo.Role;
 import com.hd.ibus.pojo.Unit;
 import com.hd.ibus.pojo.User;
+import com.hd.ibus.service.PostService;
 import com.hd.ibus.service.RoleService;
 import com.hd.ibus.service.UnitService;
 import com.hd.ibus.service.UserService;
@@ -43,6 +45,8 @@ public class UserController {
 	private RoleService roleService;
 	@Resource
 	private UnitService unitService;
+	@Resource
+	private PostService postService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
@@ -51,6 +55,7 @@ public class UserController {
 		System.out.println("№user/user_list");
 
 		pageHelp.getInit(model,pageNow);
+		pageHelp.setUserPower(null);
 
 		return "user/user_list";
 	}
@@ -93,10 +98,13 @@ public class UserController {
 		String id= PageStr.getParameterStr("id",request);
 		String name= PageStr.getParameterStr("name",request);
 		String tel= PageStr.getParameterStr("tel",request);
-		String email= PageStr.getParameterStr("email",request);
+		String userPost= PageStr.getParameterStr("userPost",request);
 		String unitId= PageStr.getParameterStr("unitId",request);
+		String postId= PageStr.getParameterStr("postId",request);
 		String roleId= PageStr.getParameterStr("roleId",request);
 		String state= PageStr.getParameterStr("state",request);
+		String remarks= PageStr.getParameterStr("remarks",request);
+		String power= PageStr.getParameterStr("power",request);
 
 		/**
 		 * 查询条件为空设置对象为空
@@ -108,18 +116,20 @@ public class UserController {
 			user.setName(name);
 		}if(!tel.equals("")){
 			user.setTel(tel);
-		}if(!email.equals("")){
-			user.setEmail(email);
+		}if(!userPost.equals("")){
+			user.setUserPost(userPost);
 		}if(!unitId.equals("")){
 			user.setUnitId(Integer.parseInt(unitId));
+		}if(!postId.equals("")){
+			user.setPostId(Integer.parseInt(postId));
 		}if(!roleId.equals("")){
 			user.setRoleId(Integer.parseInt(roleId));
 		}if(!state.equals("")){
 			user.setState(Integer.parseInt(state));
-		}if(Integer.parseInt(roleId)==Value.RoleAdmin){
-			user.setPower("admin");
-		}else {
-			user.setPower("0");
+		}if(!remarks.equals("")){
+			user.setRemarks(remarks);
+		}if(!power.equals("")){
+			user.setPower(setPowerStr(power));
 		}
 
 		userService.updateUser(user);
@@ -144,7 +154,7 @@ public class UserController {
 		System.out.println("№:updatepw");
 
 		String id= PageStr.getParameterStr("id",request);
-		String account= PageStr.getParameterStr("account",request);
+		String name= PageStr.getParameterStr("name",request);
 		String password= PageStr.getParameterStr("password",request);
 
 		/**
@@ -154,8 +164,8 @@ public class UserController {
 		User user=new User();
 		user.setId(Integer.parseInt(id));
 
-		if(!account.equals("")){
-			user.setAccount(account);
+		if(!name.equals("")){
+			user.setName(name);
 		}
 		if(!password.equals("")){
 			user.setPassword(password);
@@ -166,6 +176,36 @@ public class UserController {
 
 		return  Value.IntNumOne;
 	}
+
+	/**
+	 * 重置密码
+	 */
+	@RequestMapping("resetpw")
+	public @ResponseBody int resetPw(HttpServletRequest request,HttpServletResponse response,Model model)
+			throws IOException {
+		System.out.println("№:resetpw");
+
+		String id= PageStr.getParameterStr("id",request);
+		String name= PageStr.getParameterStr("name",request);
+		/**
+		 * 查询条件为空设置对象为空
+		 * 查询条件不为空，将参数设置到对象
+		 */
+		User user=new User();
+		user.setId(Integer.parseInt(id));
+
+//		重置密码，将账号设置成密码
+		if(!name.equals("")){
+			user.setName(name);
+			user.setPassword(Value.PASSWORDRESET);
+		}
+		userService.updateUserPassword(user);
+
+		model.addAttribute(pageHelp);
+
+		return  Value.IntNumOne;
+	}
+
 	/**
 	 * 带可查询的分页列表
 	 * @param request
@@ -198,6 +238,7 @@ public class UserController {
 		}else {
 			pageHelp.setObject(null);
 		}
+
 		return userService.findList(pageHelp,pageNow);
 	}
 
@@ -235,9 +276,12 @@ public class UserController {
 		String password=PageStr.getParameterStr("password",request);
 		String name=PageStr.getParameterStr("name",request);
 		String tel=PageStr.getParameterStr("tel",request);
-		String email=PageStr.getParameterStr("email",request);
+		String userPost=PageStr.getParameterStr("userPost",request);
 		String unitId=PageStr.getParameterStr("unitId",request);
+		String postId= PageStr.getParameterStr("postId",request);
 		String roleId=PageStr.getParameterStr("roleId",request);
+		String remarks=PageStr.getParameterStr("remarks",request);
+		String power=PageStr.getParameterStr("power",request);
 
 		User user=new User();
 		if(!account.equals("")){
@@ -248,20 +292,27 @@ public class UserController {
 			user.setName(name);
 		}if(!tel.equals("")){
 			user.setTel(tel);
-		}if(!email.equals("")){
-			user.setEmail(email);
+		}if(!userPost.equals("")){
+			user.setUserPost(userPost);
 		}if(!unitId.equals("")){
 			user.setUnitId(Integer.parseInt(unitId));
+		}if(!postId.equals("")){
+			user.setPostId(Integer.parseInt(postId));
 		}if(!roleId.equals("")){
 			user.setRoleId(Integer.parseInt(roleId));
-		}if(Integer.parseInt(roleId)==Value.RoleAdmin){
-			user.setPower("admin");
-		}else {
-			user.setPower("0");
+		}if(!remarks.equals("")){
+			user.setRemarks(remarks);
+		}
+
+		if(Integer.parseInt(roleId)==Value.RoleUser){
+			user.setPower(Value.RoleUserPower);
+		}else{
+			user.setPower(Value.RoleAdminPower);
 		}
 
 		//默认用户启用状态
 		user.setState(Value.USER_STATE_OPEN);
+
 		userService.insertUser(user);
 
 		return Value.IntNumOne;
@@ -277,13 +328,25 @@ public class UserController {
 	}
 
 	/**
-	 * 登陆验证
+	 * 登陆前获取部门
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("login")
+	public String getUnit(Model model){
+		List<Unit> unitList=unitService.selectAll();
+		model.addAttribute("unitList",unitList);
+		return "index";
+	}
+
+	/**
+	 * 登陆验证管理员
 	 * @param request
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("login")
-	public String userLogin(HttpServletRequest request){
+	@RequestMapping("adminlogin")
+	public String adminLogin(HttpServletRequest request){
 		String account= PageStr.getParameterStr("account",request);
 		String password= PageStr.getParameterStr("password",request);
 		/**
@@ -299,7 +362,7 @@ public class UserController {
 		}else {
 			pageHelp.setObject(null);
 		}
-		user=userService.login(pageHelp);
+		user=userService.loginByAccount(pageHelp);
 
 		if(user!=null){
 
@@ -321,13 +384,72 @@ public class UserController {
 			HttpSession session=request.getSession();
 			session.setAttribute("user",user);
 
-			Integer userRole=Value.RoleAdmin;
-			session.setAttribute("userRole",userRole);
+			Integer sessionRole=Value.RoleAdmin;
+			session.setAttribute("sessionRole",sessionRole);
 
 			return "redirect:/index/index_five";
 		}
 		else{
 			return "redirect:/index.jsp?flag=-1";
+		}
+	}
+
+	/**
+	 * 登陆验证用户
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("userlogin")
+	public String userLogin(HttpServletRequest request){
+		String name= PageStr.getParameterStr("name",request);
+		String password= PageStr.getParameterStr("password",request);
+		String unitId= PageStr.getParameterStr("unitId",request);
+		/**
+		 * 查询条件为空设置对象为空
+		 * 查询条件不为空，将参数设置到对象
+		 */
+		User user;
+		if(!name.equals("")&&!password.equals("")){
+			user=new User();
+			user.setName(name);
+			user.setPassword(password);
+			pageHelp.setObject(user);
+		}else {
+			pageHelp.setObject(null);
+		}
+		user=userService.loginByName(pageHelp);
+
+		if(user!=null){
+
+			if(user.getState()==null){
+//				未设置状态默认停用
+				user.setState(Value.USER_STATE_CLOSE);
+			}
+
+//			判断账号停启用状态
+			try {
+				if(user.getState()==Value.USER_STATE_CLOSE){
+					return "redirect:/user/login?flag=-2";
+				}
+				if(user.getUnitId()!=Integer.parseInt(unitId)){
+					return "redirect:/user/login?flag=-3";
+				}
+			}catch (Exception e){
+				e.printStackTrace();
+				return "redirect:/user/login?flag=-2";
+			}
+
+			HttpSession session=request.getSession();
+			session.setAttribute("user",user);
+
+			Integer sessionRole=Value.RoleUser;
+			session.setAttribute("sessionRole",sessionRole);
+
+			return "redirect:/index/index_five";
+		}
+		else{
+			return "redirect:/user/login?flag=-1";
 		}
 	}
 
@@ -385,9 +507,12 @@ public class UserController {
 	 */
 	public void setOtherData(Model model){
 		List<Role> roleList=roleService.selectAll();
-		List<Unit> unitList=unitService.selectAll();
+		List<Unit> unitlist=unitService.selectAll();
+		List<Post> postlist=postService.selectAll();
 
 		model.addAttribute("roleList",roleList);
-		model.addAttribute("unitList",unitList);
+		model.addAttribute("unitlist",unitlist);
+		model.addAttribute("postlist",postlist);
 	}
+
 }

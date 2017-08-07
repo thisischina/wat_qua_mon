@@ -1,3 +1,4 @@
+<%@ page import="com.hd.ibus.service.PostService" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -42,8 +43,6 @@
         });
 
         var createTable = function(index, item,pageNow) {
-            var roleName =item.name;
-
             var str = "";
             if(index%2==0){
                 str =str+"<tr style='background:RGB(211,223,238)'>" + "<td>";
@@ -62,26 +61,29 @@
             str=str+ (index + 1)
                 + "</td>"
                 + "<td>"
-                + (item.account == null ? "" : item.account)
+                + (item.name == null ? "" : item.name)
                 + "</td>"
                 + "<td>"
-                + (item.name == null ? "" : item.name)
+                + (item.userPost == null ? "" : item.userPost)
+                + "</td>"
+                + "<td>"
+                + (item.postId == null ? "" : item.post.name)
                 + "</td>"
                 + "<td>"
                 + (item.tel == null ? "" : item.tel)
                 + "</td>"
                 + "<td>"
-                + (item.email == null ? "" : item.email)
+                + (item.unitId == null ? "" : item.unit.name)
                 + "</td>"
                 + "<td>"
-                + (item.unitId == null ? "" : item.unitId)
+                + (item.roleId == null ? "" : item.role.name)
                 + "</td>"
                 + "<td>"
-                + (item.roleId == null ? "" : item.roleId)
+                + (item.remarks == null ? "" : item.remarks)
                 + "</td>"
                 + "<td>"
                 + "<img id='state"+item.id+"' src='"+imageSrc+"' width='50px'>"
-                + "</td>"
+                + "</td>";
 
 //            if(role==1){
             str=str+ "<td>"
@@ -89,6 +91,10 @@
                 + "<a class='btn btn-xs btn-info' href='javascript:void(0)' onclick='assignStation("+ item.id+",\""+item.name+"\" "
                 + ")' style='height:20px;font-size:10px;margin-right:4px'>"
                 + "<i class='ace-icon fa fa-pencil bigger-120'></i>分配"
+                + "</a>"
+                + "<a class='btn btn-xs btn-info' href='javascript:void(0)' onclick='resetPw("+ item.id+",\""+item.name+"\" "
+                + ")' style='height:20px;font-size:10px;margin-right:4px'>"
+                + "<i class='ace-icon fa fa-pencil bigger-120'></i>重置"
                 + "</a>"
                 + "<a class='btn btn-xs btn-info' href='../user/toupdate?id="+item.id
                 + "' style='height:20px;font-size:10px;margin-right:4px'>"
@@ -104,7 +110,7 @@
 //            }
 
             $("#tbody").append(str);
-        }
+        };
 
         var loadDataGird = function(selectType) {
             var url="";
@@ -130,7 +136,7 @@
                             return;
                         }
                         $.each(data.list, function(index, item) { //遍历返回的json
-                            createTable(index, item,data.pageNow);
+                            createTable(index, item, data.pageNow);
                         });
 
                         //分页插件
@@ -187,6 +193,7 @@
             });
         }
 
+//        分配站点
         function assignStation(id,name) {
             var diatc = $.dialog({
                 title: "[分配站点]："+name+"，正在接受分配",
@@ -198,6 +205,24 @@
                 content: "url:${basepath}/user/tosetstation?id="+id
             });
         }
+
+//        重置密码
+        function resetPw(id,account) {
+            if(!confirm("确认重置密码？")){
+                return;
+            }
+            $.ajax({
+                url : "${basepath }/user/resetpw",
+                type : "post",
+                data : {id:id,account:account},
+                dataType : "json",
+                success : function(data) {
+                    alert("重置成功");
+                    window.location.href='${basepath}/user/tolist';
+                }
+            });
+        }
+
     </script>
 
 </head>
@@ -221,12 +246,13 @@
             <thead style='background:#A8BC7B;color:#fff'>
             <tr>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>序号</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>用户名</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>真实姓名</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>手机</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>邮箱</th>
-                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>单位</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>姓名</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>岗位</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>职务</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>电话号码</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>所属部门</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>角色</th>
+                <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>备注</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>状态</th>
                 <th class="text-center"  style='background:RGB(79,129,189);color:#fff'>操作</th>
             </tr>

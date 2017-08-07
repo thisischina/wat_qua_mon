@@ -46,6 +46,7 @@
 		var name=$('#name').val();
 		var number=$('#number').val();
 		var typeId=$('#typeId').val();
+        var manufactor=$('#manufactor').val();
         var lifetime=$('#lifetime').val();
         var max=$('#max').val();
         var min=$('#min').val();
@@ -63,7 +64,7 @@
         $.ajax({
             url:"${basepath}/equipment/addequipment",
             type:"post",
-            data:{name:name,number:number,typeId:typeId,lifetime:lifetime,
+            data:{name:name,number:number,manufactor:manufactor,typeId:typeId,lifetime:lifetime,
                 max:max,min:min,samplingFrequency:samplingFrequency,installTime:installTime,
                 stationId:stationId,state:state},
             dataType:"json",
@@ -132,6 +133,22 @@
 
 					<div class="control-group">
 
+						<label class="control-label">厂家</label>
+
+						<div class="controls">
+
+							<input type="text" id="manufactor" class="m-wrap span12">
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span6 ">
+
+					<div class="control-group">
+
 						<label class="control-label" >所属类型</label>
 
 						<div class="controls">
@@ -150,11 +167,15 @@
 
 				</div>
 
+			</div>
+
+			<div class="row-fluid">
+
 				<div class="span6 ">
 
 					<div class="control-group">
 
-						<label class="control-label">寿命</label>
+						<label class="control-label">维保周期</label>
 
 						<div class="controls">
 
@@ -165,10 +186,6 @@
 					</div>
 
 				</div>
-
-			</div>
-
-			<div class="row-fluid">
 
 				<div class="span6 ">
 
@@ -187,6 +204,10 @@
 
 				</div>
 
+			</div>
+
+			<div class="row-fluid">
+
 				<div class="span6 ">
 
 					<div class="control-group">
@@ -203,10 +224,6 @@
 
 				</div>
 
-			</div>
-
-			<div class="row-fluid">
-
 				<div class="span6 ">
 
 					<div class="control-group">
@@ -217,12 +234,18 @@
 
 							<input type="text" id="samplingFrequency" class="m-wrap span12">
 
+							<i class="icon-warning-sign">单位:Hz</i>
+
 						</div>
 
 
 					</div>
 
 				</div>
+
+			</div>
+
+			<div class="row-fluid">
 
 				<div class="span6 ">
 
@@ -232,17 +255,13 @@
 
 						<div class="controls">
 
-							<input type="text" id="installTime" size="16" readonly class="m-wrap m-ctrl-medium date-picker span12">
+							<input type="text" id="installTime" size="16"  class="m-wrap m-ctrl-medium date-picker span12">
 
 						</div>
 
 					</div>
 
 				</div>
-
-			</div>
-
-			<div class="row-fluid">
 
 				<div class="span6 ">
 
@@ -265,8 +284,6 @@
 					</div>
 
 				</div>
-
-
 
 			</div>
 
