@@ -3,9 +3,11 @@ package com.hd.ibus.service.impl;
 import com.hd.ibus.pojo.SessionData;
 import com.hd.ibus.result.DataGridResultInfo;
 import com.hd.ibus.service.HardworeService;
+import com.hd.ibus.socketserver.GlobalSessionData;
 import com.hd.ibus.socketserver.MinaIOHandler;
 import com.hd.ibus.util.PageBean;
 import com.hd.ibus.util.shenw.PageHelp;
+import org.apache.mina.core.session.IoSession;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.Map;
 public class HardworeServiceImpl implements HardworeService {
     public DataGridResultInfo hardworeList(PageHelp pageHelp,Integer pageNow) {
 
-        Map<Long,SessionData> map = MinaIOHandler.map;
+        Map<Long,SessionData> map = GlobalSessionData.getSessionDataMap();
 
         PageBean pageBean = pageHelp.getPageBean();
         int pageSize = map.size()/10+1;
@@ -33,5 +35,10 @@ public class HardworeServiceImpl implements HardworeService {
         DataGridResultInfo dataGridResultInfo = new DataGridResultInfo(total,sessionDatas);
         dataGridResultInfo.setPageNow(pageNow);
         return dataGridResultInfo;
+    }
+
+    public void order(String dtuId, String orderStr) {
+        IoSession session = GlobalSessionData.getSessionMap().get(dtuId);
+        session.write(orderStr);
     }
 }

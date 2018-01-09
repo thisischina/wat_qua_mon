@@ -1,6 +1,8 @@
 package com.hd.ibus.socketserver;
 
 import com.hd.ibus.pojo.SessionData;
+import com.hd.ibus.util.PrintLog;
+import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
@@ -16,7 +18,8 @@ import java.util.regex.Pattern;
  */
 public class MinaIOHandler extends IoHandlerAdapter {
 
-    public static final Map<Long,SessionData> map = new HashMap();
+
+    public static Logger logger = Logger.getLogger(MinaIOHandler.class);
 
     public MinaIOHandler() {
         super();
@@ -40,6 +43,9 @@ public class MinaIOHandler extends IoHandlerAdapter {
     public void sessionClosed(IoSession session) throws Exception {
         super.sessionClosed(session);
         System.out.println("session closed");
+
+        GlobalSessionData.deleteSession(session);
+
     }
 
     @Override
@@ -56,8 +62,9 @@ public class MinaIOHandler extends IoHandlerAdapter {
     public void messageReceived(IoSession session, Object message) throws Exception {
         super.messageReceived(session, message);
 
-        System.out.println(message.toString());
+        System.out.println("接收[sessionId = "+session.getId()+ "]"+ message.toString());
 
+        //正则表达式 截取RECEIVED中参数头
         String str = message.toString();
         String regEx = "\\+.*?:";
         String switchStr = "";
@@ -67,9 +74,12 @@ public class MinaIOHandler extends IoHandlerAdapter {
             switchStr = matcher.group(0).toString();
         }
 
-        //获取当前的session对应的终端信息
-        SessionData sessionData = map.get(session.getId());
+        Map<Long,SessionData> sessionDataMap = GlobalSessionData.getSessionDataMap();
+        Map<String,IoSession> sessionMap = GlobalSessionData.getSessionMap();
 
+        //获取当前的session对应的终端信息
+        SessionData sessionData = sessionDataMap.get(session.getId());
+        //如果存在则update 不存在则new
         if (sessionData!=null){
             if (switchStr.equals("+DTUID:")) {
                 sessionData.setDTUID(message.toString().substring(message.toString().indexOf("+DTUID:") + 7));
@@ -84,7 +94,6 @@ public class MinaIOHandler extends IoHandlerAdapter {
             } else if (switchStr.equals("+DTUFILTER:")){
                 sessionData.setDTUFILTER(message.toString().substring(message.toString().indexOf("+DTUFILTER:")+11));
             }
-            map.put(session.getId(),sessionData);
         }else {
             sessionData = new SessionData();
             if (switchStr.equals("+DTUID:")) {
@@ -100,23 +109,30 @@ public class MinaIOHandler extends IoHandlerAdapter {
             } else if (switchStr.equals("+DTUFILTER:")){
                 sessionData.setDTUFILTER(message.toString().substring(message.toString().indexOf("+DTUFILTER:")+11));
             }
-            map.put(session.getId(),sessionData);
         }
 
-//        String response = message.toString();
-//        System.out.println(response);
-//        System.out.println(message.toString());
-//        session.write(response);
-//
-//        session.write("@DTU:0000:DTUALL?");
-//        String response = message.toString();
-//        System.out.println(response);
+        GlobalSessionData.putSessionData(session.getId(),sessionData);
+
+        //putSessionMap
+        String dtuId = sessionDataMap.get(session.getId()).getDTUID();
+        if (dtuId!=null&&!"".equals(dtuId)){
+            dtuId = dtuId.trim();
+            GlobalSessionData.putSession(dtuId,session);
+            System.out.println(dtuId);
+            System.out.println(GlobalSessionData.getSessionMap().size());
+        }
+
+
+        System.out.println(message.toString());
 
     }
 
     @Override
     public void messageSent(IoSession session, Object message) throws Exception {
         super.messageSent(session, message);
+
+        System.out.println("发送[sessionId = "+session.getId()+ "]"+ message.toString());
+
     }
 
     @Override

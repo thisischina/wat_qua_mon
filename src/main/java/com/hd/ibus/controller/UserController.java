@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hd.ibus.pojo.Post;
+//import com.hd.ibus.pojo.Post;
 import com.hd.ibus.pojo.Role;
 import com.hd.ibus.pojo.Unit;
 import com.hd.ibus.pojo.User;
-import com.hd.ibus.service.PostService;
+//import com.hd.ibus.service.PostService;
 import com.hd.ibus.service.RoleService;
 import com.hd.ibus.service.UnitService;
 import com.hd.ibus.service.UserService;
@@ -45,8 +45,8 @@ public class UserController {
 	private RoleService roleService;
 	@Resource
 	private UnitService unitService;
-	@Resource
-	private PostService postService;
+//	@Resource
+//	private PostService postService;
 
 	private PageHelp pageHelp=PageHelp.getInstance();
 
@@ -508,11 +508,11 @@ public class UserController {
 	public void setOtherData(Model model){
 		List<Role> roleList=roleService.selectAll();
 		List<Unit> unitlist=unitService.selectAll();
-		List<Post> postlist=postService.selectAll();
+//		List<Post> postlist=postService.selectAll();
 
 		model.addAttribute("roleList",roleList);
 		model.addAttribute("unitlist",unitlist);
-		model.addAttribute("postlist",postlist);
+//		model.addAttribute("postlist",postlist);
 	}
 
 }

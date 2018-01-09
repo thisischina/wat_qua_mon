@@ -44,7 +44,7 @@
                 <constructor-arg ref="gbkCharset" />
             </bean>
 
-            <!--<bean class="com.hd.ibus.socketserver.MinaCodeFactory"></bean>-->
+            <!--<bean id="codecFactory" class="com.hd.ibus.socketserver.MinaCodeFactory"></bean>-->
 
         </constructor-arg>
     </bean>

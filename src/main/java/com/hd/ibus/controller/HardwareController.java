@@ -30,6 +30,11 @@ public class HardwareController {
         return "hardwareInfo/hardwareInfo_list";
     }
 
+    @RequestMapping("to_order")
+    public String toATOrder(){
+        return "hardwareInfo/ATOrder";
+    }
+
     @RequestMapping("getList")
     public @ResponseBody DataGridResultInfo hardwareList(HttpServletRequest request, HttpServletResponse response, Integer pageNow) throws IOException{
 
@@ -38,6 +43,14 @@ public class HardwareController {
         response.setCharacterEncoding("utf-8");
 
         return hardworeService.hardworeList(pageHelp,pageNow);
+    }
+
+    @RequestMapping("order")
+    public @ResponseBody void atOrder(HttpServletRequest request, HttpServletResponse response, String dtuId, String orderStr) throws IOException{
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("utf-8");
+        hardworeService.order(dtuId,orderStr);
     }
 
 }

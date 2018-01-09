@@ -1,5 +1,7 @@
 package com.hd.ibus.pojo;
 
+import org.apache.mina.core.session.IoSession;
+
 /**
  * 设备session信息
  * Created by ThinkPad on 2017-07-28.

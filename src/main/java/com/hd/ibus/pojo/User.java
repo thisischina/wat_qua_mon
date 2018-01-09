@@ -126,16 +126,16 @@ public class User {
     }
 
 
-//    关联的实体
-    private Post post;
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
+////    关联的实体
+//    private Post post;
+//
+//    public Post getPost() {
+//        return post;
+//    }
+//
+//    public void setPost(Post post) {
+//        this.post = post;
+//    }
 
     private Unit unit;
 

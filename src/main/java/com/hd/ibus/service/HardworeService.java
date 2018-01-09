@@ -10,4 +10,6 @@ public interface HardworeService {
 
     public DataGridResultInfo hardworeList(PageHelp pageHelp,Integer pageNow);
 
+    public void order(String dtuId, String orderStr);
+
 }

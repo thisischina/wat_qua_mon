@@ -62,6 +62,15 @@
             $("#ul-x").html(htmlss);
             document.getElementById("iframe").src="${basepath }/hardware/to_list";
         }
+
+        function ATorder(){
+            jQuery('.nal_li').removeClass('active');
+            jQuery('#li_project').addClass('active');
+            var htmlss = "<li id='title1'><i class='fa fa-home'/>系统管理</li><li id='title2'><a href='javascript:ATorder();'>AT指令控制</a></li>";
+            $("#ul-x").html(htmlss);
+            document.getElementById("iframe").src="${basepath }/hardware/to_order";
+        }
+
 	</script>
 </head>
 <body style='overflow: hidden;font-family:"Microsoft Yahei";'>
@@ -97,6 +106,13 @@
 							<span class="selected"></span>
 						</a>
 					</li>
+
+                    <li class="nal_li">
+                        <a href="javascript:ATorder()">
+                            <i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">DTU模块指令</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
 
 				</ul>
 			</div>
